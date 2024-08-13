@@ -1,0 +1,15 @@
+.boxAuth {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // height: 100vh;
+
+    .img {
+       
+    }
+}
+
+.boxAuth > div:first-child {
+    margin-right: 20px; /* Отступ между формой и картинкой */
+}
