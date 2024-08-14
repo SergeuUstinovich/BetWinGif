@@ -1,5 +1,5 @@
 import { Accordion, SideBar, HorizontalBar } from "../../ui";
-import AuthForm from "../AuthForm/AuthForm";
+import AuthForm from "../../component/AuthForm/AuthForm";
 import style from "./Layout.module.scss";
 
 function Layout() {

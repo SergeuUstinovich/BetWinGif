@@ -1,0 +1,63 @@
+.boxCheckAuth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+
+    .img {
+        margin-bottom: 20px;
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 100%;
+        color: var(--lightmode-grey-grey-900);
+        margin-bottom: 20px;
+    }
+
+    .descr {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 154%;
+        text-align: center;
+        color: var(--lightmode-grey-grey-600);
+        margin-bottom: 30px;
+
+        .spanEmail {
+            color: var(--lightmode-grey-grey-800);
+        }
+    }
+
+    .link {
+        border-radius: 6px;
+        padding: 13px 16px;
+        background: var(--lightmode-primary-primary);
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 108%;
+        color: var(--lightmode-light-light);
+        margin-bottom: 20px;
+    }
+
+    .boxResend {
+        display: flex;
+        align-items: center;
+
+        .descrResend {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 100%;
+            color: var(--lightmode-grey-grey-600);
+            margin-right: 5px;
+        }
+
+        .btn {
+            padding: 0;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 100%;
+            color: var(--lightmode-primary-primary);
+        }
+    }
+}

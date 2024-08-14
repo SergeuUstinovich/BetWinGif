@@ -1,0 +1,42 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 288px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+  }
+
+  .formTitle {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 14px;
+  }
+
+  .btnSub {
+    background-color: var(--bg-btn);
+    color: var(--white-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .boxForgot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+
+  .forgotPass {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 108%;
+    letter-spacing: -0.01em;
+    color: var(--lightmode-primary-primary);
+  }

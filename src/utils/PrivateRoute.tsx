@@ -6,7 +6,7 @@ interface privateRouteProps {
 }
 
 function PrivateRoute({ children }: privateRouteProps) {
-  const token = "1";
+  const token = undefined;
   if (!token) {
     return <Navigate to={"/auth"} replace />;
   }
