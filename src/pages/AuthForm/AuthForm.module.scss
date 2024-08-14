@@ -6,10 +6,36 @@
     // height: 100vh;
 
     .img {
-       
+       max-width: 100%;
     }
 }
 
-.boxAuth > div:first-child {
-    margin-right: 20px; /* Отступ между формой и картинкой */
+.boxLeft {
+    margin: 0 auto;
+}
+
+.authForm {
+    padding: 40px;
+    min-width: 370px;
+    border: 1px solid #F1F1F4;
+    border-radius: 12px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 18px;
+    }
+
+    .formTitle {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 14px;
+    }
 }

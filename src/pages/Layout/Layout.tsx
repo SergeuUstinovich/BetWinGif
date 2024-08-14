@@ -1,10 +1,17 @@
+import { Accordion, SideBar, HorizontalBar } from "../../ui";
 import AuthForm from "../AuthForm/AuthForm";
 import style from "./Layout.module.scss";
 
 function Layout() {
   return (
     <>
-      <div>Аккаунт</div>
+      <div className="flex">
+        <SideBar />
+        <div>
+          <HorizontalBar />
+          <Accordion />
+        </div>
+      </div>
     </>
   );
 }
