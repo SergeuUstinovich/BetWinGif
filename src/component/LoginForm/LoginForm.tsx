@@ -4,23 +4,64 @@ import style from "./LoginForm.module.scss";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginScheme, LoginType } from "../../types/AuthType";
+import { useEffect, useState } from "react";
 
 function LoginForm() {
+  const [showPass, setShowPass] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const handleShowPass = () => {
+    setShowPass((prev) => !prev);
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<LoginType>({
     resolver: zodResolver(LoginScheme),
   });
 
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("email");
+    const savedPassword = localStorage.getItem("password");
+    if (savedEmail && savedPassword) {
+      setValue("email", savedEmail);
+      setValue("password", savedPassword);
+      setRememberMe(true);
+    }
+  }, [setValue]);
+
+  useEffect(() => {
+    if (!rememberMe) {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+    }
+  }, [rememberMe]);
+
+  const handleRemember = () => {
+    setRememberMe((prev) => !prev);
+  };
+
+  const onSubmit = (data: LoginType) => {
+    if (rememberMe) {
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("password", data.password);
+    } else {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+    }
+    // остальная логика
+  };
+
   return (
-    <form className={style.form} onSubmit={handleSubmit(({}) => {})}>
+    <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
       <label>
         <span className={style.formTitle}>Email</span>
         <input
-          className="input"
+          className={`input ${errors.email ? "border-danger" : ""}`}
           placeholder="email@email.com"
           type="email"
           {...register("email")}
@@ -34,15 +75,25 @@ function LoginForm() {
             Forgot Password?
           </Link>
         </div>
-        <div className="input max-w-72" data-toggle-password="true">
+        <div
+          className={`input max-w-72 ${errors.password ? "border-danger" : ""}`}
+          data-toggle-password="true"
+        >
           <input
             placeholder="Enter Password"
-            type="password"
+            type={!showPass ? "password" : "text"}
             {...register("password")}
           />
-          <div className="btn btn-icon" data-toggle-password-trigger="true">
-            <i className="ki-outline ki-eye toggle-password-active:hidden"></i>
-            <i className="ki-outline ki-eye-slash hidden toggle-password-active:block"></i>
+          <div
+            onClick={handleShowPass}
+            className="btn btn-icon"
+            data-toggle-password-trigger="true"
+          >
+            {!showPass ? (
+              <i className="ki-outline ki-eye toggle-password-active:hidden"></i>
+            ) : (
+              <i className="ki-outline ki-eye-slash toggle-password-active:block"></i>
+            )}
           </div>
         </div>
         {errors && (
@@ -50,7 +101,14 @@ function LoginForm() {
         )}
       </label>
       <label className="form-label flex items-center gap-2.5">
-        <input className="checkbox" name="check" type="checkbox" value="1" />
+        <input
+          className="checkbox"
+          name="check"
+          type="checkbox"
+          value="1"
+          checked={rememberMe}
+          onChange={handleRemember}
+        />
         Remember me
       </label>
       <Button className={style.btnSub}>Sign in</Button>

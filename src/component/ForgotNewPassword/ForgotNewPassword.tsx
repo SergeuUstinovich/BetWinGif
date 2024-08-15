@@ -8,7 +8,16 @@ import { ForgotCodeScheme, ForgotCodeType } from "../../types/AuthType";
 
 function ForgotNewPassword() {
   const [succesPost, setSuccesPost] = useState(false);
-  const [passViss, setPassViss] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [showPassConf, setShowPassConf] = useState(false);
+
+  const handleShowPass = () => {
+    setShowPass((prev) => !prev)
+  }
+
+  const handleShowPassConf = () => {
+    setShowPassConf((prev) => !prev)
+  }
 
   const {
     register,
@@ -31,11 +40,13 @@ function ForgotNewPassword() {
       <p className={style.descr}>Enter your new password</p>
       <label className={style.label}>
         <span className={style.formTitle}>Password</span>
-        <div className="input max-w-72" data-toggle-password="true">
-          <input placeholder="Enter Password" type="password" {...register('password')} />
-          <div className="btn btn-icon" data-toggle-password-trigger="true">
-            <i className="ki-outline ki-eye toggle-password-active:hidden"></i>
-            <i className="ki-outline ki-eye-slash hidden toggle-password-active:block"></i>
+        <div className={`input max-w-72 ${errors.password ? 'border-danger': ''}`} data-toggle-password="true">
+          <input placeholder="Enter Password" type={!showPass? 'password' : 'text'} {...register('password')} />
+          <div onClick={handleShowPass} className="btn btn-icon" data-toggle-password-trigger="true">
+          {!showPass ? 
+              <i className="ki-outline ki-eye toggle-password-active:hidden"></i> :
+              <i className="ki-outline ki-eye-slash toggle-password-active:block"></i>
+          }
           </div>
         </div>
         {errors && (
@@ -44,11 +55,13 @@ function ForgotNewPassword() {
       </label>
       <label className={style.label}>
         <span className={style.formTitle}>Confirm Password</span>
-        <div className="input max-w-72" data-toggle-password="true">
-          <input placeholder="Re-enter Password" type="password" {...register('confirmPassword')} />
-          <div className="btn btn-icon" data-toggle-password-trigger="true">
-            <i className="ki-outline ki-eye toggle-password-active:hidden"></i>
-            <i className="ki-outline ki-eye-slash hidden toggle-password-active:block"></i>
+        <div className={`input max-w-72 ${errors.confirmPassword ? 'border-danger': ''}`} data-toggle-password="true">
+          <input placeholder="Re-enter Password" type={!showPassConf? 'password' : 'text'} {...register('confirmPassword')} />
+          <div onClick={handleShowPassConf} className="btn btn-icon" data-toggle-password-trigger="true">
+          {!showPassConf ? 
+              <i className="ki-outline ki-eye toggle-password-active:hidden"></i> :
+              <i className="ki-outline ki-eye-slash toggle-password-active:block"></i>
+          }
           </div>
         </div>
         {errors && (

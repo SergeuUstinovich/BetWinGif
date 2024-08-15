@@ -5,11 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegistrationForm, RegistrationSchema } from "../../types/AuthType";
+import { useTranslation } from "react-i18next";
 
 function RegisterForm() {
+  const { t } = useTranslation();
   const [successRegist, setSuccessRegist] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [showPassConf, setShowPassConf] = useState(false);
   const [emails, setEmails] = useState("");
   const navigate = useNavigate();
+
+
+  const handleShowPass = () => {
+    setShowPass((prev) => !prev)
+  }
+
+  const handleShowPassConf = () => {
+    setShowPassConf((prev) => !prev)
+  }
 
   const {
     register,
@@ -38,7 +51,7 @@ function RegisterForm() {
       <label>
         <span className={style.formTitle}>Email</span>
         <input
-          className="input"
+          className={`input ${errors.email ? 'border-danger': ''}`}
           placeholder="email@email.com"
           type="email"
           {...register("email")}
@@ -47,15 +60,20 @@ function RegisterForm() {
       </label>
       <label>
         <span className={style.formTitle}>Password</span>
-        <div className="input max-w-72" data-toggle-password="true">
+        <div 
+          className={`input max-w-72 ${errors.password ? 'border-danger': ''}`}
+          data-toggle-password="true"
+        >
           <input
             placeholder="Enter Password"
-            type="password"
+            type={!showPass? 'password' : 'text'}
             {...register("password")}
           />
-          <div className="btn btn-icon" data-toggle-password-trigger="true">
-            <i className="ki-outline ki-eye toggle-password-active:hidden"></i>
-            <i className="ki-outline ki-eye-slash hidden toggle-password-active:block"></i>
+          <div onClick={handleShowPass} className="btn btn-icon" data-toggle-password-trigger="true">
+          {!showPass ? 
+              <i className="ki-outline ki-eye toggle-password-active:hidden"></i> :
+              <i className="ki-outline ki-eye-slash toggle-password-active:block"></i>
+            }
           </div>
         </div>
         {errors && (
@@ -64,15 +82,17 @@ function RegisterForm() {
       </label>
       <label>
         <span className={style.formTitle}>Confirm Password</span>
-        <div className="input max-w-72" data-toggle-password="true">
+        <div className={`input max-w-72 ${errors.confirmPassword ? 'border-danger': ''}`} data-toggle-password="true">
           <input
             placeholder="Re-enter Password"
-            type="password"
+            type={!showPassConf? 'password' : 'text'}
             {...register("confirmPassword")}
           />
-          <div className="btn btn-icon" data-toggle-password-trigger="true">
-            <i className="ki-outline ki-eye toggle-password-active:hidden"></i>
-            <i className="ki-outline ki-eye-slash hidden toggle-password-active:block"></i>
+          <div onClick={handleShowPassConf} className="btn btn-icon" data-toggle-password-trigger="true">
+            {!showPassConf ? 
+              <i className="ki-outline ki-eye toggle-password-active:hidden"></i> :
+              <i className="ki-outline ki-eye-slash toggle-password-active:block"></i>
+            }
           </div>
         </div>
         {errors && (
@@ -89,7 +109,7 @@ function RegisterForm() {
         <p>I accept Terms & Conditions</p>
       </label>
       {errors && <span className={style.error}>{errors.consent?.message}</span>}
-      <Button className={style.btnSub}>Sign up</Button>
+      <Button type="submit" className={style.btnSub}>Sign up</Button>
     </form>
   );
 }

@@ -34,7 +34,7 @@ function ForgotPassword() {
       <label className={style.label}>
         <span className={style.formTitle}>Email</span>
         <input
-          className="input"
+          className={`input ${errors.email ? 'border-danger': ''}`}
           placeholder="email@email.com"
           type="email"
           required
