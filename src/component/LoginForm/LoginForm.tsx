@@ -11,6 +11,8 @@ import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUs
 function LoginForm() {
   const [showPass, setShowPass] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const token = useSelector(getTokenUser);
+  const navigator = useNavigate();
 
   const handleShowPass = () => {
     setShowPass((prev) => !prev);
@@ -57,16 +59,12 @@ function LoginForm() {
     }
     // остальная логика
   };
-//перенести в компонент аккаунта когда будет личный кабинет
-  const token = useSelector(getTokenUser)
-    const navigator = useNavigate()
 
-    useEffect(() => {
-        if(token) {
-          navigator('/')
-          console.log(token)
-        }
-    }, [token])
+  useEffect(() => {
+    if (token) {
+      navigator("/");
+    }
+  }, [token]);
 
   return (
     <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
