@@ -1,5 +1,5 @@
-import { Accordion, SideBar } from "../../ui";
-import { Topbar } from "../../component/Topbar";
+import { SideBar } from "../../ui";
+import { Outlet } from "react-router-dom";
 
 function Layout() {
   return (
@@ -7,8 +7,7 @@ function Layout() {
       <div className="flex">
         <SideBar />
         <div>
-          <Topbar />
-          <Accordion />
+          <Outlet />
         </div>
       </div>
     </>
