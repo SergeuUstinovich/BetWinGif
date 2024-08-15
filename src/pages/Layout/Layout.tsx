@@ -3,7 +3,7 @@ import { Accordion, SideBar, HorizontalBar } from "../../ui";
 import style from "./Layout.module.scss";
 
 function Layout() {
-  const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main'
+  const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main.json'
 
   const toggle = (lng) => {
     i18n.changeLanguage(lng)

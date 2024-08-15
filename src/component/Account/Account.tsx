@@ -1,18 +1,17 @@
-import { Navigate } from "react-router-dom"
-import Layout from "../../pages/Layout/Layout"
-import AuthForm from "../AuthForm/AuthForm"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser"
+import { useEffect } from "react"
 
 function Account() {
-    const meQuery = "error" 
+    const token = useSelector(getTokenUser)
+    const navigator = useNavigate()
 
-    switch(meQuery) { //.status
-        // case "pending":
-        //     return <Loader />
-        case "error":
-            return <Navigate to={'/auth'} replace />
-        // case "success":
-        //     return <Navigate to={'/'} />
-    }
+    useEffect(() => {
+        if(token) {
+          navigator('/')
+        }
+    }, [token])
 }
 
 export default Account
