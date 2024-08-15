@@ -1,5 +1,5 @@
-import { Button } from '../../ui/Button'
-import { Select } from '../../ui/Select/Select'
+import { Button } from "../../ui/Button";
+import { Select } from "../../ui/Select";
 
 export const Topbar = () => {
   return (
@@ -7,5 +7,5 @@ export const Topbar = () => {
       <Select />
       <Button>Generare Now</Button>
     </div>
-  )
-}
+  );
+};

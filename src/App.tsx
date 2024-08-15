@@ -2,7 +2,7 @@ import "./styles/App.scss";
 import { lazy, Suspense, useEffect } from "react";
 import KTComponent from "./metronic/core/index.ts";
 import KTLayout from "./metronic/app/layouts/demo1.js";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
 
 const Layout = lazy(() => import("./pages/Layout/Layout"));

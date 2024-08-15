@@ -1,12 +1,6 @@
-<<<<<<< Updated upstream
 import style from "./SideBar.module.scss";
 import Logo from "../../assets/betWinnerLogo.png";
-import { Link } from "react-router-dom";
-=======
-import style from './SideBar.module.scss'
-import Logo from '../../assets/img/png/betWinnerLogo.png'
-import { Navbar } from '../../component/Navbar'
->>>>>>> Stashed changes
+import { Navbar } from "../../component/Navbar";
 
 export const SideBar = () => {
   return (
@@ -16,5 +10,5 @@ export const SideBar = () => {
       </a>
       <Navbar />
     </aside>
-  )
-}
+  );
+};

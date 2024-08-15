@@ -31,7 +31,7 @@ function AuthForm() {
               </div>
             </div>
             <Button>Use Google</Button>
-            <form onSubmit="">
+            <form>
               <label>
                 <span className={style.formTitle}>Email</span>
                 <input
