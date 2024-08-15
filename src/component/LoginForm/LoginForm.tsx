@@ -57,6 +57,16 @@ function LoginForm() {
     }
     // остальная логика
   };
+//перенести в компонент аккаунта когда будет личный кабинет
+  const token = useSelector(getTokenUser)
+    const navigator = useNavigate()
+
+    useEffect(() => {
+        if(token) {
+          navigator('/')
+          console.log(token)
+        }
+    }, [token])
 
   return (
     <form className={style.form} onSubmit={handleSubmit(onSubmit)}>

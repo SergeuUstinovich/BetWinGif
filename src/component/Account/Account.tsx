@@ -10,6 +10,7 @@ function Account() {
     useEffect(() => {
         if(token) {
           navigator('/')
+          console.log(token)
         }
     }, [token])
 }
