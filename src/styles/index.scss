@@ -6,20 +6,119 @@
 @import "../metronic/css/styles.css";
 
 #__next {
-display: contents;
+  display: contents;
 }
 
 :root {
   --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --green: #20B55F;
-  --offset-40: 40px
+  --bg-btn: #20b55f;
+  --offset-30: 30px;
+  --offset-40: 40px;
+  --white-text: white;
+  --lightmode-primary-primary: #20b55f;
+  --lightmode-primary-primary-active: #056ee9;
+  --lightmode-primary-primary-clarity-20: rgba(27, 132, 255, 0.2);
+  --lightmode-primary-primary-light: #eff6ff;
+  --lightmode-success-success: #17c653;
+  --lightmode-success-success-active: #04b440;
+  --lightmode-success-success-clarity-20: rgba(23, 198, 83, 0.2);
+  --lightmode-success-success-light: #eafff1;
+  --lightmode-danger-danger: #f8285a;
+  --lightmode-danger-danger-active: #d81a48;
+  --lightmode-danger-danger-clarity-20: rgba(248, 40, 90, 0.2);
+  --lightmode-danger-danger-light: #ffeef3;
+  --lightmode-info-info: #7239ea;
+  --lightmode-info-info-active: #5014d0;
+  --lightmode-info-info-clarity-20: rgba(114, 57, 234, 0.2);
+  --lightmode-info-info-light: #f8f5ff;
+  --lightmode-warning-warning: #f6b100;
+  --lightmode-warning-warning-active: #dfa000;
+  --lightmode-warning-warning-clarity-20: rgba(246, 177, 0, 0.2);
+  --lightmode-warning-warning-light: #fff8dd;
+  --lightmode-secondary-secondary: #f9f9f9;
+  --lightmode-secondary-secondary-active: #f9f9f9;
+  --lightmode-secondary-secondary-clarity-20: rgba(249, 249, 249, 0.2);
+  --lightmode-secondary-secondary-light: #f9f9f9;
+  --lightmode-light-light: #fff;
+  --lightmode-light-light-active: #fcfcfc;
+  --lightmode-light-light-clarity-20: rgba(255, 255, 255, 0.2);
+  --lightmode-light-light-light: #fff;
+  --lightmode-dark-dark: #1e2129;
+  --lightmode-dark-dark-active: #111318;
+  --lightmode-dark-dark-clarity-20: rgba(30, 33, 41, 0.2);
+  --lightmode-dark-dark-light: #f9f9f9;
+  --lightmode-orange-orange: #ff6f1e;
+  --lightmode-orange-orange-active: #f15700;
+  --lightmode-orange-orange-clarity-20: rgba(255, 111, 30, 0.2);
+  --lightmode-orange-orange-light: #fff5ef;
+  --lightmode-grey-grey-100: #f9f9f9;
+  --lightmode-grey-grey-200: #f1f1f4;
+  --lightmode-grey-grey-300: #dbdfe9;
+  --lightmode-grey-grey-400: #c4cada;
+  --lightmode-grey-grey-500: #99a1b7;
+  --lightmode-grey-grey-600: #78829d;
+  --lightmode-grey-grey-700: #4b5675;
+  --lightmode-grey-grey-800: #252f4a;
+  --lightmode-grey-grey-900: #071437;
+  --darkmode-primary-primary: #006ae6;
+  --darkmode-primary-primary-active: #107eff;
+  --darkmode-primary-primary-clarity-20: rgba(0, 106, 230, 0.2);
+  --darkmode-primary-primary-light: #172331;
+  --darkmode-success-success: #00a261;
+  --darkmode-success-success-active: #01bf73;
+  --darkmode-success-success-clarity-20: rgba(0, 162, 97, 0.2);
+  --darkmode-success-success-light: #1f2623;
+  --darkmode-danger-danger: #e42855;
+  --darkmode-danger-danger-active: #ff3767;
+  --darkmode-danger-danger-clarity-20: rgba(228, 40, 85, 0.2);
+  --darkmode-danger-danger-light: #302024;
+  --darkmode-info-info: #883fff;
+  --darkmode-info-info-active: #9e63ff;
+  --darkmode-info-info-clarity-20: rgba(136, 63, 255, 0.2);
+  --darkmode-info-info-light: #272134;
+  --darkmode-warning-warning: #c59a00;
+  --darkmode-warning-warning-active: #d9aa00;
+  --darkmode-warning-warning-clarity-20: rgba(197, 154, 0, 0.2);
+  --darkmode-warning-warning-light: #242320;
+  --darkmode-secondary-secondary: #363843;
+  --darkmode-secondary-secondary-active: #464852;
+  --darkmode-secondary-secondary-clarity-20: rgba(54, 56, 67, 0.2);
+  --darkmode-secondary-secondary-light: #363843;
+  --darkmode-light-light: #1f212a;
+  --darkmode-light-light-active: #1f212a;
+  --darkmode-light-light-clarity-20: rgba(31, 33, 42, 0.2);
+  --darkmode-light-light-light: #1f212a;
+  --darkmode-dark-dark: #272a34;
+  --darkmode-dark-dark-active: #2d2f39;
+  --darkmode-dark-dark-clarity-20: rgba(39, 42, 52, 0.2);
+  --darkmode-dark-dark-light: #1e2027;
+  --darkmode-orange-orange: #d74e00;
+  --darkmode-orange-orange-active: #f35700;
+  --darkmode-orange-orange-clarity-20: rgba(215, 78, 0, 0.2);
+  --darkmode-orange-orange-light: #272320;
+  --darkmode-coal-coal-100: #15171c;
+  --darkmode-coal-coal-200: #13141a;
+  --darkmode-coal-coal-300: #111217;
+  --darkmode-coal-coal-400: #0f1014;
+  --darkmode-coal-coal-500: #0d0e12;
+  --darkmode-coal-coal-600: #0b0c10;
+  --darkmode-coal-black: #000;
+  --darkmode-coal-coal-cl-50: rgba(24, 25, 31, 0.5);
+  --darkmode-grey-grey-100: #1b1c22;
+  --darkmode-grey-grey-200: #26272f;
+  --darkmode-grey-grey-300: #363843;
+  --darkmode-grey-grey-400: #464852;
+  --darkmode-grey-grey-500: #636674;
+  --darkmode-grey-grey-600: #808290;
+  --darkmode-grey-grey-700: #9a9cae;
+  --darkmode-grey-grey-800: #b5b7c8;
+  --darkmode-grey-grey-900: #f5f5f5;
 }
 
 a {
   color: inherit;
   text-decoration: none;
 }
-
 
 body {
   font-family: var(--font-family);

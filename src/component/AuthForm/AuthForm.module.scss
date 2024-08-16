@@ -1,0 +1,47 @@
+.boxSwitch {
+  margin-bottom: 20px;
+
+  .btnSwitch {
+    padding: 0;
+    color: var(--bg-btn);
+  }
+}
+
+.stroke {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .lineBreack {
+    max-width: 129px;
+    width: 100%;
+    height: 1px;
+    background: var(--lightmode-grey-grey-200);
+  }
+
+  .and {
+    margin: 0 8px;
+
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 109%;
+    color: var(--lightmode-grey-grey-500);
+  }
+}
+
+.boxGoogle {
+  .googleAuth {
+    max-height: 32px;
+    border: 1px solid #dbdfe9;
+    border-radius: 6px;
+    padding: 0px 27px;
+    margin-bottom: 20px;
+
+    .authDescr {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 100%;
+      color: var(--lightmode-grey-grey-700);
+    }
+  }
+}

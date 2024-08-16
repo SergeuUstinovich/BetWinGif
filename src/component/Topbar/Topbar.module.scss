@@ -1,0 +1,24 @@
+.topBar {
+    margin-bottom: var(--offset-40) !important;
+    padding: 60px 0 5px;
+    border-bottom: 1px solid var(--lightmode-grey-grey-200);
+}
+
+.topBtn {
+    color: var(--white-text);
+    background-color: var(--bg-btn) !important;
+}
+
+.select {
+    max-width: 91px;
+    background-color: var(--white-text) !important;
+    border: none !important;
+
+    &one:not(:last-child) {
+        margin-right: 20px;
+    }
+}
+
+.select:last-child {
+    margin-right: 0 auto;
+}

@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import KTComponent from "./metronic/core/index.ts";
 import KTLayout from "./metronic/app/layouts/demo1.js";
 import { BrowserRouter, useLocation } from "react-router-dom";
+import "./providers/language/i18n.ts";
+import StoreProviders from "./providers/StoreProvider/StoreProviders.tsx";
 
 const Main = () => {
   const location = useLocation();
@@ -20,8 +22,10 @@ const Main = () => {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Main />
-    </BrowserRouter>
+    <StoreProviders>
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    </StoreProviders>
   </React.StrictMode>
 );

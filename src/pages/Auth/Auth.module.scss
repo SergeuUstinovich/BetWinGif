@@ -1,0 +1,21 @@
+.boxAuth {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .img {
+    max-width: 750px;
+    width: 100%;
+  }
+}
+
+.boxLeft {
+  margin: 0 auto;
+}
+.authForm {
+  padding: 40px;
+  min-width: 370px;
+  border: 1px solid #f1f1f4;
+  border-radius: 12px;
+}

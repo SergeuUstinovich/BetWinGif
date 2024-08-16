@@ -1,0 +1,36 @@
+.boxSuccess {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .img {
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 100%;
+        color: var(--lightmode-grey-grey-900);
+        margin-bottom: 20px;
+    }
+
+    .descr {
+        text-align: center;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 154%;
+        color: var(--lightmode-grey-grey-600);
+        margin-bottom: 30px;
+    }
+
+    .link {
+        background: var(--lightmode-primary-primary);
+        border-radius: 6px;
+        padding: 13px 16px;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 108%;
+        color: var(--lightmode-light-light);
+    }
+}

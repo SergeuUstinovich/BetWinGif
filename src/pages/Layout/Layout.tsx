@@ -1,15 +1,18 @@
-import { SideBar } from "../../ui";
+import Account from "../../component/Account/Account";
+import { SideBar } from "../../component/Sidebar";
 import { Outlet } from "react-router-dom";
 
 function Layout() {
   return (
     <>
-      <div className="flex">
-        <SideBar />
-        <div>
-          <Outlet />
+      <Account>
+        <div className="flex">
+          <SideBar />
+          <div className="w-full">
+            <Outlet />
+          </div>
         </div>
-      </div>
+      </Account>
     </>
   );
 }

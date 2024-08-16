@@ -1,0 +1,25 @@
+.cards {
+    display: flex;
+    gap: var(--offset-30);
+}
+
+.cardsTitle {
+    margin-bottom: 12px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: -0.01em;
+    color: var(--lightmode-grey-grey-900)
+}
+
+.cardsText {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 22px;
+    color: var(--lightmode-grey-grey-700)
+}
+
+.cardLink {
+    color: var(--lightmode-primary-primary) !important;
+    border-bottom: 1px dashed var(--lightmode-primary-primary) !important;
+}
