@@ -1,9 +1,10 @@
-import { Accordion, Cards, Topbar } from "../../component";
+import { Accordion, AddIntegrations, Cards, Topbar } from "../../component";
 
 export const StaticBanners = () => {
   return (
     <>
       <Topbar />
+      <AddIntegrations />
       <Accordion />
       <Cards />
     </>

@@ -4,3 +4,5 @@ export * from "./Navbar";
 export * from "./Sidebar";
 export * from "./Topbar";
 export * from "./GifCards";
+export * from "./AddIntegration";
+export * from "./ScrollSpy";
