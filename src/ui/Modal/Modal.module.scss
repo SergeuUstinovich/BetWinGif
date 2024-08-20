@@ -1,4 +1,29 @@
-.modalImg {
-    max-width: 180px;
-    max-height: 180px;
-}
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--overlay-color);
+    z-index: -1;
+    overflow-y: scroll;
+  }
+  
+  .overlay {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 100px 0;
+  }
+  
+  .content {
+    padding: 10px;
+    border-radius: 12px;
+    background: var(--bg-color);
+    transition: 0.3s transform;
+    transform: scale(0.5);
+    max-width: 60%;
+  }

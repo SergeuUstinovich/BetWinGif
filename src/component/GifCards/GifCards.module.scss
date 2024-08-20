@@ -1,5 +1,5 @@
 .gifBlock {
-    margin-bottom: var(--offset-30);
+    margin-bottom: var(--offset-30) !important;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--offset-30);
