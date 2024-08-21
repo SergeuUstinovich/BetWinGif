@@ -1,19 +1,41 @@
 import style from "./AuthForm.module.scss";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../ui/Button";
 import GoogleSvg from "../../assets/svg/GoogleSvg/GoogleSvg";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterFrom/RegisterForm";
+import { useGoogleLogin } from "@react-oauth/google";
+import { googleAuth } from "../../api/googleAuth";
+import { googleLoginProps } from "../../types/GoogleAuth";
+
+
+
 
 function AuthForm() {
   const [authType, setAuthType] = useState<string>("auth");
+  const [googleData, setGoogleData] = useState<googleLoginProps | undefined>();
 
   const handleClick = () => {
     setAuthType((prevState) =>
       prevState === "register" ? "auth" : "register"
     );
   };
+
+  useEffect(() => {
+    console.log(googleData)
+  },[googleData])
+
+  const handleSuccessGoogle = async (response: any) => {
+    const result = await googleAuth(response);
+    if(result) {
+      const {email, username, lastname, id} = result;
+      setGoogleData({email, username, lastname, id});
+    }
+  };
+
+  const dataGoogle = useGoogleLogin({
+    onSuccess: handleSuccessGoogle
+  });
 
   return (
     <>
@@ -31,7 +53,7 @@ function AuthForm() {
         </div>
       </div>
       <div className={style.boxGoogle}>
-        <Button className={style.googleAuth}>
+        <Button onClick={() => dataGoogle()} className={style.googleAuth}>
           <GoogleSvg />
           <p className={style.authDescr}>Use Google</p>
         </Button>
