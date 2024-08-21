@@ -1,6 +1,9 @@
 import style from "./Accordion.module.scss";
+import {useState} from "react";
 
 export const Accordion = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div
       className={`${style.accordion} m-auto max-w-[1140px]`}
@@ -13,6 +16,7 @@ export const Accordion = () => {
         id="accordion_1_item_1"
       >
         <button
+            onClick={() => setIsOpen(!isOpen)}
           className="accordion-toggle py-4 group"
           data-accordion-toggle="#accordion_1_content_1"
         >
@@ -37,6 +41,7 @@ export const Accordion = () => {
         id="accordion_1_item_2"
       >
         <button
+            onClick={() => setIsOpen(!isOpen)}
           className="accordion-toggle py-4 group"
           data-accordion-toggle="#accordion_1_content_2"
         >
@@ -61,6 +66,7 @@ export const Accordion = () => {
         id="accordion_1_item_3"
       >
         <button
+            onClick={() => setIsOpen(!isOpen)}
           className="accordion-toggle py-4 group"
           data-accordion-toggle="#accordion_1_content_3"
         >

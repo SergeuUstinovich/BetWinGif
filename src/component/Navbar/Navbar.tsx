@@ -1,5 +1,6 @@
 import { ScrollSpy } from "../ScrollSpy";
 import style from "./Navbar.module.scss";
+import {Link} from "react-router-dom";
 
 export const Navbar = () => {
   return (
@@ -10,7 +11,7 @@ export const Navbar = () => {
           data-menu-item-toggle="accordion"
           data-menu-item-trigger="click"
         >
-          <a className={`${style.pageLink} menu-link`} href="#">
+          <Link className={`${style.pageLink} menu-link`} to='/static-banners'>
             <span className="menu-icon">
               <i className="ki-filled ki-category"></i>
             </span>
@@ -19,7 +20,7 @@ export const Navbar = () => {
               <i className="ki-outline ki-plus menu-item-show:hidden"></i>
               <i className="ki-outline ki-minus hidden menu-item-show:block"></i>
             </span>
-          </a>
+          </Link>
           <div className="menu-accordion">
             <div className="menu-item">
               <a className="menu-link" href="#">
@@ -36,7 +37,7 @@ export const Navbar = () => {
           data-menu-item-toggle="accordion"
           data-menu-item-trigger="click"
         >
-          <a className={`${style.pageLink} menu-link`} href="#">
+          <Link className={`${style.pageLink} menu-link`} to='/gif-banners'>
             <span className="menu-icon">
               <i className="ki-filled ki-category"></i>
             </span>
@@ -45,7 +46,7 @@ export const Navbar = () => {
               <i className="ki-outline ki-plus menu-item-show:hidden"></i>
               <i className="ki-outline ki-minus hidden menu-item-show:block"></i>
             </span>
-          </a>
+          </Link>
           <div className="menu-accordion">
             <div className="menu-item">
               <a className="menu-link" href="#">
