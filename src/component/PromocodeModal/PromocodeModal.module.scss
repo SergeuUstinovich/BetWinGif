@@ -1,0 +1,45 @@
+.modalBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalTitle {
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    border-bottom: 1px solid var(--lightmode-grey-grey-200);
+}
+
+.modalText {
+    padding: 20px 30px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.modalInputBlock {
+    padding: 10px 60px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: -0.01em;
+}
+
+.modalInput {
+    padding: 13px 12px;
+    min-width: 310px;
+    border: 1px solid var(--lightmode-grey-grey-300);
+    border-radius: 6px;
+}
+
+.modalButton {
+    margin-right: 30px;
+    margin-bottom: 30px;
+    align-self: flex-end;
+    color: var(--white-text);
+    background-color: var(--bg-btn);
+}

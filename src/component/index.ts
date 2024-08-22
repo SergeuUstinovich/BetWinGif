@@ -6,3 +6,5 @@ export * from "./Topbar";
 export * from "./GifCards";
 export * from "./AddIntegration";
 export * from "./ScrollSpy";
+export * from "./PromocodeModal";
+export * from "./PasswordModal";

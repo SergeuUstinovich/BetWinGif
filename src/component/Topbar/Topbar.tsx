@@ -12,7 +12,7 @@ export const Topbar = () => {
   return (
     <div className={`${style.topBar} flex items-center max-w-[1140px] m-auto`}>
       <select className={`${style.select} select`}>
-        <option selected disabled value="">
+        <option defaultValue='Страна'>
           Страна
         </option>
         <option value="en">England</option>
@@ -32,7 +32,7 @@ export const Topbar = () => {
         className={`${style.select} select`}
         onChange={(e) => toggle(e.target.value)}
       >
-        <option selected disabled value="">
+        <option defaultValue={'Язык'}>
           Язык
         </option>
         <option value="en">English</option>
@@ -49,19 +49,19 @@ export const Topbar = () => {
       </select>
 
       <select className={`${style.select} select`}>
-        <option selected disabled value="">
+        <option defaultValue="Валюта">
           Валюта
         </option>
       </select>
 
       <select className={`${style.select} select`}>
-        <option selected disabled value="">
+        <option defaultValue="Формат">
           Формат
         </option>
       </select>
 
       <select className={`${style.select} select mr-auto`}>
-        <option selected disabled value="">
+        <option defaultValue="Тематика">
           Тематика
         </option>
       </select>
