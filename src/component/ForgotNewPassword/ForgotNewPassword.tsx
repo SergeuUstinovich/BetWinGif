@@ -41,7 +41,7 @@ function ForgotNewPassword() {
       <label className={style.label}>
         <span className={style.formTitle}>Password</span>
         <div className={`input max-w-72 ${errors.password ? 'border-danger': ''}`} data-toggle-password="true">
-          <input placeholder="Enter Password" type={!showPass? 'password' : 'text'} {...register('password')} />
+          <input autoComplete="new-password" placeholder="Enter Password" type={!showPass? 'password' : 'text'} {...register('password')} />
           <div onClick={handleShowPass} className="btn btn-icon" data-toggle-password-trigger="true">
           {!showPass ? 
               <i className="ki-outline ki-eye toggle-password-active:hidden"></i> :
@@ -56,7 +56,7 @@ function ForgotNewPassword() {
       <label className={style.label}>
         <span className={style.formTitle}>Confirm Password</span>
         <div className={`input max-w-72 ${errors.confirmPassword ? 'border-danger': ''}`} data-toggle-password="true">
-          <input placeholder="Re-enter Password" type={!showPassConf? 'password' : 'text'} {...register('confirmPassword')} />
+          <input autoComplete="new-password" placeholder="Re-enter Password" type={!showPassConf? 'password' : 'text'} {...register('confirmPassword')} />
           <div onClick={handleShowPassConf} className="btn btn-icon" data-toggle-password-trigger="true">
           {!showPassConf ? 
               <i className="ki-outline ki-eye toggle-password-active:hidden"></i> :

@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginScheme, LoginType } from "../../types/AuthType";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
+import { tokenActions } from "../../providers/StoreProvider";
 
 function LoginForm() {
   const [showPass, setShowPass] = useState(false);
@@ -74,6 +75,7 @@ function LoginForm() {
           className={`input ${errors.email ? "border-danger" : ""}`}
           placeholder="email@email.com"
           type="email"
+          autoComplete="username"
           {...register("email")}
         />
         {errors && <span className={style.error}>{errors.email?.message}</span>}
@@ -90,6 +92,7 @@ function LoginForm() {
           data-toggle-password="true"
         >
           <input
+            autoComplete="current-password"
             placeholder="Enter Password"
             type={!showPass ? "password" : "text"}
             {...register("password")}

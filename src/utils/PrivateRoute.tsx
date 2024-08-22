@@ -8,7 +8,8 @@ interface privateRouteProps {
 }
 
 function PrivateRoute({ children }: privateRouteProps) {
-  const token = useSelector(getTokenUser)
+  const token = useSelector(getTokenUser);
+
   if (!token) {
     return <Navigate to={"/auth"} replace />;
   }

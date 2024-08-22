@@ -1,0 +1,16 @@
+import style from "./AddIntegrations.module.scss";
+import Integration from "../../assets/img/png/addIntegrations.png";
+
+export const AddIntegrations = () => {
+  return (
+    <div className={`${style.integrationBlock} max-w-[1140px] m-auto`}>
+      <img className={style.integrationImg} src={Integration} alt="" />
+      <h2 className={style.integrationTitle}>Add New Integration</h2>
+      <p className={style.integrationLabel}>
+        Explore New Integration: Expand Your Toolkit with Cutting-Edge,
+        User-Friendly Solutions Tailored for Efficient and Innovative Project
+        Management.
+      </p>
+    </div>
+  );
+};

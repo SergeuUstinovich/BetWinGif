@@ -51,6 +51,7 @@ function RegisterForm() {
       <label>
         <span className={style.formTitle}>Email</span>
         <input
+          autoComplete="username"
           className={`input ${errors.email ? 'border-danger': ''}`}
           placeholder="email@email.com"
           type="email"
@@ -65,6 +66,7 @@ function RegisterForm() {
           data-toggle-password="true"
         >
           <input
+            autoComplete="new-password"
             placeholder="Enter Password"
             type={!showPass? 'password' : 'text'}
             {...register("password")}
@@ -84,6 +86,7 @@ function RegisterForm() {
         <span className={style.formTitle}>Confirm Password</span>
         <div className={`input max-w-72 ${errors.confirmPassword ? 'border-danger': ''}`} data-toggle-password="true">
           <input
+            autoComplete="new-password"
             placeholder="Re-enter Password"
             type={!showPassConf? 'password' : 'text'}
             {...register("confirmPassword")}
