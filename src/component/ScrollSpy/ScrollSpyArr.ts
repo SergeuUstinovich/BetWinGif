@@ -1,4 +1,4 @@
-import { scrollSpyProps } from "../component";
+import { scrollSpyProps } from "..";
 
 export const scrollItems: scrollSpyProps[] = [
   {

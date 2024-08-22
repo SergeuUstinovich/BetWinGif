@@ -1,5 +1,5 @@
 import style from "./ScrollSpy.module.scss";
-import { scrollItems } from "../../types/ScrollSpyArr";
+import { scrollItems } from "./ScrollSpyArr";
 
 export interface scrollSpyProps {
   id: number;
@@ -27,6 +27,29 @@ export const ScrollSpy = () => {
             {item.label}
           </a>
         ))}
+        <div
+          className="menu-item flex-col-reverse"
+          data-menu-item-toggle="accordion"
+          data-menu-item-trigger="click"
+        >
+          <a className="menu-link !m-0 !pl-0" href="#">
+            <span className="menu-icon w-4"></span>
+            <span className="menu-title !text-gray-500">
+              <span className="hidden menu-item-show:block">Show less</span>
+              <span className="block menu-item-show:hidden">Show 3 more</span>
+            </span>
+          </a>
+          <div className="menu-accordion menu-no-indent">
+            <div className="menu-item">
+              <a className="menu-link" href="#">
+                <span className="menu-icon">
+                  <i className="ki-outline ki-bitcoin"></i>
+                </span>
+                <span className="menu-title">Menu item 4</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
