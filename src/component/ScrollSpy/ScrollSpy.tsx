@@ -1,13 +1,53 @@
+import { Link, useLocation } from "react-router-dom";
 import style from "./ScrollSpy.module.scss";
-import { scrollItems } from "./ScrollSpyArr";
 
-export interface scrollSpyProps {
+interface scrollSpyProps {
   id: number;
   label: string;
-  link?: string;
+  path: string;
 }
 
+const scrollItems: scrollSpyProps[] = [
+  {
+    id: 1,
+    label: "Account Home",
+    path: "/static-banners",
+  },
+  {
+    id: 2,
+    label: "Billing",
+    path: "/gif-banners",
+  },
+  {
+    id: 3,
+    label: "Security",
+    path: "/item-3",
+  },
+  {
+    id: 4,
+    label: "Members & Roles",
+    path: "/item-4",
+  },
+  {
+    id: 5,
+    label: "Integrations",
+    path: "/item-5",
+  },
+  {
+    id: 6,
+    label: "Notifications",
+    path: "/item-6",
+  },
+  {
+    id: 7,
+    label: "API Settings",
+    path: "/item-7",
+  },
+];
+
 export const ScrollSpy = () => {
+  const location = useLocation();
+
   return (
     <div className="flex w-full">
       <div
@@ -17,15 +57,29 @@ export const ScrollSpy = () => {
         data-scrollspy-target="#scrollable_1"
       >
         {scrollItems.map((item) => (
-          <a
+          <Link
             key={item.id}
-            className={`${style.scrollLink} flex items-center rounded-lg pl-2.5 pr-2.5 py-2.5 gap-1.5 border border-transparent text-2sm font-medium text-gray-700 hover:text-primary scrollspy-active:bg-secondary-active scrollspy-active:text-primary`}
+            className={`${style.scrollLink} flex items-center relative rounded-lg pl-2.5 pr-2.5 py-2.5 gap-1.5 border border-transparent text-2sm font-medium text-gray-700`}
             data-scrollspy-anchor="true"
-            href="#item_1"
+            to={item.path}
           >
-            <span className="flex w-1.5 relative before:absolute before:top-0 before:left-px before:size-1.5 before:rounded-full before:-translate-x-2/4 before:-translate-y-2/4 scrollspy-active:before:bg-primary"></span>
-            {item.label}
-          </a>
+            <span
+              className={
+                location.pathname === item.path
+                  ? `${style.scrollTextBefore} flex w-1.5 relative before:absolute before:top-0 before:left-px before:size-1.5 before:rounded-full before:-translate-x-2/4 before:-translate-y-2/4`
+                  : `flex w-1.5 relative before:absolute before:top-0 before:left-px before:size-1.5 before:rounded-full before:-translate-x-2/4 before:-translate-y-2/4`
+              }
+            ></span>
+            <span
+              className={
+                location.pathname === item.path
+                  ? `${style.scrollText}`
+                  : `${!style.scrollText}`
+              }
+            >
+              {item.label}
+            </span>
+          </Link>
         ))}
         <div
           className="menu-item flex-col-reverse"
