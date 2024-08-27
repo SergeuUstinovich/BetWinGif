@@ -1,6 +1,9 @@
 import style from "./Topbar.module.scss";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import { gifAdd } from "../../api/gifAdd";
+import { queryClient } from "../../api/queryClient";
 
 export const Topbar = () => {
   const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main.json'
@@ -8,6 +11,17 @@ export const Topbar = () => {
   const toggle = (lng) => {
     i18n.changeLanguage(lng);
   };
+
+  const mutateGifAdd = useMutation({
+    mutationFn: () => gifAdd(),
+    onSuccess: () => {
+
+    }
+  },queryClient)
+
+  const handleGifAdd = () => {
+    mutateGifAdd.mutate()
+  }
 
   return (
     <div className={`${style.topBar} flex items-center max-w-[1140px] m-auto`}>
@@ -65,7 +79,7 @@ export const Topbar = () => {
           Тематика
         </option>
       </select>
-      <Button className={style.topBtn}>Generare Now</Button>
+      <Button onClick={handleGifAdd} className={style.topBtn}>Generare Now</Button>
     </div>
   );
 };

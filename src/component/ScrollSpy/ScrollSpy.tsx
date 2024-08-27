@@ -21,27 +21,27 @@ const scrollItems: scrollSpyProps[] = [
   {
     id: 3,
     label: "Security",
-    path: "/item-3",
+    path: "#",
   },
   {
     id: 4,
     label: "Members & Roles",
-    path: "/item-4",
+    path: "#",
   },
   {
     id: 5,
     label: "Integrations",
-    path: "/item-5",
+    path: "#",
   },
   {
     id: 6,
     label: "Notifications",
-    path: "/item-6",
+    path: "#",
   },
   {
     id: 7,
     label: "API Settings",
-    path: "/item-7",
+    path: "#",
   },
 ];
 

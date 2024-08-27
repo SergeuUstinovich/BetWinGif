@@ -1,7 +1,7 @@
 import { Accordion, AddIntegrations, Cards, Topbar } from "../../component";
 import arrAccord from './AccordDataStatic'
 
-export const StaticBanners = () => {
+const StaticBanners = () => {
   return (
     <>
       <Topbar />
@@ -11,3 +11,5 @@ export const StaticBanners = () => {
     </>
   );
 };
+
+export default StaticBanners
