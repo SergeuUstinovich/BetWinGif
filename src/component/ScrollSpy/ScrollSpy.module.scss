@@ -1,7 +1,20 @@
-.scrollLink:hover {
-    color: var(--bg-btn) !important
+.scrollTextBefore {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -3px;
+    right: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background-color: var(--bg-btn);
+    opacity: 1;
 }
 
-.scrollLink:active {
-    color: var(--bg-btn) !important
+.scrollText {
+    color: var(--bg-btn)
+}
+
+.scrollLink:hover {
+    color: var(--bg-btn)
 }
