@@ -40,3 +40,11 @@
     letter-spacing: -0.01em;
     color: var(--lightmode-primary-primary);
   }
+
+  .error {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    color: var(--lightmode-danger-danger);
+  }

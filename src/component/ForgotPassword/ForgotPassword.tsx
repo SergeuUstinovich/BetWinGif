@@ -6,10 +6,20 @@ import style from "./ForgotPassword.module.scss";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ForgotEmailScheme, ForgotEmailType } from "../../types/AuthType";
+import { useMutation } from "@tanstack/react-query";
+import { resetUser } from "../../api/authUser";
+import { queryClient } from "../../api/queryClient";
 
 function ForgotPassword() {
     const [succesPost, setSuccesPost] = useState(false);
     const [emails, setEmails] = useState("");
+
+    const mutateReset = useMutation({
+      mutationFn: (data:{email:string}) => resetUser(data.email),
+      onSuccess: () => {
+        setSuccesPost(true)
+      }
+    }, queryClient)
 
     const {
         register,
@@ -26,8 +36,8 @@ function ForgotPassword() {
 
   return (
     <form className={style.form} onSubmit={handleSubmit(({email}) => {
+        mutateReset.mutate({email})
         setEmails(email)
-        setSuccesPost(true)
     })}>
       <h2 className={style.title}>Your Email</h2>
       <p className={style.descr}>Enter your email to reset password</p>
@@ -42,7 +52,8 @@ function ForgotPassword() {
         />
         {errors && <span className={style.error}>{errors.email?.message}</span>}
       </label>
-      <Button className={style.btn}>Contoinue <ArrowSvgForgot /></Button>
+      {mutateReset.error && <span className={style.error}>{mutateReset.error.message}</span>}
+      <Button isLoading={mutateReset.isPending} className={style.btn}>Contoinue <ArrowSvgForgot /></Button>
     </form>
   );
 }

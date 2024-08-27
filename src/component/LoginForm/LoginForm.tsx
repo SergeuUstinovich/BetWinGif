@@ -8,16 +8,32 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import { tokenActions } from "../../providers/StoreProvider";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../../api/authUser";
+import { queryClient } from "../../api/queryClient";
 
 function LoginForm() {
   const [showPass, setShowPass] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const token = useSelector(getTokenUser);
   const navigator = useNavigate();
+  const dispatch = useDispatch()
 
   const handleShowPass = () => {
     setShowPass((prev) => !prev);
   };
+
+  const mutateLogin = useMutation(
+    {
+      mutationFn: (data: { email: string; password: string }) =>
+        loginUser(data.email, data.password),
+      onSuccess: (data) => {
+        dispatch(tokenActions.initAuthData(data))
+        reset()
+      }
+    },
+    queryClient
+  );
 
   const {
     register,
@@ -58,7 +74,7 @@ function LoginForm() {
       localStorage.removeItem("email");
       localStorage.removeItem("password");
     }
-    // остальная логика
+    mutateLogin.mutate({email: data.email, password: data.password})
   };
 
   useEffect(() => {
@@ -124,7 +140,8 @@ function LoginForm() {
         />
         Remember me
       </label>
-      <Button className={style.btnSub}>Sign in</Button>
+      {mutateLogin.error && <span className={style.error}>{mutateLogin.error.message}</span>}
+      <Button isLoading={mutateLogin.isPending} className={style.btnSub}>Sign in</Button>
     </form>
   );
 }

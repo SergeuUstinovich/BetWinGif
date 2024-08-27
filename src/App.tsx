@@ -47,7 +47,7 @@ function App() {
               }
             />
             <Route path={"forgot"} element={<ForgotPassword />} />
-            <Route path={"forgot-password"} element={<ForgotNewPassword />} />
+            <Route path={"forgot-password/:uid/:token"} element={<ForgotNewPassword />} />
           </Route>
         </Routes>
       </Suspense>
