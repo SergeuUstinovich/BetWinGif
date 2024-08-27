@@ -11,7 +11,7 @@ function PrivateRoute({ children }: privateRouteProps) {
   const token = useSelector(getTokenUser);
 
   if (!token) {
-    return <Navigate to={"/auth"} replace />;
+    return <Navigate to={"/auths"} replace />;
   }
   return children;
 }

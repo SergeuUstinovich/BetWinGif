@@ -5,7 +5,7 @@ function ProtectedRoute({ children }) {
   const { emailName } = location.state || {};
 
   if (!emailName) {
-    return <Navigate to={"/auth"} replace />;
+    return <Navigate to={"/auths"} replace />;
   }
 
   return children;

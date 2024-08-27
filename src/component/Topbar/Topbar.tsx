@@ -14,8 +14,8 @@ export const Topbar = () => {
 
   const mutateGifAdd = useMutation({
     mutationFn: () => gifAdd(),
-    onSuccess: () => {
-
+    onSuccess: (data) => {
+      console.log(data)
     }
   },queryClient)
 

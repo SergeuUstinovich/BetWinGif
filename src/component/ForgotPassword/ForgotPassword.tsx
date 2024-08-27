@@ -18,6 +18,7 @@ function ForgotPassword() {
       mutationFn: (data:{email:string}) => resetUser(data.email),
       onSuccess: () => {
         setSuccesPost(true)
+        reset()
       }
     }, queryClient)
 

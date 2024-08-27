@@ -8,7 +8,7 @@ import Auth from "./pages/Auth/Auth.tsx";
 import ProtectedRoute from "./utils/ProtectedAuth.tsx";
 
 
-const Layout = lazy(() => import("./pages/Layout/Layout"));
+const Layout = lazy(() => import("./pages/Layout/Layout.tsx"));
 const StaticBanners = lazy(() => import("./pages/StaticBanners/StaticBanner.tsx"));
 const GifBanners = lazy(() => import("./pages/GifBanners/GifBanners.tsx"));
 
@@ -38,7 +38,7 @@ function App() {
             <Route path={"static-banners"} element={<StaticBanners />} />
             <Route path={"gif-banners"} element={<GifBanners />} />
           </Route>
-          <Route path={"/auth"} element={<Auth />}>
+          <Route path={"/auths"} element={<Auth />}>
             <Route index element={<AuthForm />} />
             <Route
               path={"check"}
