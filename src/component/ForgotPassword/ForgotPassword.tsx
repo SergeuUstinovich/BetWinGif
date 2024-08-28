@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArrowSvgForgot from "../../assets/svg/ArrowSvgForgot/ArrowSvgForgot";
 import { Button } from "../../ui/Button";
 import CheckedAuth from "../CheckedAuth/CheckedAuth";

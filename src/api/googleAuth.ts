@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.env.VITE_API_BASE_URL;
+
 export function googleAuth(response: any) {
     return axios
       .get("https://www.googleapis.com/oauth2/v3/userinfo", {
@@ -25,3 +27,19 @@ export function googleAuth(response: any) {
         }
       });
   }
+
+  export function googleAuthUser(email: string, username: string) {
+    return axios.post(`${api_url}/api/google_auth/`,{
+      email,
+      username,
+    })
+    .then(response => {
+        const data  = response.data.token
+        console.log(data)
+        return data
+    })
+    .catch(error => {
+        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
+        throw new Error(errorMessages);
+    })
+}

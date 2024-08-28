@@ -39,7 +39,9 @@
 .modalButton {
     margin-right: 30px;
     margin-bottom: 30px;
+    padding: 5px 10px;
     align-self: flex-end;
     color: var(--white-text);
+    border-radius: 8px;
     background-color: var(--bg-btn);
 }

@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
 import Auth from "./pages/Auth/Auth.tsx";
 import ProtectedRoute from "./utils/ProtectedAuth.tsx";
+import { PromocodeModal } from "./component/PromocodeModal/PromocodeModal.tsx";
 
 
 const Layout = lazy(() => import("./pages/Layout/Layout.tsx"));
@@ -35,7 +36,8 @@ function App() {
               </PrivateRoute>
             }
           >
-            <Route path={"static-banners"} element={<StaticBanners />} />
+            <Route index element={<PromocodeModal />} />
+            <Route path={'static-banners'} element={<StaticBanners />} />
             <Route path={"gif-banners"} element={<GifBanners />} />
           </Route>
           <Route path={"/auths"} element={<Auth />}>

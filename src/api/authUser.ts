@@ -63,3 +63,13 @@ export function resetPasswordUser(new_password: string, re_new_password: string,
         throw new Error(errorMessages);
     })
 }
+
+export function logoutUser( token: string) {
+    return axios.post(`${api_url}/auth/token/logout/`,{}, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+    })
+    .then(() => undefined)
+}

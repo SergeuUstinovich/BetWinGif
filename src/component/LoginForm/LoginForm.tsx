@@ -55,13 +55,6 @@ function LoginForm() {
     }
   }, [setValue]);
 
-  useEffect(() => {
-    if (!rememberMe) {
-      localStorage.removeItem("email");
-      localStorage.removeItem("password");
-    }
-  }, [rememberMe]);
-
   const handleRemember = () => {
     setRememberMe((prev) => !prev);
   };

@@ -1,91 +1,138 @@
 import style from "./GifCards.module.scss";
 import { DownloadSvg } from "../../assets/svg/DownloadSvg";
 import { Button } from "../../ui";
-import GifCard from "../../assets/img/png/GifCard.png";
 import { AddIntegrations } from "../AddIntegration";
 import { useSelector } from "react-redux";
 import { getGifGenerated } from "../../providers/StoreProvider/selectors/getGifGenerated";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import GIF from "gif.js";
 
-interface gifProps {
-  id: string
-  img: string;
+interface ImageToGifProps {
+  svgContent: string;
   text: string;
 }
 
-// const gif: gifProps[] = [
-//   {
-//     id: '1',
-//     img: GifCard,
-//     text: "Download",
-//   },
-//   {
-//     id: '2',
-//     img: GifCard,
-//     text: "Download",
-//   },
-//   {
-//     id: '3',
-//     img: GifCard,
-//     text: "Download",
-//   },
-//   {
-//     id: '4',
-//     img: GifCard,
-//     text: "Download",
-//   },
-// ];
-
-export const GifCards = () => {
-
-  const gif = useSelector(getGifGenerated)
+export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
+  const gif = useSelector(getGifGenerated);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [gifUrl, setGifUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(gif)
-  }, [gif])
+    if (svgContent && text) {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          const svgWithText = svgContent.replace(
+            "</svg>",
+            `
+            <text x="60%" y="56%" dominant-baseline="middle" text-anchor="middle" font-style="italic" font-weight="800" font-size="30" line-height="120%" text-transform="uppercase" text-align="right" fill="#15513b">${text}</text>
+            <text x="20%" y="53%" dominant-baseline="middle" text-anchor="middle" font-style="italic" font-weight="700" font-size="20" line-height="90%" text-transform="uppercase" fill="#15513b">
+              <tspan x="16%" dy="0">code</tspan>
+              <tspan x="16%" dy="1em">Promo:</tspan>
+            </text>
+            </svg>`
+          );
+          const encodedSvg = `data:image/svg+xml;base64,${btoa(svgWithText)}`;
 
-  const downloadGif = () => {
-    if (gif) {
-        const link = document.createElement('a');
-        link.href = gif;
-        link.download = 'downloaded.gif';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+          const img = new Image();
+          img.src = encodedSvg;
+
+          img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            drawImage(ctx, img);
+            createGif();
+          };
+        }
+      }
     }
-};
+  }, [svgContent, text]);
+
+  const drawImage = (ctx: CanvasRenderingContext2D, img: HTMLImageElement) => {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.drawImage(img, 0, 0);
+  };
+
+  useEffect(() => {
+    console.log(gif);
+  }, [gif]);
+
+  const createGif = () => {
+    const canvas = canvasRef.current;
+
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        setIsLoading(true);
+        const img = new Image();
+        img.src = canvas.toDataURL();
+
+        img.onload = () => {
+          const gif = new GIF({
+            workers: 2,
+            quality: 10,
+            // transparent: 0x00FF00,
+          });
+
+          let x = -img.width;
+          const step = () => {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.drawImage(img, x, (ctx.canvas.height - img.height) / 2);
+
+            gif.addFrame(ctx.canvas, { copy: true, delay: 20 });
+
+            if (x < (ctx.canvas.width - img.width) / 2) {
+              x += 20; // Уменьшение шага для более плавной анимации
+              requestAnimationFrame(step);
+            } else {
+              for (let i = 0; i < 100; i++) {
+                // 100 кадров для 10 секунд
+                gif.addFrame(ctx.canvas, { copy: true, delay: 100 });
+              }
+
+              gif.on("finished", (blob) => {
+                const url = URL.createObjectURL(blob);
+                setGifUrl(url);
+                setIsLoading(false);
+              });
+
+              gif.render();
+            }
+          };
+
+          step();
+        };
+      }
+    }
+  };
+
+    const downloadGif = () => {
+      if (gifUrl) {
+          const link = document.createElement('a');
+          link.href = gifUrl;
+          link.download = 'downloaded.gif';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  };
 
   return (
     <>
-    {!gif ? (<AddIntegrations />): (
-      <>
       <div className={`${style.gifBlock} max-w-[1140px] m-auto`}>
-        <div  className={style.gifCard}>
-            <img className={style.gifImg} src={gif} alt="gif" />
+        <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+        {gifUrl && (
+          <div className={style.gifCard}>
+            <img className={style.gifImg} src={gifUrl} alt="gif" />
             <Button onClick={downloadGif} className={style.gifButton}>
               <DownloadSvg />
               Download
             </Button>
-        </div>
+          </div>
+        )}
       </div>
-      </>
-    )}
-      
-      {/* {gif.length === 0 ? (
-        
-      ) : (
-        
-          {gif.map((item) => (
-            <div key={item.id} className={style.gifCard}>
-              <img className={style.gifImg} src={gif} alt="gif" />
-              <Button onClick={downloadGif} className={style.gifButton}>
-                <DownloadSvg />
-                {item.text}
-              </Button>
-            </div>
-          ))}
-        </div>
-      )} */}
     </>
   );
 };

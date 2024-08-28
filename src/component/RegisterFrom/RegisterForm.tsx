@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../../api/authUser";
 import { queryClient } from "../../api/queryClient";
+import { useSelector } from "react-redux";
+import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 
 function RegisterForm() {
   const { t } = useTranslation();
@@ -17,6 +19,7 @@ function RegisterForm() {
   const [showPassConf, setShowPassConf] = useState(false);
   const [error, setError] = useState(null);
   const [emails, setEmails] = useState("");
+  const token = useSelector(getTokenUser);
   const navigate = useNavigate();
 
   const handleShowPass = () => {
@@ -38,6 +41,7 @@ function RegisterForm() {
       onSuccess: () => {
         setSuccessRegist(true);
         setError(null);
+        reset()
       },
       onError: (error) => {
         const errorMessages = Object.keys(error).map(key => `${key}: ${error[key]}`).join(', ');
@@ -57,10 +61,16 @@ function RegisterForm() {
 
   useEffect(() => {
     if (successRegist && !error) {
-      navigate("/auth/check", { state: { emailName: emails } });
+      navigate("/auths/check", { state: { emailName: emails } });
       setSuccessRegist(false);
     }
   }, [successRegist, error]);
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
 
   return (

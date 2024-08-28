@@ -1,15 +1,15 @@
-import style from "./Topbar.module.scss";
+import style from "./TopbarStatic.module.scss";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/Button";
 import { useMutation } from "@tanstack/react-query";
-import { gifAdd } from "../../api/gifAdd";
+import { gifAdd, staticBanner } from "../../api/gifAdd";
 import { queryClient } from "../../api/queryClient";
 import { useDispatch, useSelector } from "react-redux";
 import { gifActions } from "../../providers/StoreProvider";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import { gifGenActions } from "../../providers/StoreProvider/slice/gifGenSlice";
 
-export const Topbar = () => {
+export const TopbarStatic = () => {
   const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main.json'
   const dispatch = useDispatch()
   const token = useSelector(getTokenUser)
@@ -18,16 +18,15 @@ export const Topbar = () => {
     i18n.changeLanguage(lng);
   };
 
-  const mutateGifAdd = useMutation({
-    mutationFn: (data:{token:string}) => gifAdd(data.token),
+  const mutateStaticAdd = useMutation({
+    mutationFn: (data:{token:string}) => staticBanner(data.token),
     onSuccess: (data) => {
-      console.log(data)
-      dispatch(gifGenActions.gifGenAdd({svgContent: data.svg, text: data.promocode}))
+      dispatch(gifActions.gifAdd(data))
     }
   },queryClient)
 
   const handleGifAdd = () => {
-    mutateGifAdd.mutate({token})
+    mutateStaticAdd.mutate({token})
   }
 
   return (
@@ -86,7 +85,7 @@ export const Topbar = () => {
           Тематика
         </option>
       </select>
-      <Button isLoading={mutateGifAdd.isPending} onClick={handleGifAdd} className={style.topBtn}>Generare Now</Button>
+      <Button isLoading={mutateStaticAdd.isPending} onClick={handleGifAdd} className={style.topBtn}>Generare Now</Button>
     </div>
   );
 };

@@ -5,15 +5,17 @@ import GoogleSvg from "../../assets/svg/GoogleSvg/GoogleSvg";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterFrom/RegisterForm";
 import { useGoogleLogin } from "@react-oauth/google";
-import { googleAuth } from "../../api/googleAuth";
+import { googleAuth, googleAuthUser } from "../../api/googleAuth";
 import { googleLoginProps } from "../../types/GoogleAuth";
-
-
-
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../api/queryClient";
+import { useDispatch } from "react-redux";
+import { tokenActions } from "../../providers/StoreProvider";
 
 function AuthForm() {
   const [authType, setAuthType] = useState<string>("auth");
   const [googleData, setGoogleData] = useState<googleLoginProps | undefined>();
+  const dispatch = useDispatch()
 
   const handleClick = () => {
     setAuthType((prevState) =>
@@ -21,20 +23,33 @@ function AuthForm() {
     );
   };
 
+  const mutateGoogle = useMutation(
+    {
+      mutationFn: (data: { email: string; username: string }) =>
+        googleAuthUser(data.email, data.username),
+      onSuccess: (data) => {
+        dispatch(tokenActions.initAuthData(data))
+      }
+    },
+    queryClient
+  );
+
   useEffect(() => {
-    console.log(googleData)
-  },[googleData])
+    if(googleData) {
+      mutateGoogle.mutate({email: googleData.email, username: googleData.email})
+    }
+  }, [googleData]);
 
   const handleSuccessGoogle = async (response: any) => {
     const result = await googleAuth(response);
-    if(result) {
-      const {email, username, lastname, id} = result;
-      setGoogleData({email, username, lastname, id});
+    if (result) {
+      const { email, username, lastname, id } = result;
+      setGoogleData({ email, username, lastname, id });
     }
   };
 
   const dataGoogle = useGoogleLogin({
-    onSuccess: handleSuccessGoogle
+    onSuccess: handleSuccessGoogle,
   });
 
   return (

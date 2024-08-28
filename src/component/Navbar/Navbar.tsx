@@ -11,7 +11,7 @@ export const Navbar = () => {
           data-menu-item-toggle="accordion"
           data-menu-item-trigger="click"
         >
-          <Link className={`${style.pageLink} menu-link`} to='/static-banners'>
+          <Link className={`${style.pageLink} menu-link`} to='static-banners'>
             <span className="menu-icon">
               <i className="ki-filled ki-category"></i>
             </span>

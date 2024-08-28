@@ -1,9 +1,31 @@
 import style from "./PromocodeModal.module.scss";
 import { useState } from "react";
 import { Button, Modal } from "../../ui";
+import { useMutation } from "@tanstack/react-query";
+import { createPromorcode } from "../../api/gifAdd";
+import { queryClient } from "../../api/queryClient";
+import { useSelector } from "react-redux";
+import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 
 export const PromocodeModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [promocode, setPromocode] = useState<string>('');
+  const token = useSelector(getTokenUser)
+
+  const mutatePromo = useMutation(
+    {
+      mutationFn: (data: { token: string; promocode: string }) =>
+        createPromorcode(data.token, data.promocode),
+      onSuccess: () => {
+        setIsModalOpen(false);
+      }
+    },
+    queryClient
+  );
+
+  const handleSave = () => {
+    mutatePromo.mutate({ token, promocode });
+  };
 
   return (
     <Modal isOpen={isModalOpen}>
@@ -21,10 +43,12 @@ export const PromocodeModal = () => {
 
         <label className={style.modalInputBlock} htmlFor="">
           <span>Your promocode</span>
-          <input className={style.modalInput} type="number" />
+          <input maxLength={15} className={style.modalInput} value={promocode}
+            onChange={(e) => setPromocode(e.target.value)} />
         </label>
-
-        <Button className={style.modalButton}>Save</Button>
+        <button onClick={handleSave} className={style.modalButton}>
+          Save
+        </button>
       </div>
     </Modal>
   );
