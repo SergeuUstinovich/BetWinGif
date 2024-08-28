@@ -1,9 +1,6 @@
 import style from "./GifCards.module.scss";
 import { DownloadSvg } from "../../assets/svg/DownloadSvg";
 import { Button } from "../../ui";
-import { AddIntegrations } from "../AddIntegration";
-import { useSelector } from "react-redux";
-import { getGifGenerated } from "../../providers/StoreProvider/selectors/getGifGenerated";
 import { useEffect, useRef, useState } from "react";
 import GIF from "gif.js";
 
@@ -13,7 +10,6 @@ interface ImageToGifProps {
 }
 
 export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
-  const gif = useSelector(getGifGenerated);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gifUrl, setGifUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -38,7 +34,7 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
 
           const img = new Image();
           img.src = encodedSvg;
-
+          
           img.onload = () => {
             canvas.width = img.width;
             canvas.height = img.height;
@@ -55,10 +51,6 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
     ctx.drawImage(img, 0, 0);
   };
 
-  useEffect(() => {
-    console.log(gif);
-  }, [gif]);
-
   const createGif = () => {
     const canvas = canvasRef.current;
 
@@ -73,14 +65,13 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
           const gif = new GIF({
             workers: 2,
             quality: 10,
-            // transparent: 0x00FF00,
+            transparent: 'rgba(0,0,0,0)'
           });
 
           let x = -img.width;
           const step = () => {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
             ctx.drawImage(img, x, (ctx.canvas.height - img.height) / 2);
-
             gif.addFrame(ctx.canvas, { copy: true, delay: 20 });
 
             if (x < (ctx.canvas.width - img.width) / 2) {
@@ -122,8 +113,8 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
   return (
     <>
       <div className={`${style.gifBlock} max-w-[1140px] m-auto`}>
-        <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-        {gifUrl && (
+        <canvas ref={canvasRef} style={{ display: "none", backgroundColor: 'transparent' }}></canvas>
+        {gifUrl ? (
           <div className={style.gifCard}>
             <img className={style.gifImg} src={gifUrl} alt="gif" />
             <Button onClick={downloadGif} className={style.gifButton}>
@@ -131,7 +122,7 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
               Download
             </Button>
           </div>
-        )}
+        ) : (<div>Loading...</div> )}
       </div>
     </>
   );

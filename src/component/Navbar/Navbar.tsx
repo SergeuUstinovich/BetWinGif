@@ -1,8 +1,32 @@
+import { useDispatch, useSelector } from "react-redux";
 import { ScrollSpy } from "../ScrollSpy";
 import style from "./Navbar.module.scss";
 import {Link} from "react-router-dom";
+import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
+import { useMutation } from "@tanstack/react-query";
+import { logoutUser } from "../../api/authUser";
+import { tokenActions } from "../../providers/StoreProvider";
+import { queryClient } from "../../api/queryClient";
 
 export const Navbar = () => {
+
+  const token = useSelector(getTokenUser)
+  const dispatch = useDispatch()
+
+  const mutateLogout = useMutation(
+    {
+      mutationFn: (data: { token }) => logoutUser(data.token),
+      onSuccess: () => {
+        dispatch(tokenActions.logout())
+      }
+    },
+    queryClient
+  );
+
+  const handleLogout = () => {
+    mutateLogout.mutate({token})
+  }
+
   return (
     <nav>
       <div className="menu menu-default flex flex-col w-full" data-menu="true">
@@ -110,6 +134,7 @@ export const Navbar = () => {
           </a>
         </div>
       </div>
+      <button onClick={handleLogout} className={style.logout}>Sing out</button>
     </nav>
   );
 };

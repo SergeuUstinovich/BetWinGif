@@ -3,6 +3,7 @@ import { AddIntegrations } from "../AddIntegration";
 import { GifCards } from "../GifCards";
 
 function GitRequest({ svgContent, text }: gifGeneratedType) {
+    console.log(text)
   return (
     <>
       {svgContent && text ? (

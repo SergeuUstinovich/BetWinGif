@@ -5,7 +5,6 @@ import { useMutation } from "@tanstack/react-query";
 import { gifAdd } from "../../api/gifAdd";
 import { queryClient } from "../../api/queryClient";
 import { useDispatch, useSelector } from "react-redux";
-import { gifActions } from "../../providers/StoreProvider";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import { gifGenActions } from "../../providers/StoreProvider/slice/gifGenSlice";
 
@@ -21,8 +20,7 @@ export const Topbar = () => {
   const mutateGifAdd = useMutation({
     mutationFn: (data:{token:string}) => gifAdd(data.token),
     onSuccess: (data) => {
-      console.log(data)
-      dispatch(gifGenActions.gifGenAdd({svgContent: data.svg, text: data.promocode}))
+      dispatch(gifGenActions.gifGenAdd({svgContent: data.svg, text: data.promokode}))
     }
   },queryClient)
 

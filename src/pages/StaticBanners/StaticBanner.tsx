@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Accordion, AddIntegrations, Cards, Topbar } from "../../component";
+import { Accordion, Cards } from "../../component";
 import StatickGif from "../../component/StatickGif/StatickGif";
 import { TopbarStatic } from "../../component/TopbarStatic/TopbarStatic";
 import arrAccord from './AccordDataStatic'
