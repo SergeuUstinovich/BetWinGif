@@ -6,6 +6,8 @@
 }
 
 .gifImg {
+    max-width: 300px;
+    max-height: 300px;
     margin-bottom: 14px;
     padding-bottom: var(--offset-30);
     border-bottom: 1px solid var(--lightmode-grey-grey-200);

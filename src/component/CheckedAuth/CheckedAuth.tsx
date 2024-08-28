@@ -14,7 +14,7 @@ function CheckedAuth({email}: CheckedAuthProps) {
     const { emailName } = location.state || {};
     const defaultPropName = emailName || email;
 
-    const linkText = location.pathname === '/auth/forgot' ? 'Skip for now' : 'Back to Home';
+    const linkText = location.pathname === '/auths/forgot' ? 'Skip for now' : 'Back to Home';
     // const linkRoute = location.pathname === '/auth/forgot' ? '/auth/forgot-password' : '/auth';
 
     return(
@@ -24,7 +24,7 @@ function CheckedAuth({email}: CheckedAuthProps) {
             <p className={style.descr}>
                 Please click the link sent to your email <span className={style.spanEmail}>{defaultPropName}</span> <br />  to verify your account. Thank you
             </p>
-            <Link className={style.link} to={'/auth'}>{linkText}</Link>
+            <Link className={style.link} to={'/auths'}>{linkText}</Link>
             <div className={style.boxResend}>
                 <p className={style.descrResend}>Didn't receive an email?</p>
                 <Button className={style.btn}>Resend</Button>

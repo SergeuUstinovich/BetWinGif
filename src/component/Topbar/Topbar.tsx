@@ -4,9 +4,12 @@ import { Button } from "../../ui/Button";
 import { useMutation } from "@tanstack/react-query";
 import { gifAdd } from "../../api/gifAdd";
 import { queryClient } from "../../api/queryClient";
+import { useDispatch } from "react-redux";
+import { gifActions } from "../../providers/StoreProvider";
 
 export const Topbar = () => {
   const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main.json'
+  const dispatch = useDispatch()
 
   const toggle = (lng) => {
     i18n.changeLanguage(lng);
@@ -16,6 +19,7 @@ export const Topbar = () => {
     mutationFn: () => gifAdd(),
     onSuccess: (data) => {
       console.log(data)
+      dispatch(gifActions.gifAdd(data))
     }
   },queryClient)
 
@@ -79,7 +83,7 @@ export const Topbar = () => {
           Тематика
         </option>
       </select>
-      <Button onClick={handleGifAdd} className={style.topBtn}>Generare Now</Button>
+      <Button isLoading={mutateGifAdd.isPending} onClick={handleGifAdd} className={style.topBtn}>Generare Now</Button>
     </div>
   );
 };
