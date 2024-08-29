@@ -28,7 +28,7 @@ export const PromocodeModal = ({isPromoCheck}) => {
     if(isPromoCheck) {
       setIsModalOpen(true)
     }
-  }, [])
+  }, [isPromoCheck])
 
   const handleSave = () => {
     mutatePromo.mutate({ token, promocode });
