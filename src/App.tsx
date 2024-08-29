@@ -36,8 +36,7 @@ function App() {
               </PrivateRoute>
             }
           >
-            <Route index element={<PromocodeModal />} />
-            <Route path={'static-banners'} element={<StaticBanners />} />
+            <Route index element={<StaticBanners />} />
             <Route path={"gif-banners"} element={<GifBanners />} />
           </Route>
           <Route path={"/auths"} element={<Auth />}>

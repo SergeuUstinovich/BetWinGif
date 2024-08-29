@@ -1,25 +1,26 @@
 .modalBlock {
     display: flex;
     flex-direction: column;
+    padding: 20px 30px;
+    
 }
 
 .modalTitle {
-    padding: 20px 30px;
     font-size: 16px;
     font-weight: 600;
     line-height: 16px;
+    margin-bottom: 20px;
     border-bottom: 1px solid var(--lightmode-grey-grey-200);
 }
 
 .modalText {
-    padding: 20px 30px;
     font-size: 13px;
     font-weight: 500;
     line-height: 20px;
+    margin-bottom: 10px;
 }
 
 .modalInputBlock {
-    padding: 10px 60px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,6 +28,7 @@
     font-weight: 500;
     line-height: 14px;
     letter-spacing: -0.01em;
+    margin-bottom: 5px;
 }
 
 .modalInput {
@@ -37,11 +39,19 @@
 }
 
 .modalButton {
-    margin-right: 30px;
-    margin-bottom: 30px;
     padding: 5px 10px;
     align-self: flex-end;
     color: var(--white-text);
     border-radius: 8px;
     background-color: var(--bg-btn);
+}
+
+.error {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    color: var(--lightmode-danger-danger);
+    margin-bottom: 20px;
+    text-align: right;
 }

@@ -4,12 +4,16 @@ import { Button, Modal } from "../../ui";
 import passwordChanged from "../../assets/img/png/PasswordChanged.png";
 
 export const PasswordModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const handleClose = () => {
+    setIsModalOpen(false)
+  }
 
   return (
-    <Modal isOpen={isModalOpen}>
+    <Modal isOpen={isModalOpen} onClose={handleClose}>
       <div className={style.modalBlock}>
-        <h2 className={style.modalTitle}>Step 1</h2>
+        <h2 className={style.modalTitle}>Step 2</h2>
         <div className={style.modalDownBlock}>
           <img
             className={style.modalImg}
@@ -22,7 +26,7 @@ export const PasswordModal = () => {
             is our priority.
           </p>
         </div>
-        <Button className={style.modalButton}>Save</Button>
+        <Button onClick={handleClose} className={style.modalButton}>Save</Button>
       </div>
     </Modal>
   );

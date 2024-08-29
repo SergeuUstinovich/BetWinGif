@@ -1,14 +1,15 @@
 import style from "./PromocodeModal.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal } from "../../ui";
 import { useMutation } from "@tanstack/react-query";
 import { createPromorcode } from "../../api/gifAdd";
 import { queryClient } from "../../api/queryClient";
 import { useSelector } from "react-redux";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
+import { PasswordModal } from "../PasswordModal";
 
-export const PromocodeModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+export const PromocodeModal = ({isPromoCheck}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [promocode, setPromocode] = useState<string>('');
   const token = useSelector(getTokenUser)
 
@@ -23,9 +24,19 @@ export const PromocodeModal = () => {
     queryClient
   );
 
+  useEffect(() => {
+    if(isPromoCheck) {
+      setIsModalOpen(true)
+    }
+  }, [])
+
   const handleSave = () => {
     mutatePromo.mutate({ token, promocode });
   };
+
+  if(mutatePromo.isSuccess) {
+    return (<PasswordModal />)
+  }
 
   return (
     <Modal isOpen={isModalOpen}>
@@ -46,6 +57,7 @@ export const PromocodeModal = () => {
           <input maxLength={15} className={style.modalInput} value={promocode}
             onChange={(e) => setPromocode(e.target.value)} />
         </label>
+        {mutatePromo.error && <span className={style.error}>{mutatePromo.error.message}</span>}
         <button onClick={handleSave} className={style.modalButton}>
           Save
         </button>
