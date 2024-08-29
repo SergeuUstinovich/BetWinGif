@@ -47,10 +47,10 @@ function LoginForm() {
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("email");
-    const savedPassword = localStorage.getItem("password");
-    if (savedEmail && savedPassword) {
+    // const savedPassword = localStorage.getItem("password");
+    if (savedEmail) { //&& savedPassword
       setValue("email", savedEmail);
-      setValue("password", savedPassword);
+      // setValue("password", savedPassword);
       setRememberMe(true);
     }
   }, [setValue]);
@@ -62,10 +62,10 @@ function LoginForm() {
   const onSubmit = (data: LoginType) => {
     if (rememberMe) {
       localStorage.setItem("email", data.email);
-      localStorage.setItem("password", data.password);
+      // localStorage.setItem("password", data.password);
     } else {
       localStorage.removeItem("email");
-      localStorage.removeItem("password");
+      // localStorage.removeItem("password");
     }
     mutateLogin.mutate({email: data.email, password: data.password})
   };
