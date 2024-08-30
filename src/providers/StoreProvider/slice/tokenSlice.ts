@@ -2,7 +2,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { TokenScheme } from "../../../types/AuthToken";
 
 const initialState: TokenScheme = {
-    token: localStorage.getItem('userToken') ?? undefined
+    token: localStorage.getItem('userToken') ?? undefined,
+    admin: true
 }
 
 export const tokenSlice = createSlice({
@@ -12,6 +13,9 @@ export const tokenSlice = createSlice({
     initAuthData: (state, action: PayloadAction<string>) => {
       localStorage.setItem('userToken', action.payload)
       state.token = action.payload;
+    },
+    adminCheck: (state, action: PayloadAction<boolean>) => {
+      state.admin = action.payload;
     },
     logout: (state) => {
       state.token = undefined;

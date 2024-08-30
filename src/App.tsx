@@ -7,16 +7,25 @@ import PrivateRoute from "./utils/PrivateRoute.tsx";
 import Auth from "./pages/Auth/Auth.tsx";
 import ProtectedRoute from "./utils/ProtectedAuth.tsx";
 import { PromocodeModal } from "./component/PromocodeModal/PromocodeModal.tsx";
-
+import AdminRoute from "./utils/adminRoute.tsx";
+import MenegerAdmin from "./component/MenegerAdmin/MenegerAdmin.tsx";
 
 const Layout = lazy(() => import("./pages/Layout/Layout.tsx"));
-const StaticBanners = lazy(() => import("./pages/StaticBanners/StaticBanner.tsx"));
+const StaticBanners = lazy(
+  () => import("./pages/StaticBanners/StaticBanner.tsx")
+);
 const GifBanners = lazy(() => import("./pages/GifBanners/GifBanners.tsx"));
 
 const AuthForm = lazy(() => import("./component/AuthForm/AuthForm.tsx"));
-const CheckedAuth = lazy(() => import("./component/CheckedAuth/CheckedAuth.tsx"));
-const ForgotPassword = lazy(() => import("./component/ForgotPassword/ForgotPassword.tsx"));
-const ForgotNewPassword = lazy(() => import("./component/ForgotNewPassword/ForgotNewPassword.tsx"));
+const CheckedAuth = lazy(
+  () => import("./component/CheckedAuth/CheckedAuth.tsx")
+);
+const ForgotPassword = lazy(
+  () => import("./component/ForgotPassword/ForgotPassword.tsx")
+);
+const ForgotNewPassword = lazy(
+  () => import("./component/ForgotNewPassword/ForgotNewPassword.tsx")
+);
 
 function App() {
   useEffect(() => {
@@ -38,6 +47,14 @@ function App() {
           >
             <Route index element={<StaticBanners />} />
             <Route path={"gif-banners"} element={<GifBanners />} />
+            <Route
+              path={"admin-meneger"}
+              element={
+                <AdminRoute>
+                  <MenegerAdmin />
+                </AdminRoute>
+              }
+            />
           </Route>
           <Route path={"/auths"} element={<Auth />}>
             <Route index element={<AuthForm />} />
@@ -50,7 +67,10 @@ function App() {
               }
             />
             <Route path={"forgot"} element={<ForgotPassword />} />
-            <Route path={"forgot-password/:uid/:token"} element={<ForgotNewPassword />} />
+            <Route
+              path={"forgot-password/:uid/:token"}
+              element={<ForgotNewPassword />}
+            />
           </Route>
         </Routes>
       </Suspense>

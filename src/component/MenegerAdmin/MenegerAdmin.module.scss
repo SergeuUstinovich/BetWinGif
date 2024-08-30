@@ -1,0 +1,14 @@
+.box {
+    position: relative;
+}
+
+.boxInfo {
+    font-size: 40px;
+    font-family: Inter;
+    color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  
+}

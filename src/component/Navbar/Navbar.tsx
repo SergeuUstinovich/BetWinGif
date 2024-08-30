@@ -7,11 +7,13 @@ import { useMutation } from "@tanstack/react-query";
 import { logoutUser } from "../../api/authUser";
 import { tokenActions } from "../../providers/StoreProvider";
 import { queryClient } from "../../api/queryClient";
+import { getAdminCheck } from "../../providers/StoreProvider/selectors/getAdminCheck";
 
 export const Navbar = () => {
 
   const token = useSelector(getTokenUser)
   const dispatch = useDispatch()
+  const admin = useSelector(getAdminCheck)
 
   const mutateLogout = useMutation(
     {
@@ -35,7 +37,7 @@ export const Navbar = () => {
           data-menu-item-toggle="accordion"
           data-menu-item-trigger="click"
         >
-          <Link className={`${style.pageLink} menu-link`} to='static-banners'>
+          <Link className={`${style.pageLink} menu-link`} to='/'>
             <span className="menu-icon">
               <i className="ki-filled ki-category"></i>
             </span>
@@ -125,14 +127,16 @@ export const Navbar = () => {
             MISCELLANEOUS
           </span>
         </span>
-        <div className="menu-item">
-          <a className={`${style.pageLink} menu-link`} href="#">
+        {admin && (
+          <div className="menu-item">
+          <Link className={`${style.pageLink} menu-link`} to={"admin-meneger"}>
             <span className="menu-icon">
               <i className="ki-filled ki-some-files"></i>
             </span>
             <span className="menu-title">My manager</span>
-          </a>
+          </Link>
         </div>
+        )}
       </div>
       <button onClick={handleLogout} className={style.logout}>Sing out</button>
     </nav>
