@@ -24,7 +24,7 @@ function AccordionItem({ id, title, text }: AccordionProps) {
 
   return (
     <div
-      className="accordion-item [&:not(:last-child)]:border-b border-b-gray-200"
+      className="accordion-item"
       data-accordion-item="true"
       id="accordion_1_item_1"
     >

@@ -1,8 +1,7 @@
-.scrollTextBefore {
+.scrollTextBefore::before {
     content: "";
     position: absolute;
     top: 0;
-    left: -3px;
     right: 0;
     width: 5px;
     height: 5px;

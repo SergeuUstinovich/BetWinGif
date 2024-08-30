@@ -3,7 +3,7 @@ import Integration from "../../assets/img/png/addIntegrations.png";
 
 export const AddIntegrations = () => {
   return (
-    <div className={`${style.integrationBlock} max-w-[1140px] m-auto`}>
+    <div className={`${style.integrationBlock}`}>
       <img className={style.integrationImg} src={Integration} alt="" />
       <h2 className={style.integrationTitle}>Add New Integration</h2>
       <p className={style.integrationLabel}>
