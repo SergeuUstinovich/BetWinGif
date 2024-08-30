@@ -2,7 +2,7 @@ import { AreaSelector, IArea } from "@bmunozg/react-image-area";
 import { useState } from "react";
 import img from "../../assets/img/png/image.png";
 import { v4 } from "uuid";
-import style from './MenegerAdmin.module.scss'
+import style from "./MenegerAdmin.module.scss";
 
 interface ITextArea extends IArea {
   id: string;
@@ -12,7 +12,10 @@ interface ITextArea extends IArea {
 const MenegerAdmin = () => {
   const [areas, setAreas] = useState<ITextArea[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
 
   const onChangeHandler = (areas: IArea[]) => {
     setAreas(areas.map((area) => ({ ...area, id: v4(), text: "" })));
@@ -43,19 +46,25 @@ const MenegerAdmin = () => {
   };
 
   return (
-    <div>
-    <div>
-        <img style={{display: 'none'}} src={img} alt=""  />
-    <button onClick={toggleEditing}>
-        {isEditing ? "Завершить" : "Редактировать"}
-    </button>
-    </div>
-    
+    <div style={{width: `${imageDimensions.width + 10}px`}}>
+      <div>
+        <img style={{ display: "none" }} src={img} alt="" />
+        <button onClick={toggleEditing}>
+          {isEditing ? "Завершить" : "Редактировать"}
+        </button>
+      </div>
+
       {!isEditing ? (
-        <div className={style.box} style={{width: `${imageDimensions.width}px`, height: `${imageDimensions.height}px`}}>
-            <img src={img} alt="my image" onLoad={handleImageLoad} />
-            
-            {areas.map((area) => (
+        <div
+          className={style.box}
+          style={{
+            width: `${imageDimensions.width}px`,
+            height: `${imageDimensions.height}px`,
+          }}
+        >
+          <img src={img} alt="my image" onLoad={handleImageLoad} />
+
+          {areas.map((area) => (
             <div
               key={area.id}
               className={style.boxInfo}
@@ -71,35 +80,34 @@ const MenegerAdmin = () => {
             </div>
           ))}
         </div>
-        
       ) : (
         <AreaSelector areas={areas} onChange={onChangeHandler}>
-        <div className={style.box}>
-        <img  src={img} alt="my image" />
-          {areas.map((area) => (
-            <div
+          <div className={style.box}>
+            <img src={img} alt="my image" />
+            {areas.map((area) => (
+              <div
                 className={style.boxInfo}
-              key={area.id}
-              style={{
-                position: "absolute",
-                left: area.x,
-                top: area.y,
-                width: area.width,
-                height: area.height,
-              }}
-            >
-              {area.text}
-            </div>
-          ))}
-        </div>
+                key={area.id}
+                style={{
+                  position: "absolute",
+                  left: area.x,
+                  top: area.y,
+                  width: area.width,
+                  height: area.height,
+                }}
+              >
+                {area.text}
+              </div>
+            ))}
+          </div>
         </AreaSelector>
       )}
-        
+
       <div>
         {areas.map((area, index) => (
           <div key={area.id}>
             <input
-                disabled={!isEditing}
+              disabled={!isEditing}
               type="text"
               value={area.text}
               onChange={(event) => onTextChange(area.id, event)}
