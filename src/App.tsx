@@ -6,15 +6,14 @@ import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
 import Auth from "./pages/Auth/Auth.tsx";
 import ProtectedRoute from "./utils/ProtectedAuth.tsx";
-import { PromocodeModal } from "./component/PromocodeModal/PromocodeModal.tsx";
-import AdminRoute from "./utils/adminRoute.tsx";
-import MenegerAdmin from "./component/MenegerAdmin/MenegerAdmin.tsx";
+import AdminRoute from "./utils/AdminRoute.tsx";
 
 const Layout = lazy(() => import("./pages/Layout/Layout.tsx"));
 const StaticBanners = lazy(
   () => import("./pages/StaticBanners/StaticBanner.tsx")
 );
 const GifBanners = lazy(() => import("./pages/GifBanners/GifBanners.tsx"));
+const MenegerAdmin = lazy(() => import("./component/MenegerAdmin/MenegerAdmin.tsx"));
 
 const AuthForm = lazy(() => import("./component/AuthForm/AuthForm.tsx"));
 const CheckedAuth = lazy(

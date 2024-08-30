@@ -8,11 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import { gifGenActions } from "../../providers/StoreProvider/slice/gifGenSlice";
 import { SelectArrowSvg } from "../../assets/svg/SelectArrowSvg";
+import ListBox from "../../ui/ListBox/ListBox";
+import { useState } from "react";
 
 export const Topbar = () => {
   const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main.json'
   const dispatch = useDispatch();
   const token = useSelector(getTokenUser);
+  const [selectedCountry, setSelectedCountry] = useState();
 
   const toggle = (lng) => {
     i18n.changeLanguage(lng);
@@ -36,25 +39,24 @@ export const Topbar = () => {
   const handleGifAdd = () => {
     mutateGifAdd.mutate({ token });
   };
+  
+  const handleChangeCountry = (value) => {
+    setSelectedCountry(value);
+  };
 
   return (
     <ul className={`${style.topbar}`}>
       <li className={style.defaultSelect}>
-        <select className={style.selectTopbar}>
-          <option defaultValue="Страна">Страна</option>
-          <option value="en">England</option>
-          <option value="ru">Россия</option>
-          <option value="es">España</option>
-          <option value="fr">France</option>
-          <option value="de">Deutschland</option>
-          <option value="zh">中文</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-          <option value="ar">العربية</option>
-          <option value="pt">Portugal</option>
-          <option value="it">Italia</option>
-        </select>
-        <SelectArrowSvg />
+        <ListBox
+          defaultValue={"Страна"}
+          onChange={handleChangeCountry}
+          value={selectedCountry}
+          items={[
+            { value: "en", content: "en", id: "1" },
+            { value: "ru", content: "ru", id: "2", disabled: true },
+            { value: "fr", content: "fr", id: "3" },
+          ]}
+        />
       </li>
 
       <li className={style.defaultSelect}>
