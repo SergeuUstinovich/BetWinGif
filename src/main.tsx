@@ -8,7 +8,7 @@ import KTLayout from "./metronic/app/layouts/demo1.js";
 import { BrowserRouter, useLocation } from "react-router-dom";
 import "./providers/language/i18n.ts";
 import StoreProviders from "./providers/StoreProvider/StoreProviders.tsx";
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const googleId = import.meta.env.VITE_GOOGLE_CLIEND_ID;
 
@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <GoogleOAuthProvider clientId={googleId}>
           <Main />
-        </GoogleOAuthProvider>;
+        </GoogleOAuthProvider>
       </BrowserRouter>
     </StoreProviders>
   </React.StrictMode>

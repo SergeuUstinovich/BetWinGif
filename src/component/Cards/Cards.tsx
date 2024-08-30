@@ -4,7 +4,7 @@ import CardTwo from "../../assets/img/jpg/staticCardTwo.jpg";
 
 export const Cards = () => {
   return (
-    <div className={`${style.cards} max-w-[1140px] m-auto`}>
+    <div className={`${style.cards}`}>
       <div className="card">
         <div className="card-body flex gap-10 justify-center">
           <div className="flex flex-col justify-center">

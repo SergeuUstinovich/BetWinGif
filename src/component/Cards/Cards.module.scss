@@ -1,4 +1,6 @@
 .cards {
+    margin: 0 auto;
+    max-width: 1140px;
     display: flex;
     gap: var(--offset-30);
 }
