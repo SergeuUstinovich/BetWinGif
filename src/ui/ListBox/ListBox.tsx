@@ -27,7 +27,6 @@ interface ListBoxProps {
 
 function ListBox(props: ListBoxProps) {
   const { className, items, value, defaultValue, onChange } = props
-  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <Listbox
@@ -38,7 +37,7 @@ function ListBox(props: ListBoxProps) {
     >
       <ListboxButton className={style.trigger}>
         {value ?? defaultValue}
-        <SelectArrowSvg className={isOpen && `${style.revers}`} />
+        <SelectArrowSvg />
       </ListboxButton>
       <ListboxOptions className={style.options} anchor="bottom">
         {items?.map((item) => (
