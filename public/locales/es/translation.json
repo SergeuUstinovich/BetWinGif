@@ -25,5 +25,9 @@
   "Password can only contain Latin letters numbers and ~!@#$%^&*()[]{}>< and other symbols": "La contraseña solo puede contener letras latinas números y ~!@#$%^&*()[]{}>< y otros símbolos",
   "Password must not start with a space": "La contraseña no debe comenzar con un espacio",
   "Consent is required for registration": "Se requiere consentimiento para el registro",
-  "Passwords do not match": "Las contraseñas no coinciden"
+  "Passwords do not match": "Las contraseñas no coinciden",
+  "Step": "Paso",
+  "Step_Text": "Para comenzar a usar el servicio, debe estar registrado en la plataforma BetWinner Affiliates",
+  "Step_TextTwo": "y tener un 'Código promocional' de socio activo. Si no tiene uno, no se preocupe. Simplemente vaya a la sección 'Código promocional'",
+  "Step_TextThree": "y cree un nuevo código. Ingrese el código promocional activo en el campo de abajo."
 }

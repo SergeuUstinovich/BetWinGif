@@ -1,57 +1,62 @@
 .modalBlock {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 30px;
-    
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
 }
 
 .modalTitle {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 16px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--lightmode-grey-grey-200);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--lightmode-grey-grey-200);
 }
 
 .modalText {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 20px;
-    margin-bottom: 10px;
+  color: var(--lightmode-grey-grey-700);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 10px;
 }
 
 .modalInputBlock {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: -0.01em;
-    margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
 }
 
 .modalInput {
-    padding: 13px 12px;
-    min-width: 310px;
-    border: 1px solid var(--lightmode-grey-grey-300);
-    border-radius: 6px;
+  padding: 13px 12px;
+  min-width: 310px;
+  border: 1px solid var(--lightmode-grey-grey-300);
+  border-radius: 6px;
 }
 
 .modalButton {
-    padding: 5px 10px;
-    align-self: flex-end;
-    color: var(--white-text);
-    border-radius: 8px;
-    background-color: var(--bg-btn);
+  padding: 5px 10px;
+  align-self: flex-end;
+  color: var(--white-text);
+  border-radius: 8px;
+  background-color: var(--bg-btn);
 }
 
 .error {
-    display: block;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 100%;
-    color: var(--lightmode-danger-danger);
-    margin-bottom: 20px;
-    text-align: right;
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--lightmode-danger-danger);
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.modalLink {
+  margin-right: 5px;
+  color: var(--lightmode-primary-primary);
 }

@@ -50,6 +50,7 @@ export const Topbar = () => {
           defaultValue={'Страна'}
           onChange={handleChangeCountry}
           value={selectedCountry}
+          hiddenArrow
           items={[
             { value: 'en', content: 'en', id: '1' },
             { value: 'ru', content: 'ru', id: '2', disabled: true },
@@ -62,6 +63,7 @@ export const Topbar = () => {
         <ListBox
           defaultValue={'Язык'}
           onChange={(e) => toggle(e.target.value)}
+          hiddenArrow
           items={[
             { value: 'en', content: 'English', id: '1' },
             { value: 'ru', content: 'Русский', id: '2', disabled: true },
@@ -73,6 +75,7 @@ export const Topbar = () => {
       <li className={style.defaultSelect}>
         <ListBox
           defaultValue={'Валюта'}
+          hiddenArrow
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
@@ -80,6 +83,7 @@ export const Topbar = () => {
       <li className={style.defaultSelect}>
         <ListBox
           defaultValue={'Формат'}
+          hiddenArrow
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
@@ -87,6 +91,7 @@ export const Topbar = () => {
       <li className={`${style.defaultSelect} mr-auto`}>
         <ListBox
           defaultValue={'Тематика'}
+          hiddenArrow
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
@@ -97,7 +102,7 @@ export const Topbar = () => {
           onClick={handleGifAdd}
           className={style.topBtn}
         >
-          Generare Now
+          {t('Generare Now')}
         </Button>
       </li>
     </ul>

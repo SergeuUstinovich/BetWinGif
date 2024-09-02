@@ -21,11 +21,12 @@ interface ListBoxProps {
   className?: string
   value?: string
   defaultValue?: string
+  hiddenArrow?: boolean
   onChange?: <T>(value: T) => void
 }
 
 function ListBox(props: ListBoxProps) {
-  const { className, items, value, defaultValue, onChange } = props
+  const { className, items, value, defaultValue, hiddenArrow, onChange } = props
 
   return (
     <Listbox
@@ -36,7 +37,7 @@ function ListBox(props: ListBoxProps) {
     >
       <ListboxButton className={style.trigger}>
         {value ?? defaultValue}
-        <SelectArrowSvg />
+        {hiddenArrow && <SelectArrowSvg />}
       </ListboxButton>
       <ListboxOptions className={style.options} anchor="bottom">
         {items?.map((item) => (
