@@ -7,8 +7,8 @@ export const PasswordModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleClose = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   return (
     <Modal isOpen={isModalOpen} onClose={handleClose}>
@@ -26,7 +26,9 @@ export const PasswordModal = () => {
             is our priority.
           </p>
         </div>
-        <Button onClick={handleClose} className={style.modalButton}>Save</Button>
+        <Button onClick={handleClose} className={style.modalButton}>
+          Done
+        </Button>
       </div>
     </Modal>
   );
