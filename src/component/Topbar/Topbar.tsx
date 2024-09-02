@@ -47,7 +47,7 @@ export const Topbar = () => {
     <ul className={`${style.topbar}`}>
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Страна'}
+          defaultValue={t('Country')}
           onChange={handleChangeCountry}
           value={selectedCountry}
           hiddenArrow
@@ -61,7 +61,7 @@ export const Topbar = () => {
 
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Язык'}
+          defaultValue={t('Language')}
           onChange={toggle}
           items={[
             { value: 'en', content: 'English', id: '1' },
@@ -73,24 +73,21 @@ export const Topbar = () => {
 
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Валюта'}
-          hiddenArrow
+          defaultValue={t('Currency')}
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
 
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Формат'}
-          hiddenArrow
+          defaultValue={t('Banner format')}
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
 
       <li className={`${style.defaultSelect} mr-auto`}>
         <ListBox
-          defaultValue={'Тематика'}
-          hiddenArrow
+          defaultValue={t('Banner theme')}
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>

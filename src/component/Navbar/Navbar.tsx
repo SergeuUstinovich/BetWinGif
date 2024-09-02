@@ -145,7 +145,7 @@ export const Navbar = () => {
         )}
       </div>
       <button onClick={handleLogout} className={style.logout}>
-        Sing out
+        {t('Sing out')}
       </button>
     </nav>
   )

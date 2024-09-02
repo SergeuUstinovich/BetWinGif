@@ -5,7 +5,6 @@ import AccordionItem from './AccordionItem'
 
 export const Accordion = ({ arrAccord }: AccordionArrProps) => {
   const { t } = useTranslation()
-
   return (
     <div className={`${style.accordion}`} data-accordion="true">
       <h2 className={style.accordionTitle}>{t('FAQ')}</h2>

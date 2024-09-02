@@ -9,12 +9,14 @@ import { useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { resetPasswordUser } from "../../api/authUser";
 import { queryClient } from "../../api/queryClient";
+import { useTranslation } from "react-i18next";
 
 function ForgotNewPassword() {
   const { uid, token } = useParams();
   const [succesPost, setSuccesPost] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [showPassConf, setShowPassConf] = useState(false);
+  const { t } = useTranslation();
 
   const handleShowPass = () => {
     setShowPass((prev) => !prev);
@@ -98,7 +100,7 @@ function ForgotNewPassword() {
           </div>
         </div>
         {errors && (
-          <span className={style.error}>{errors.password?.message}</span>
+          <span className={style.error}>{t(errors.password?.message)}</span>
         )}
       </label>
       <label className={style.label}>
@@ -128,7 +130,7 @@ function ForgotNewPassword() {
           </div>
         </div>
         {errors && (
-          <span className={style.error}>{errors.confirmPassword?.message}</span>
+          <span className={style.error}>{t(errors.confirmPassword?.message)}</span>
         )}
       </label>
       {mutateResetPassword.error && <span className={style.error}>{mutateResetPassword.error.message}</span>}
