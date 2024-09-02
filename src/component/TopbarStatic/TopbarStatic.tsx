@@ -13,28 +13,31 @@ import { useState } from "react";
 
 export const TopbarStatic = () => {
   const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main.json'
-  const dispatch = useDispatch()
-  const token = useSelector(getTokenUser)
-  const [selectedCountry, setSelectedCountry] = useState()
+  const dispatch = useDispatch();
+  const token = useSelector(getTokenUser);
+  const [selectedCountry, setSelectedCountry] = useState();
 
   const toggle = (lng) => {
     i18n.changeLanguage(lng);
   };
 
-  const mutateStaticAdd = useMutation({
-    mutationFn: (data:{token:string}) => staticBanner(data.token),
-    onSuccess: (data) => {
-      dispatch(gifActions.gifAdd(data))
-    }
-  },queryClient)
+  const mutateStaticAdd = useMutation(
+    {
+      mutationFn: (data: { token: string }) => staticBanner(data.token),
+      onSuccess: (data) => {
+        dispatch(gifActions.gifAdd(data));
+      },
+    },
+    queryClient
+  );
 
   const handleGifAdd = () => {
-    mutateStaticAdd.mutate({token})
-  }
+    mutateStaticAdd.mutate({ token });
+  };
 
   const handleChangeCountry = (value) => {
-    setSelectedCountry(value)
-  }
+    setSelectedCountry(value);
+  };
 
   return (
     <ul className={`${style.topbar}`}>
@@ -44,9 +47,9 @@ export const TopbarStatic = () => {
           onChange={handleChangeCountry}
           value={selectedCountry}
           items={[
-            { value: 'en', content: 'en', id: '1' },
-            { value: 'ru', content: 'ru', id: '2', disabled: true },
-            { value: 'fr', content: 'fr', id: '3' },
+            { value: "en", content: "en", id: "1" },
+            { value: "ru", content: "ru", id: "2", disabled: true },
+            { value: "fr", content: "fr", id: "3" },
           ]}
         />
       </li>
@@ -56,9 +59,9 @@ export const TopbarStatic = () => {
           defaultValue={t("Language")}
           onChange={toggle}
           items={[
-            { value: 'en', content: 'English', id: '1' },
-            { value: 'ru', content: 'Русский', id: '2', disabled: true },
-            { value: 'fr', content: 'Française', id: '3' },
+            { value: "en", content: "English", id: "1" },
+            { value: "ru", content: "Русский", id: "2", disabled: true },
+            { value: "fr", content: "Française", id: "3" },
           ]}
         />
       </li>
@@ -66,21 +69,21 @@ export const TopbarStatic = () => {
       <li className={style.defaultSelect}>
         <ListBox
           defaultValue={t("Currency")}
-          items={[{ value: 'en', content: 'English', id: '1' }]}
+          items={[{ value: "en", content: "English", id: "1" }]}
         />
       </li>
 
       <li className={style.defaultSelect}>
         <ListBox
           defaultValue={t("Banner format")}
-          items={[{ value: 'en', content: 'English', id: '1' }]}
+          items={[{ value: "en", content: "English", id: "1" }]}
         />
       </li>
 
-      <li className={`${style.defaultSelect} mr-auto`}>
+      <li className={`${style.defaultSelect} ${style.lastDefaultSelect}`}>
         <ListBox
           defaultValue={t("Banner theme")}
-          items={[{ value: 'en', content: 'English', id: '1' }]}
+          items={[{ value: "en", content: "English", id: "1" }]}
         />
       </li>
 
