@@ -90,7 +90,7 @@ function RegisterForm() {
           type="email"
           {...register("email")}
         />
-        {errors && <span className={style.error}>{errors.email?.message}</span>}
+        {errors && <span className={style.error}>{t(errors.email?.message)}</span>}
       </label>
       <label>
         <span className={style.formTitle}>Password</span>
@@ -117,7 +117,7 @@ function RegisterForm() {
           </div>
         </div>
         {errors && (
-          <span className={style.error}>{errors.password?.message}</span>
+          <span className={style.error}>{t(errors.password?.message)}</span>
         )}
       </label>
       <label>
@@ -147,7 +147,7 @@ function RegisterForm() {
           </div>
         </div>
         {errors && (
-          <span className={style.error}>{errors.confirmPassword?.message}</span>
+          <span className={style.error}>{t(errors.confirmPassword?.message)}</span>
         )}
       </label>
       <label className="form-label flex items-center gap-2.5">
@@ -159,7 +159,7 @@ function RegisterForm() {
         />
         <p>I accept Terms & Conditions</p>
       </label>
-      {errors && <span className={style.error}>{errors.consent?.message}</span>}
+      {errors && <span className={style.error}>{t(errors.consent?.message)}</span>}
       {mutateRegistr.error && <span className={style.error}>{mutateRegistr.error.message}</span>}
       <Button isLoading={mutateRegistr.isPending} type="submit" className={style.btnSub}>
         Sign up

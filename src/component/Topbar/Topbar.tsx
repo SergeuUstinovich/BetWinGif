@@ -47,7 +47,7 @@ export const Topbar = () => {
     <ul className={`${style.topbar}`}>
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Страна'}
+          defaultValue={t("Country")}
           onChange={handleChangeCountry}
           value={selectedCountry}
           items={[
@@ -60,7 +60,7 @@ export const Topbar = () => {
 
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Язык'}
+          defaultValue={t("Language")}
           onChange={toggle}
           items={[
             { value: 'en', content: 'English', id: '1' },
@@ -72,21 +72,21 @@ export const Topbar = () => {
 
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Валюта'}
+          defaultValue={t("Currency")}
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
 
       <li className={style.defaultSelect}>
         <ListBox
-          defaultValue={'Формат'}
+          defaultValue={t("Banner format")}
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
 
       <li className={`${style.defaultSelect} mr-auto`}>
         <ListBox
-          defaultValue={'Тематика'}
+          defaultValue={t("Banner theme")}
           items={[{ value: 'en', content: 'English', id: '1' }]}
         />
       </li>
@@ -97,7 +97,7 @@ export const Topbar = () => {
           onClick={handleGifAdd}
           className={style.topBtn}
         >
-          Generare Now
+          {t("Generare Now")}
         </Button>
       </li>
     </ul>

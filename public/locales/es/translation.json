@@ -18,12 +18,12 @@
   "Change promo code": "Cambiar código promocional",
   "**Questions?**": "**¿Preguntas?**",
   "**Contact Support**": "**Contactar con soporte**",
-  "Please check the email address you entered": "Por favor verifique la dirección de correo electrónico ingresada",
-  "Maximum email address length exceeded": "Se ha excedido la longitud máxima de la dirección de correo electrónico",
-  "Enter more than 8 characters": "Ingrese más de 8 caracteres",
-  "No more than 25 characters": "No más de 25 caracteres",
-  "Password can only contain Latin letters numbers and ~!@#$%^&*()[]{}>< and other symbols": "La contraseña solo puede contener letras latinas números y ~!@#$%^&*()[]{}>< y otros símbolos",
-  "Password must not start with a space": "La contraseña no debe comenzar con un espacio",
-  "Consent is required for registration": "Se requiere consentimiento para el registro",
-  "Passwords do not match": "Las contraseñas no coinciden"
+  "Email_error": "Por favor verifique la dirección de correo electrónico ingresada",
+  "Email_error_length": "Se ha excedido la longitud máxima de la dirección de correo electrónico",
+  "Password_error_min_length": "Ingrese más de 8 caracteres",
+  "Password_error_max_length": "No más de 25 caracteres",
+  "Password_other_symbols": "La contraseña solo puede contener letras latinas números y ~!@#$%^&*()[]{}>< y otros símbolos",
+  "Password_space": "La contraseña no debe comenzar con un espacio",
+  "Consent_is_required": "Se requiere consentimiento para el registro",
+  "Passwords_do_not_match": "Las contraseñas no coinciden"
 }

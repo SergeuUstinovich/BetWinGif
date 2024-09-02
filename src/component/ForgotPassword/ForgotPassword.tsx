@@ -9,10 +9,12 @@ import { ForgotEmailScheme, ForgotEmailType } from "../../types/AuthType";
 import { useMutation } from "@tanstack/react-query";
 import { resetUser } from "../../api/authUser";
 import { queryClient } from "../../api/queryClient";
+import { useTranslation } from "react-i18next";
 
 function ForgotPassword() {
     const [succesPost, setSuccesPost] = useState(false);
     const [emails, setEmails] = useState("");
+    const { t } = useTranslation();
 
     const mutateReset = useMutation({
       mutationFn: (data:{email:string}) => resetUser(data.email),
@@ -51,7 +53,7 @@ function ForgotPassword() {
           required
           {...register('email')}
         />
-        {errors && <span className={style.error}>{errors.email?.message}</span>}
+        {errors && <span className={style.error}>{t(errors.email?.message)}</span>}
       </label>
       {mutateReset.error && <span className={style.error}>{mutateReset.error.message}</span>}
       <Button isLoading={mutateReset.isPending} className={style.btn}>Contoinue <ArrowSvgForgot /></Button>

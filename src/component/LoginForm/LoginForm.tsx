@@ -11,6 +11,7 @@ import { tokenActions } from "../../providers/StoreProvider";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api/authUser";
 import { queryClient } from "../../api/queryClient";
+import { useTranslation } from "react-i18next";
 
 function LoginForm() {
   const [showPass, setShowPass] = useState(false);
@@ -18,6 +19,7 @@ function LoginForm() {
   const token = useSelector(getTokenUser);
   const navigator = useNavigate();
   const dispatch = useDispatch()
+  const { t } = useTranslation();
 
   const handleShowPass = () => {
     setShowPass((prev) => !prev);
@@ -87,7 +89,7 @@ function LoginForm() {
           autoComplete="username"
           {...register("email")}
         />
-        {errors && <span className={style.error}>{errors.email?.message}</span>}
+        {errors && <span className={style.error}>{t(errors.email?.message)}</span>}
       </label>
       <label>
         <div className={style.boxForgot}>
@@ -119,7 +121,7 @@ function LoginForm() {
           </div>
         </div>
         {errors && (
-          <span className={style.error}>{errors.password?.message}</span>
+          <span className={style.error}>{t(errors.password?.message)}</span>
         )}
       </label>
       <label className="form-label flex items-center gap-2.5">

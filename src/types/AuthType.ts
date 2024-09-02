@@ -2,32 +2,24 @@ import { z } from "zod";
 
 export const RegistrationSchema = z
   .object({
-    email: z
-      .string()
-      .email("Проверьте правильность ввода электронной почты")
-      .max(320, "Превышена максимальная длина адреса электронной почты"),
+    email: z.string().email("Email_error").max(320, "Email_error_length"),
     password: z
       .string()
-      .min(8, "Введите более 8 символов")
-      .max(25, "Не более 25 символов")
+      .min(8, "Password_error_min_length")
+      .max(25, "Password_error_max_length")
       .regex(
         /^[a-zA-Z0-9~!@#$%^&*()[\]{}><\/\\|"'.,:;]+$/,
-        "Пароль может содержать только латинские буквы, цифры и ~!@#$%^&*()[]{}>< и другие символы"
+        "Password_other_symbols"
       )
-      .refine(
-        (value) => !value.startsWith(" "),
-        "Пароль не должен начинаться с пробела"
-      ),
+      .refine((value) => !value.startsWith(" "), "Password_space"),
     confirmPassword: z.string(),
-    consent: z
-      .boolean()
-      .refine((value) => value, "Для регистрации необходимо дать согласие"),
+    consent: z.boolean().refine((value) => value, "Consent_is_required"),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "Пароли не совпадают",
+        message: "Passwords_do_not_match",
         path: ["confirmPassword"],
       });
     }
@@ -35,58 +27,47 @@ export const RegistrationSchema = z
 export type RegistrationForm = z.infer<typeof RegistrationSchema>;
 
 export const LoginScheme = z.object({
-  email: z
-    .string()
-    .email("Проверьте правильность ввода электронной почты")
-    .max(320, "Превышена максимальная длина адреса электронной почты"),
+  email: z.string().email("Email_error").max(320, "Email_error_length"),
   password: z
     .string()
-    .min(7, "Введите более 7 символов")
-    .max(25, "Не более 25 символов")
+    .min(8, "Password_error_min_length")
+    .max(25, "Password_error_max_length")
     .regex(
       /^[a-zA-Z0-9~!@#$%^&*()[\]{}><\/\\|"'.,:;]+$/,
-      "Пароль может содержать только латинские буквы, цифры и ~!@#$%^&*()[]{}>< и другие символы"
+      "Password_other_symbols"
     )
-    .refine(
-      (value) => !value.startsWith(" "),
-      "Пароль не должен начинаться с пробела"
-    ),
+    .refine((value) => !value.startsWith(" "), "Password_space"),
 });
 
 export type LoginType = z.infer<typeof LoginScheme>;
 
-  export const ForgotEmailScheme = z.object({
-    email: z
-    .string()
-    .email("Проверьте правильность ввода электронной почты")
-    .max(320, "Превышена максимальная длина адреса электронной почты"),
-  })
+export const ForgotEmailScheme = z.object({
+  email: z.string().email("Email_error").max(320, "Email_error_length"),
+});
 
-  export type ForgotEmailType = z.infer<typeof ForgotEmailScheme>
+export type ForgotEmailType = z.infer<typeof ForgotEmailScheme>;
 
-  export const ForgotCodeScheme = z.object({
+export const ForgotCodeScheme = z
+  .object({
     password: z
       .string()
-      .min(7, "Введите более 7 символов")
-      .max(25, "Не более 25 символов")
+      .min(8, "Password_error_min_length")
+      .max(25, "Password_error_max_length")
       .regex(
         /^[a-zA-Z0-9~!@#$%^&*()[\]{}><\/\\|"'.,:;]+$/,
-        "Пароль может содержать только латинские буквы, цифры и ~!@#$%^&*()[]{}>< и другие символы"
+        "Password_other_symbols"
       )
-      .refine(
-        (value) => !value.startsWith(" "),
-        "Пароль не должен начинаться с пробела"
-      ),
+      .refine((value) => !value.startsWith(" "), "Password_space"),
     confirmPassword: z.string(),
-
-  }).superRefine(({ confirmPassword, password }, ctx) => {
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "Пароли не совпадают",
+        message: "Passwords_do_not_match",
         path: ["confirmPassword"],
       });
     }
   });
 
-  export type ForgotCodeType = z.infer<typeof ForgotCodeScheme>
+export type ForgotCodeType = z.infer<typeof ForgotCodeScheme>;
