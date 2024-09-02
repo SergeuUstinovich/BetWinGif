@@ -53,7 +53,7 @@ function ListBox(props: ListBoxProps) {
                   [style.disabled]: item.disabled,
                 })}
               >
-                {selected && '111'}{' '}
+                {selected && '!'}{' '}
                 {/*пример как можно на выбранный элемент повесить флажок */}
                 {item.content}
               </li>

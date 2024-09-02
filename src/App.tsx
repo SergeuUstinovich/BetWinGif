@@ -14,6 +14,7 @@ const StaticBanners = lazy(
 );
 const GifBanners = lazy(() => import("./pages/GifBanners/GifBanners.tsx"));
 const MenegerAdmin = lazy(() => import("./component/MenegerAdmin/MenegerAdmin.tsx"));
+const AccoutSetting = lazy(() => import("./pages/AccoutSetting/AccoutSetting.tsx"));
 
 const AuthForm = lazy(() => import("./component/AuthForm/AuthForm.tsx"));
 const CheckedAuth = lazy(
@@ -46,6 +47,7 @@ function App() {
           >
             <Route index element={<StaticBanners />} />
             <Route path={"gif-banners"} element={<GifBanners />} />
+            <Route path={"account-setting"} element={<AccoutSetting />} />
             <Route
               path={"admin-meneger"}
               element={
