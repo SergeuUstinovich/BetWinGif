@@ -73,3 +73,44 @@ export function logoutUser( token: string) {
     })
     .then(() => undefined)
 }
+
+export function setPasswordUser(new_password: string, re_new_password: string, current_password: string, token: string) {
+    return axios.post(`${api_url}/auth/users/set_password/`,{
+        new_password,
+        re_new_password,
+        current_password,
+    },{
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+    })
+    .then(response => {
+        const data  = response.data
+        return data
+    })
+    .catch(error => {
+        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
+        throw new Error(errorMessages);
+    })
+}
+
+export function deleteUser(current_password: string, token: string) {
+    return axios.delete(`${api_url}/auth/users/me/`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+        },
+        data: {
+            current_password,
+        }
+    })
+    .then(response => {
+        const data = response.data;
+        return data;
+    })
+    .catch(error => {
+        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
+        throw new Error(errorMessages);
+    });
+}

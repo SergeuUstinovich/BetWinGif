@@ -47,7 +47,8 @@ function LanguageSwitch() {
   );
 
   return (
-    <div>
+    <div className={style.langBox}>
+        <p className={style.descr}>{t("Language")}:</p>
         <ListBox
             defaultValue={
                 currentLanguageItem ? currentLanguageItem.content : t("Language")

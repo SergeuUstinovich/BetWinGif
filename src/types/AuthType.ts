@@ -71,3 +71,53 @@ export const ForgotCodeScheme = z
   });
 
 export type ForgotCodeType = z.infer<typeof ForgotCodeScheme>;
+
+export const setCodeScheme = z
+  .object({
+    old_password: z
+      .string()
+      .min(8, "Password_error_min_length")
+      .max(25, "Password_error_max_length")
+      .regex(
+        /^[a-zA-Z0-9~!@#$%^&*()[\]{}><\/\\|"'.,:;]+$/,
+        "Password_other_symbols"
+      )
+      .refine((value) => !value.startsWith(" "), "Password_space"),
+    password: z
+      .string()
+      .min(8, "Password_error_min_length")
+      .max(25, "Password_error_max_length")
+      .regex(
+        /^[a-zA-Z0-9~!@#$%^&*()[\]{}><\/\\|"'.,:;]+$/,
+        "Password_other_symbols"
+      )
+      .refine((value) => !value.startsWith(" "), "Password_space"),
+    confirmPassword: z.string(),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Passwords_do_not_match",
+        path: ["confirmPassword"],
+      });
+    }
+  });
+
+  export type setCodeType = z.infer<typeof setCodeScheme>;
+
+  export const deleteCodeScheme = z
+  .object({
+    password: z
+      .string()
+      .min(8, "Password_error_min_length")
+      .max(25, "Password_error_max_length")
+      .regex(
+        /^[a-zA-Z0-9~!@#$%^&*()[\]{}><\/\\|"'.,:;]+$/,
+        "Password_other_symbols"
+      )
+      .refine((value) => !value.startsWith(" "), "Password_space"),
+  })
+  
+
+  export type deleteCodeType = z.infer<typeof deleteCodeScheme>;
