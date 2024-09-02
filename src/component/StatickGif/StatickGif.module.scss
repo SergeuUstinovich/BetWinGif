@@ -9,7 +9,6 @@
 
 .gifImg {
     width: 200px;
-    height: 200px;
     margin-bottom: 14px;
     padding-bottom: var(--offset-30);
     border-bottom: 1px solid var(--lightmode-grey-grey-200);
@@ -18,9 +17,6 @@
 .gifCard {
     padding: 30px 30px 15px 30px;
     width: max-content;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
     border: 1px solid var(--lightmode-grey-grey-200);
     border-radius: 12px;
 }
@@ -35,13 +31,16 @@
     .gifBlock {
         grid-template-columns: repeat(2, 1fr);
     }
+    .gifCard {
+        width: 100%;
+    }
+    .gifImg {
+        width: 100%;
+    }
 }
 
 @media (max-width: 576px) {
     .gifBlock {
         grid-template-columns: repeat(1, 1fr);
-    }
-    .gifCard {
-        width: 100%;
     }
 }
