@@ -1,25 +1,23 @@
-.topBar {
-    margin-bottom: var(--offset-40) !important;
+.topbar {
+    margin: 0 auto;
+    margin-bottom: var(--offset-40);
     padding: 60px 0 5px;
+    max-width: 1140px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
     border-bottom: 1px solid var(--lightmode-grey-grey-200);
-}
-
-.topBtn {
+  }
+  
+  .topBtn {
     color: var(--white-text);
     background-color: var(--bg-btn);
     padding: 2px 10px;
-}
-
-.select {
-    max-width: 91px;
-    background-color: var(--white-text) !important;
-    border: none !important;
-
-    &one:not(:last-child) {
-        margin-right: 20px;
-    }
-}
-
-.select:last-child {
-    margin-right: 0 auto;
-}
+  }
+  
+  .defaultSelect {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  

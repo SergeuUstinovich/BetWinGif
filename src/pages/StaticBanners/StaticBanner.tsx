@@ -1,15 +1,16 @@
 import { useSelector } from 'react-redux'
-import { Accordion, Cards, Topbar } from '../../component'
+import { Accordion, Cards } from '../../component'
 import StatickGif from '../../component/StatickGif/StatickGif'
 import arrAccord from './AccordDataStatic'
 import { getGifGenerated } from '../../providers/StoreProvider/selectors/getGifGenerated'
+import { TopbarStatic } from '../../component/TopbarStatic/TopbarStatic'
 
 const StaticBanners = () => {
   const statick = useSelector(getGifGenerated)
 
   return (
     <>
-      <Topbar />
+      <TopbarStatic />
       <StatickGif gif={statick} />
       <Accordion arrAccord={arrAccord} />
       <Cards />

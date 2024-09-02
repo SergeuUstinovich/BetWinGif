@@ -2,8 +2,7 @@ import { gifGeneratedType } from "../../types/gifGeneratedType";
 import { AddIntegrations } from "../AddIntegration";
 import { GifCards } from "../GifCards";
 
-function GitRequest({ svgContent, text }: gifGeneratedType) {
-    console.log(text)
+function GifRequest({ svgContent, text }: gifGeneratedType) {
   return (
     <>
       {svgContent && text ? (
@@ -15,4 +14,4 @@ function GitRequest({ svgContent, text }: gifGeneratedType) {
   );
 }
 
-export default GitRequest;
+export default GifRequest;
