@@ -59,5 +59,21 @@
 
 .modalLink {
   margin-right: 5px;
+  word-wrap: break-word;
   color: var(--lightmode-primary-primary);
+}
+
+@media (max-width: 576px) {
+  .modalInputBlock {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .modalInput {
+    min-width: auto;
+    width: 100%;
+  }
+  .modalButton {
+    width: 100%;
+  }
 }
