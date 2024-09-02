@@ -5,6 +5,12 @@
     gap: var(--offset-30);
 }
 
+.card {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
 .cardsTitle {
     margin-bottom: 12px;
     font-size: 22px;
@@ -24,4 +30,10 @@
 .cardLink {
     color: var(--lightmode-primary-primary) !important;
     border-bottom: 1px dashed var(--lightmode-primary-primary) !important;
+}
+
+@media (max-width: 1200px) {
+    .cards {
+        flex-direction: column;
+    }
 }

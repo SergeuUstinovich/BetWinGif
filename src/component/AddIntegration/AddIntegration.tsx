@@ -1,5 +1,5 @@
 import style from "./AddIntegrations.module.scss";
-import Integration from "../../assets/img/png/addIntegrations.png";
+import Integration from "../../assets/img/png/addIntegrations.webp";
 
 export const AddIntegrations = () => {
   return (

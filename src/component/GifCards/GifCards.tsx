@@ -34,7 +34,7 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
 
           const img = new Image();
           img.src = encodedSvg;
-          
+
           img.onload = () => {
             canvas.width = img.width;
             canvas.height = img.height;
@@ -65,7 +65,7 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
           const gif = new GIF({
             workers: 2,
             quality: 10,
-            transparent: 'rgba(0,0,0,0)'
+            transparent: "rgba(0,0,0,0)",
           });
 
           let x = -img.width;
@@ -99,21 +99,24 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
     }
   };
 
-    const downloadGif = () => {
-      if (gifUrl) {
-          const link = document.createElement('a');
-          link.href = gifUrl;
-          link.download = 'downloaded.gif';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-      }
+  const downloadGif = () => {
+    if (gifUrl) {
+      const link = document.createElement("a");
+      link.href = gifUrl;
+      link.download = "downloaded.gif";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   return (
     <>
-      <div className={`${style.gifBlock} max-w-[1140px] m-auto`}>
-        <canvas ref={canvasRef} style={{ display: "none", backgroundColor: 'transparent' }}></canvas>
+      <div className={`${style.gifBlock}`}>
+        <canvas
+          ref={canvasRef}
+          style={{ display: "none", backgroundColor: "transparent" }}
+        ></canvas>
         {gifUrl ? (
           <div className={style.gifCard}>
             <img className={style.gifImg} src={gifUrl} alt="gif" />
@@ -122,7 +125,9 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
               Download
             </Button>
           </div>
-        ) : (<div>Loading...</div> )}
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
     </>
   );

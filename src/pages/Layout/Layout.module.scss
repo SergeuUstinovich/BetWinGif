@@ -1,0 +1,14 @@
+.mainBlock {
+    display: flex;
+}
+
+.rightBlock {
+    padding: 0 16px;
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .mainBlock {
+        flex-direction: column;
+    }
+}

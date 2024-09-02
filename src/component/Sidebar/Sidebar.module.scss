@@ -21,3 +21,8 @@
     border: 1px solid var(--lightmode-grey-grey-200) !important;
 }
 
+@media (max-width: 1200px) {
+    .closeButton {
+        display: none;
+    }
+}

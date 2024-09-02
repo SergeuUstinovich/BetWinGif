@@ -4,11 +4,11 @@ import CardTwo from "../../assets/img/jpg/staticCardTwo.jpg";
 import { useTranslation } from "react-i18next";
 
 export const Cards = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
     <div className={`${style.cards}`}>
       <div className="card">
-        <div className="card-body flex gap-10 justify-center">
+        <div className={`${style.card} card-body`}>
           <div className="flex flex-col justify-center">
             <h3 className={style.cardsTitle}>{t("**Questions?**")}</h3>
             <p className={style.cardsText}>
@@ -26,7 +26,7 @@ export const Cards = () => {
       </div>
 
       <div className="card">
-        <div className="card-body flex gap-10 justify-center">
+        <div className={`${style.card} card-body`}>
           <div className="flex flex-col justify-center">
             <h3 className={style.cardsTitle}>{t("**Contact Support**")}</h3>
             <p className={style.cardsText}>
