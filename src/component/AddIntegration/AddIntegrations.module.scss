@@ -25,9 +25,15 @@
 }
 
 .integrationLabel {
-    max-width: 45%;
+    max-width: calc(100% - 30em);
     text-align: center;
     font-size: 14px;
     font-weight: 500;
     line-height: 22px;
+}
+
+@media (max-width: 992px) {
+    .integrationLabel {
+        max-width: 100%;
+    }
 }
