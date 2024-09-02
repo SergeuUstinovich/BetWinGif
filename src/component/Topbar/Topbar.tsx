@@ -62,8 +62,7 @@ export const Topbar = () => {
       <li className={style.defaultSelect}>
         <ListBox
           defaultValue={'Язык'}
-          onChange={(e) => toggle(e.target.value)}
-          hiddenArrow
+          onChange={toggle}
           items={[
             { value: 'en', content: 'English', id: '1' },
             { value: 'ru', content: 'Русский', id: '2', disabled: true },

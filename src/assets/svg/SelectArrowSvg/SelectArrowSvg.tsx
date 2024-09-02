@@ -1,6 +1,11 @@
-export const SelectArrowSvg = () => {
+interface SelectArrowSvgProps {
+  className?: string
+}
+
+export const SelectArrowSvg = ({className}: SelectArrowSvgProps) => {
   return (
     <svg
+      className={className}
       width="16"
       height="16"
       viewBox="0 0 16 16"

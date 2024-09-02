@@ -11,7 +11,7 @@ const scrollItems: scrollSpyProps[] = [
   {
     id: 1,
     label: "Account Home",
-    path: "/static-banners",
+    path: "/account-setting",
   },
   {
     id: 2,
