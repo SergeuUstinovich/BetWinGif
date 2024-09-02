@@ -33,7 +33,11 @@ function AccordionItem({ id, title, text }: AccordionProps) {
         className="accordion-toggle py-4 group"
         data-accordion-toggle="#accordion_1_content_1"
       >
-        <span className="text-base text-gray-900 font-medium">{title}</span>
+        <span
+          className={`${style.accordionText} text-base text-gray-900 font-medium`}
+        >
+          {title}
+        </span>
         {id === isOpen ? (
           <i className="ki-outline ki-minus text-gray-600 text-2sm accordion-active:block block"></i>
         ) : (
@@ -47,7 +51,9 @@ function AccordionItem({ id, title, text }: AccordionProps) {
         }`}
         id="accordion_1_content_1"
       >
-        <div className="text-gray-700 text-md pb-4">{text}</div>
+        <div className={`${style.accordionText} text-gray-700 text-md pb-4`}>
+          {text}
+        </div>
       </div>
     </div>
   );

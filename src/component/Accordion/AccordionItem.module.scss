@@ -7,3 +7,10 @@
   .accordion__content.open {
     max-height: 500px;
   }
+
+  @media (max-width: 576px) {
+    .accordionText {
+      text-align: start;
+    }
+  }
+  
