@@ -4,7 +4,7 @@ import {
   ListboxOption,
   ListboxOptions,
 } from '@headlessui/react'
-import { Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode, useState } from 'react'
 import style from './ListBox.module.scss'
 import { classNames } from '../../utils/classNames'
 import { SelectArrowSvg } from '../../assets/svg/SelectArrowSvg'
@@ -26,6 +26,7 @@ interface ListBoxProps {
 
 function ListBox(props: ListBoxProps) {
   const { className, items, value, defaultValue, onChange } = props
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <Listbox
@@ -36,7 +37,7 @@ function ListBox(props: ListBoxProps) {
     >
       <ListboxButton className={style.trigger}>
         {value ?? defaultValue}
-        <SelectArrowSvg />
+        <SelectArrowSvg className={isOpen && `${style.revers}`} />
       </ListboxButton>
       <ListboxOptions className={style.options} anchor="bottom">
         {items?.map((item) => (
@@ -51,9 +52,9 @@ function ListBox(props: ListBoxProps) {
                 className={classNames(style.item, {
                   [style.active]: focus,
                   [style.disabled]: item.disabled,
+                  [style.select]: selected,
                 })}
               >
-                {selected && '!'}{' '}
                 {/*пример как можно на выбранный элемент повесить флажок */}
                 {item.content}
               </li>
