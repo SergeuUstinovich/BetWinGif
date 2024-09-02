@@ -1,25 +1,25 @@
-import { AreaSelector, IArea } from "@bmunozg/react-image-area";
-import { useState } from "react";
-import img from "../../assets/img/png/image.png";
-import { v4 } from "uuid";
-import style from "./MenegerAdmin.module.scss";
+import { AreaSelector, IArea } from '@bmunozg/react-image-area'
+import { useState } from 'react'
+import img from '../../assets/img/png/image.png'
+import { v4 } from 'uuid'
+import style from './MenegerAdmin.module.scss'
 
 interface ITextArea extends IArea {
-  id: string;
-  text: string;
+  id: string
+  text: string
 }
 
 const MenegerAdmin = () => {
-  const [areas, setAreas] = useState<ITextArea[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const [areas, setAreas] = useState<ITextArea[]>([])
+  const [isEditing, setIsEditing] = useState(false)
   const [imageDimensions, setImageDimensions] = useState({
     width: 0,
     height: 0,
-  });
+  })
 
   const onChangeHandler = (areas: IArea[]) => {
-    setAreas(areas.map((area) => ({ ...area, id: v4(), text: "" })));
-  };
+    setAreas(areas.map((area) => ({ ...area, id: v4(), text: '' })))
+  }
 
   const onTextChange = (
     id: string,
@@ -27,30 +27,33 @@ const MenegerAdmin = () => {
   ) => {
     const newAreas = areas.map((area) =>
       area.id === id ? { ...area, text: event.target.value } : area
-    );
-    setAreas(newAreas);
-  };
+    )
+    setAreas(newAreas)
+  }
 
   const removeArea = (id: string) => {
-    const newAreas = areas.filter((area) => area.id !== id);
-    setAreas(newAreas);
-  };
+    const newAreas = areas.filter((area) => area.id !== id)
+    setAreas(newAreas)
+  }
 
   const toggleEditing = () => {
-    setIsEditing((prev) => !prev);
-  };
+    setIsEditing((prev) => !prev)
+  }
 
   const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    const { naturalWidth, naturalHeight } = event.currentTarget;
-    setImageDimensions({ width: naturalWidth, height: naturalHeight });
-  };
+    const { naturalWidth, naturalHeight } = event.currentTarget
+    setImageDimensions({ width: naturalWidth, height: naturalHeight })
+  }
 
   return (
-    <div style={{width: `${imageDimensions.width + 10}px`}}>
+    <div
+      className={style.managerBox}
+      // style={{ width: `${imageDimensions.width + 10}px` }}
+    >
       <div>
-        <img style={{ display: "none" }} src={img} alt="" />
-        <button onClick={toggleEditing}>
-          {isEditing ? "Завершить" : "Редактировать"}
+        <img style={{ display: 'none' }} src={img} alt="" />
+        <button className={style.managerButton} onClick={toggleEditing}>
+          {isEditing ? 'Завершить' : 'Редактировать'}
         </button>
       </div>
 
@@ -69,7 +72,7 @@ const MenegerAdmin = () => {
               key={area.id}
               className={style.boxInfo}
               style={{
-                position: "absolute",
+                position: 'absolute',
                 left: area.x,
                 top: area.y,
                 width: area.width,
@@ -89,7 +92,7 @@ const MenegerAdmin = () => {
                 className={style.boxInfo}
                 key={area.id}
                 style={{
-                  position: "absolute",
+                  position: 'absolute',
                   left: area.x,
                   top: area.y,
                   width: area.width,
@@ -122,7 +125,7 @@ const MenegerAdmin = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MenegerAdmin;
+export default MenegerAdmin

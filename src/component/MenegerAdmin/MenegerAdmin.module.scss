@@ -1,14 +1,25 @@
+.managerBox {
+  padding: 15px 0 0 30px;
+  max-width: 1140px;
+}
+
 .box {
-    position: relative;
+  position: relative;
 }
 
 .boxInfo {
-    font-size: 40px;
-    font-family: Inter;
-    color: green;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-  
+  font-size: 40px;
+  font-family: Inter;
+  color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.managerButton {
+  margin-bottom: 15px;
+  padding: 10px 25px;
+  border: 1px solid var(--lightmode-grey-grey-300);
+  border-radius: 12px;
 }

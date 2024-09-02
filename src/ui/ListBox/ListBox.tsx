@@ -3,38 +3,40 @@ import {
   ListboxButton,
   ListboxOption,
   ListboxOptions,
-} from "@headlessui/react";
-import { Fragment, ReactNode } from "react";
-import style from "./ListBox.module.scss";
-import { classNames } from "../../utils/classNames";
+} from '@headlessui/react'
+import { Fragment, ReactNode } from 'react'
+import style from './ListBox.module.scss'
+import { classNames } from '../../utils/classNames'
+import { SelectArrowSvg } from '../../assets/svg/SelectArrowSvg'
 
 interface ListBoxItem {
-  id: string;
-  value: string;
-  content: ReactNode;
-  disabled?: boolean;
+  id: string
+  value: string
+  content: ReactNode
+  disabled?: boolean
 }
 
 interface ListBoxProps {
-  items?: ListBoxItem[];
-  className?: string;
-  value?: string;
-  defaultValue?: string;
-  onChange?: <T>(value: T) => void;
+  items?: ListBoxItem[]
+  className?: string
+  value?: string
+  defaultValue?: string
+  onChange?: <T>(value: T) => void
 }
 
 function ListBox(props: ListBoxProps) {
-  const { className, items, value, defaultValue, onChange } = props;
+  const { className, items, value, defaultValue, onChange } = props
 
   return (
     <Listbox
-      as={"div"}
+      as={'div'}
       className={classNames(style.listbox, {}, [className])}
       value={value}
       onChange={onChange}
     >
       <ListboxButton className={style.trigger}>
         {value ?? defaultValue}
+        <SelectArrowSvg />
       </ListboxButton>
       <ListboxOptions className={style.options} anchor="bottom">
         {items?.map((item) => (
@@ -51,7 +53,8 @@ function ListBox(props: ListBoxProps) {
                   [style.disabled]: item.disabled,
                 })}
               >
-                {selected && "111"} {/*пример как можно на выбранный элемент повесить флажок */}
+                {selected && '111'}{' '}
+                {/*пример как можно на выбранный элемент повесить флажок */}
                 {item.content}
               </li>
             )}
@@ -59,7 +62,7 @@ function ListBox(props: ListBoxProps) {
         ))}
       </ListboxOptions>
     </Listbox>
-  );
+  )
 }
 
-export default ListBox;
+export default ListBox

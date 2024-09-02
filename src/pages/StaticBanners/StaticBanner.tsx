@@ -1,22 +1,20 @@
-import { useSelector } from "react-redux";
-import { Accordion, Cards } from "../../component";
-import StatickGif from "../../component/StatickGif/StatickGif";
-import { TopbarStatic } from "../../component/TopbarStatic/TopbarStatic";
+import { useSelector } from 'react-redux'
+import { Accordion, Cards, Topbar } from '../../component'
+import StatickGif from '../../component/StatickGif/StatickGif'
 import arrAccord from './AccordDataStatic'
-import { getGifGenerated } from "../../providers/StoreProvider/selectors/getGifGenerated";
+import { getGifGenerated } from '../../providers/StoreProvider/selectors/getGifGenerated'
 
 const StaticBanners = () => {
-
   const statick = useSelector(getGifGenerated)
 
   return (
     <>
-      <TopbarStatic />
+      <Topbar />
       <StatickGif gif={statick} />
       <Accordion arrAccord={arrAccord} />
       <Cards />
     </>
-  );
-};
+  )
+}
 
 export default StaticBanners
