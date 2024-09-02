@@ -5,8 +5,14 @@
     border-right: 1px solid var(--lightmode-grey-grey-200);
 }
 
-.logo {
+.asideUpper{
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.logo {
     display: inline-block;
 }
 
@@ -23,6 +29,12 @@
 
 @media (max-width: 1200px) {
     .closeButton {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbarMobileButton {
         display: none;
     }
 }

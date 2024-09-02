@@ -24,3 +24,29 @@
 .lastDefaultSelect {
   margin-right: auto;
 }
+
+@media (max-width: 768px) {
+  .topbar {
+    padding: 60px 0 5px;
+    flex-direction: column;
+    gap: 4px;
+    border: none;
+
+    li {
+      width: 100%;
+    }
+  }
+  .defaultSelect {
+    margin-right: 0;
+    padding: 13px 16px;
+    border: 1px solid var(--lightmode-grey-grey-300);
+    border-radius: 6px;
+  }
+  .lastDefaultSelect {
+    margin-bottom: 40px;
+  }
+  .topBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
