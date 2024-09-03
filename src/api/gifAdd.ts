@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.env.VITE_API_BASE_URL;
+const api_url =
+  import.meta.env.MODE === "development"
+    ? "/api"
+    : import.meta.env.VITE_API_BASE_URL;
 
 // export function gifAdd(token: string) {
 //     return axios.post(`${api_url}/api/create_gif/`,{
@@ -17,44 +20,57 @@ const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.en
 // }
 
 export function gifAdd(token: string) {
-    return axios.post(`${api_url}/api/create_gif/`,{
-        token,
+  return axios
+    .post(`${api_url}/api/create_gif/`, {
+      token,
     })
-    .then(response => {
-        const data = response.data;
-        return data
+    .then((response) => {
+      const data = response.data;
+      return data;
     })
-    .catch(error => {
-        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
-        throw new Error(errorMessages);
-    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function createPromorcode(token: string, promocode: string) {
-    return axios.post(`${api_url}/api/create_promokode/`,{
-        token,
-        promocode
+  return axios
+    .post(`${api_url}/api/create_promocode/`, {
+      token,
+      promocode,
     })
-    .then(response => {
-        const data = response.data;
-        return data
+    .then((response) => {
+      const data = response.data;
+      return data;
     })
-    .catch(error => {
-        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
-        throw new Error(errorMessages);
-    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function staticBanner(token: string) {
-    return axios.post(`${api_url}/api/create_statick_gif/`,{
+  return axios
+    .post(
+      `${api_url}/api/create_statick_gif/`,
+      {
         token,
-    }, { responseType: 'blob' })
-    .then(response => {
-        const data = URL.createObjectURL(response.data);
-        return data
+      },
+      { responseType: "blob" }
+    )
+    .then((response) => {
+      const data = URL.createObjectURL(response.data);
+      return data;
     })
-    .catch(error => {
-        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
-        throw new Error(errorMessages);
-    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
