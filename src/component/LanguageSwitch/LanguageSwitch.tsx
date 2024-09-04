@@ -47,13 +47,17 @@ function LanguageSwitch() {
   );
 
   return (
-    <ListBox
-      defaultValue={
-        currentLanguageItem ? currentLanguageItem.content : t("Language")
-      }
-      onChange={toggleLanguage}
-      items={items}
-    />
+    <div className={style.langBox}>
+        <p className={style.descr}>{t("Language")}:</p>
+        <ListBox
+            defaultValue={
+                currentLanguageItem ? currentLanguageItem.content : t("Language")
+            }
+            onChange={toggleLanguage}
+            items={items}
+            />
+    </div>
+    
   );
 }
 

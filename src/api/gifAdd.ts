@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios'
 
 const api_url =
-  import.meta.env.MODE === "development"
-    ? "/api"
-    : import.meta.env.VITE_API_BASE_URL;
+  import.meta.env.MODE === 'development'
+    ? '/api'
+    : import.meta.env.VITE_API_BASE_URL
 
 // export function gifAdd(token: string) {
 //     return axios.post(`${api_url}/api/create_gif/`,{
@@ -25,15 +25,15 @@ export function gifAdd(token: string) {
       token,
     })
     .then((response) => {
-      const data = response.data;
-      return data;
+      const data = response.data
+      return data
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(", ");
-      throw new Error(errorMessages);
-    });
+        .join(', ')
+      throw new Error(errorMessages)
+    })
 }
 
 export function createPromorcode(token: string, promocode: string) {
@@ -43,15 +43,15 @@ export function createPromorcode(token: string, promocode: string) {
       promocode,
     })
     .then((response) => {
-      const data = response.data;
-      return data;
+      const data = response.data
+      return data
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(", ");
-      throw new Error(errorMessages);
-    });
+        .join(', ')
+      throw new Error(errorMessages)
+    })
 }
 
 export function staticBanner(token: string) {
@@ -61,16 +61,16 @@ export function staticBanner(token: string) {
       {
         token,
       },
-      { responseType: "blob" }
+      { responseType: 'blob' }
     )
     .then((response) => {
-      const data = URL.createObjectURL(response.data);
-      return data;
+      const data = URL.createObjectURL(response.data)
+      return data
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(", ");
-      throw new Error(errorMessages);
-    });
+        .join(', ')
+      throw new Error(errorMessages)
+    })
 }

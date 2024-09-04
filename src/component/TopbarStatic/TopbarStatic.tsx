@@ -2,12 +2,11 @@ import style from "./TopbarStatic.module.scss";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/Button";
 import { useMutation } from "@tanstack/react-query";
-import { gifAdd, staticBanner } from "../../api/gifAdd";
+import { staticBanner } from "../../api/gifAdd";
 import { queryClient } from "../../api/queryClient";
 import { useDispatch, useSelector } from "react-redux";
 import { gifActions } from "../../providers/StoreProvider";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
-import { gifGenActions } from "../../providers/StoreProvider/slice/gifGenSlice";
 import ListBox from "../../ui/ListBox/ListBox";
 import { useState } from "react";
 

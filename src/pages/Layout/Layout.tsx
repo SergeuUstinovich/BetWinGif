@@ -3,6 +3,7 @@ import Account from "../../component/Account/Account";
 import { PromocodeModal } from "../../component/PromocodeModal";
 import { SideBar } from "../../component/Sidebar";
 import { Outlet } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 function Layout() {
   const promoCheck = true;
@@ -10,6 +11,10 @@ function Layout() {
   return (
     <>
       <Account>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
         <div className={style.mainBlock}>
           <SideBar />
           <div className={style.rightBlock}>

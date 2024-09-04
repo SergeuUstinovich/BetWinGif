@@ -44,8 +44,7 @@ function RegisterForm() {
         reset()
       },
       onError: (error) => {
-        const errorMessages = Object.keys(error).map(key => `${key}: ${error[key]}`).join(', ');
-        console.log(errorMessages)
+        const errorMessages = Object.keys(error).map(key => ` ${error[key]}`).join(', ');
         setError(errorMessages);
       }
   }, queryClient);

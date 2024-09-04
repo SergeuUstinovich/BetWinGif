@@ -35,7 +35,6 @@ export function googleAuth(response: any) {
     })
     .then(response => {
         const data  = response.data.token
-        console.log(data)
         return data
     })
     .catch(error => {
