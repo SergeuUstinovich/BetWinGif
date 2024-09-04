@@ -21,6 +21,9 @@ function LoadImgServ() {
   const mutateImg = useMutation(
     {
       mutationFn: (data: { formData: FormData }) => loadingImg(data.formData),
+      onSuccess: () => {
+        queryClient.invalidateQueries({queryKey: ['img']})
+      }
     },
     queryClient
   );

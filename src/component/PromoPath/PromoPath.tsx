@@ -24,7 +24,7 @@ function PromoPath() {
     mutationFn: (data: { token: string; promocode: string }) =>
       pathPromocode(data.token, data.promocode),
     onSuccess: (data) => {
-        toast.success(data)
+        toast.success(data.Success)
         queryClient.invalidateQueries({queryKey: ['user']})
     }
   }, queryClient);
