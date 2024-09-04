@@ -10,7 +10,7 @@ interface privateRouteProps {
 function AdminRoute({ children }: privateRouteProps) {
   const admin = useSelector(getUser)
 
-  if (!admin.is_admin) {
+  if (!admin?.is_admin) {
     return <Navigate to={"/"} replace />;
   }
   return children;

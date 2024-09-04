@@ -10,7 +10,7 @@ export function createReduxStore(initialState?: StateShema) {
     auth: tokenReducer,
     gif: gifReducer,
     gifGen: gifGenReducer,
-    user: userReducer,
+    profile: userReducer,
   };
 
   return configureStore({

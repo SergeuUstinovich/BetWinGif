@@ -1,0 +1,25 @@
+.deleteBtn {
+    display: flex;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: var(--lightmode-danger-danger);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 108%;
+    color: var(--lightmode-light-light);
+    margin-bottom: 5px;
+}
+
+.cancel {
+    display: flex;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: var(--lightmode-primary-primary);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 108%;
+    color: var(--lightmode-light-light);
+    margin-bottom: 5px;
+}

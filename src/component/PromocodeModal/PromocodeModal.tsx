@@ -9,7 +9,11 @@ import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUs
 import { PasswordModal } from '../PasswordModal'
 import { useTranslation } from 'react-i18next'
 
-export const PromocodeModal = ({ isPromoCheck }) => {
+interface PromocodeModalProps {
+  isPromoCheck?: string
+}
+
+export const PromocodeModal = ({ isPromoCheck }: PromocodeModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [promocode, setPromocode] = useState<string>('')
   const token = useSelector(getTokenUser)
@@ -21,13 +25,14 @@ export const PromocodeModal = ({ isPromoCheck }) => {
         createPromorcode(data.token, data.promocode),
       onSuccess: () => {
         setIsModalOpen(false)
+        queryClient.invalidateQueries({queryKey: ['user']})
       },
     },
     queryClient
   )
 
   useEffect(() => {
-    if (isPromoCheck) {
+    if (isPromoCheck === null) {
       setIsModalOpen(true)
     }
   }, [isPromoCheck])

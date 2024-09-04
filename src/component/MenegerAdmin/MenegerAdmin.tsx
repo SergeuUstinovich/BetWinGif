@@ -194,7 +194,6 @@ const MenegerAdmin = () => {
                 defaultValue={t("Country")}
                 onChange={handleChangeCountry}
                 value={selectedCountry}
-                hiddenArrow
                 items={[
                   { value: "en", content: "en", id: "1" },
                   { value: "ru", content: "ru", id: "2" },
@@ -207,7 +206,6 @@ const MenegerAdmin = () => {
                 defaultValue={t("Language")}
                 onChange={handleChangeLanguage}
                 value={selectedLanguage}
-                hiddenArrow
                 items={[
                   { value: "en", content: "en", id: "1" },
                   { value: "ru", content: "ru", id: "2" },
@@ -220,7 +218,6 @@ const MenegerAdmin = () => {
                 defaultValue={t("Currency")}
                 onChange={handleChangeCurrency}
                 value={selectedCurrency}
-                hiddenArrow
                 items={[
                   { value: "en", content: "en", id: "1" },
                   { value: "ru", content: "ru", id: "2" },

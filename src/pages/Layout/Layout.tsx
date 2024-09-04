@@ -4,10 +4,13 @@ import { PromocodeModal } from "../../component/PromocodeModal";
 import { SideBar } from "../../component/Sidebar";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { getUser } from "../../providers/StoreProvider/selectors/getUser";
+
 
 function Layout() {
-  const promoCheck = true;
-
+  const promocode = useSelector(getUser);
+  
   return (
     <>
       <Account>
@@ -19,7 +22,7 @@ function Layout() {
           <SideBar />
           <div className={style.rightBlock}>
             <Outlet />
-            <PromocodeModal isPromoCheck={promoCheck} />
+            <PromocodeModal isPromoCheck={promocode?.promocode} />
           </div>
         </div>
       </Account>
