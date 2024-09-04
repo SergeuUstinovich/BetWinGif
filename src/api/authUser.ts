@@ -114,3 +114,16 @@ export function deleteUser(current_password: string, token: string) {
         throw new Error(errorMessages);
     });
 }
+
+export function profileUser(token: string) {
+    return axios.get(`${api_url}/api/get_profile/${token}/`)
+    .then(response => {
+        const data  = response.data
+        return data
+    })
+    .catch(error => {
+        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
+        throw new Error(errorMessages);
+    })
+}
+

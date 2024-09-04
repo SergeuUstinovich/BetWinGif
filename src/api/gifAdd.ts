@@ -31,7 +31,7 @@ export function gifAdd(token: string) {
 }
 
 export function createPromorcode(token: string, promocode: string) {
-    return axios.post(`${api_url}/api/create_promokode/`,{
+    return axios.post(`${api_url}/api/create_promocode/`,{
         token,
         promocode
     })

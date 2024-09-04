@@ -48,7 +48,7 @@ const MenegerAdmin = () => {
   return (
     <div
       className={style.managerBox}
-      // style={{ width: `${imageDimensions.width + 10}px` }}
+      style={{ width: `${imageDimensions.width + 10}px` }}
     >
       <div>
         <img style={{ display: 'none' }} src={img} alt="" />

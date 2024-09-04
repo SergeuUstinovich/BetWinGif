@@ -13,8 +13,8 @@ const StaticBanners = lazy(
   () => import('./pages/StaticBanners/StaticBanner.tsx')
 )
 const GifBanners = lazy(() => import('./pages/GifBanners/GifBanners.tsx'))
-const MenegerAdmin = lazy(
-  () => import('./component/MenegerAdmin/MenegerAdmin.tsx')
+const AdminPanel = lazy(
+  () => import('./pages/AdminPanel/AdminPanel.tsx')
 )
 const AccoutSetting = lazy(
   () => import('./pages/AccoutSetting/AccoutSetting.tsx')
@@ -55,9 +55,9 @@ function App() {
             <Route
               path={'admin-meneger'}
               element={
-                <AdminRoute>
-                  <MenegerAdmin />
-                </AdminRoute>
+                // <AdminRoute>
+                  <AdminPanel />
+                // </AdminRoute>
               }
             />
           </Route>

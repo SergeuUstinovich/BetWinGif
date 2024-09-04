@@ -1,17 +1,17 @@
 import { Navigate } from "react-router-dom";
 import { ReactNode } from "react";
 import { useSelector } from "react-redux";
-import { getAdminCheck } from "../providers/StoreProvider/selectors/getAdminCheck";
+import { getUser } from "../providers/StoreProvider/selectors/getUser";
 
 interface privateRouteProps {
   children: ReactNode;
 }
 
 function AdminRoute({ children }: privateRouteProps) {
-  const admin = useSelector(getAdminCheck)
+  const admin = useSelector(getUser)
 
-  if (!admin) {
-    return <Navigate to={"/auths"} replace />;
+  if (!admin.is_admin) {
+    return <Navigate to={"/"} replace />;
   }
   return children;
 }
