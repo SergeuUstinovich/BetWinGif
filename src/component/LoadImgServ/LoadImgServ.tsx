@@ -22,6 +22,8 @@ function LoadImgServ() {
     {
       mutationFn: (data: { formData: FormData }) => loadingImg(data.formData),
       onSuccess: () => {
+        setLastUploadedFile(null)
+        setSelectedFiles([])
         queryClient.invalidateQueries({queryKey: ['img']})
       }
     },
