@@ -5,7 +5,12 @@ const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.en
 export const pictureLoad = (img: any) => {
     return axios.post(`${api_url}/api/load_picture/`, {
         img
+    }, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
     })
+
     .then(response => {
         const data = response.data
         console.log(data)

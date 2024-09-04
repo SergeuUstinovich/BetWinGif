@@ -1,3 +1,3 @@
 import {StateShema} from "../config/StateScheme.ts";
 
-export const getUserProfile = (state: StateShema) => state.user
+export const getUserProfile = (state: StateShema) => state.profile.user

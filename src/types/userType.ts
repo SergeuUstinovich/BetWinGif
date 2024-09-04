@@ -1,5 +1,9 @@
 export interface UserType {
-    isAdmin: string | undefined,
-    promocode: string | undefined,
-    isGoogleProfile: string | undefined
+    isAdmin: boolean,
+    promocode: string,
+    isGoogleProfile: boolean
+}
+
+export interface UserScheme {
+    user?: UserType
 }

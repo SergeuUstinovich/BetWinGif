@@ -1,7 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 interface AccountProps {
   children: ReactNode;
