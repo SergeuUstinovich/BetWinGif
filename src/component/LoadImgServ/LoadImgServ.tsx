@@ -1,16 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { queryClient } from "../../api/queryClient";
 import { loadingImg } from "../../api/adminImg";
 import { v4 } from "uuid";
-import style from './LoadImgServ.module.scss'
-
-
+import style from "./LoadImgServ.module.scss";
 
 function LoadImgServ() {
+  const refInp = useRef(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [lastUploadedFile, setLastUploadedFile] = useState(null);
-
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files as FileList).map((file) => ({
       id: v4(),
@@ -28,12 +26,15 @@ function LoadImgServ() {
   );
 
   const handleUpload = async () => {
+    if (selectedFiles.length === 0) {
+      alert("Файл не добавлен");
+      return;
+    }
     const formData = new FormData();
     selectedFiles.forEach(({ file }) => {
-      formData.append("files", file);
+      formData.append("photos", file);
     });
-    console.log('ntfg' + formData)
-    mutateImg.mutate( formData );
+    mutateImg.mutate({ formData });
   };
 
   const handleRemoveFile = (id) => {
@@ -48,11 +49,9 @@ function LoadImgServ() {
     });
   };
 
-  useEffect(() => {
-    if (selectedFiles) {
-      console.log(selectedFiles);
-    }
-  }, [selectedFiles]);
+  const handlePick = () => {
+    refInp.current.click();
+  };
 
   return (
     <div>
@@ -61,17 +60,18 @@ function LoadImgServ() {
         multiple
         onChange={handleFileChange}
         className={style.hiddenInput}
-        id="fileInput"
+        ref={refInp}
+        accept="image/*,.png,.jpg,.gif,.web,.jpeg,.svg"
       />
-      <label htmlFor="fileInput" className={style.customLabel}>
+      <button onClick={handlePick} className={style.customLabel}>
         Выбрать файлы
-      </label>
+      </button>
       {lastUploadedFile && (
         <span className={style.fileName}>
           Последний загруженный файл: {lastUploadedFile}
         </span>
       )}
-      
+
       <ul>
         {selectedFiles.map(({ id, file }) => (
           <li key={id}>
