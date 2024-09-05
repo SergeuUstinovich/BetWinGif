@@ -12,6 +12,9 @@ import {
 } from "../../api/adminImg";
 import { Button } from "../../ui/Button";
 import toast from "react-hot-toast";
+import { staticGifDemo } from "../../api/staticGif";
+import { useSelector } from "react-redux";
+import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 
 interface Image {
   picture_id?: number;
@@ -36,6 +39,7 @@ interface TestProps {
 
 export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
   const { t } = useTranslation();
+  const token = useSelector(getTokenUser);
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const [selectedCurrencies, setSelectedCurrencies] = useState<string[]>([]);
@@ -153,25 +157,40 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
     queryClient
   );
 
-  const mutateGetPicture = useMutation(
+  const mutatePreve = useMutation(
     {
-      mutationFn: (data: {
-        full_picture_id: number;
-      }) =>
-        getPictureId(
-          data.full_picture_id,
-        ),
-        onSuccess: (data) => {
-          toast.success(data.data)
-        }
+      mutationFn: (data: { token: string; full_picture_id: number }) =>
+        staticGifDemo(data.token, data.full_picture_id),
+      onError: (err) => {
+        toast.error(err.message);
+      },
     },
     queryClient
   );
 
-  const handleGetPicture = (picture_id: number) => { 
-      mutateGetPicture.mutate({
-        full_picture_id: picture_id,
-      });
+  const handleDemo = (picture_id: number) => {
+    mutatePreve.mutate({
+      token,
+      full_picture_id: picture_id,
+    });
+  };
+
+  const mutateGetPicture = useMutation(
+    {
+      mutationFn: (data: { full_picture_id: number }) =>
+        getPictureId(data.full_picture_id),
+      onSuccess: (data) => {
+        // queryClient.invalidateQueries({ queryKey: ["img"] });
+        toast.success(data.data);
+      },
+    },
+    queryClient
+  );
+
+  const handleGetPicture = (picture_id: number) => {
+    mutateGetPicture.mutate({
+      full_picture_id: picture_id,
+    });
   };
 
   const handleDrag = (
@@ -412,11 +431,14 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
             )}
 
             {image.full_picture_id && (
-              <Button
-                onClick={() => handleGetPicture(image.full_picture_id)}
-              >
-                Опубликовать
-              </Button>
+              <>
+                <Button onClick={() => handleGetPicture(image.full_picture_id)}>
+                  Опубликовать
+                </Button>
+                {/* <Button onClick={() => handleDemo(image.full_picture_id)}>
+                  Demo
+                </Button> */}
+              </>
             )}
           </div>
         ))}
