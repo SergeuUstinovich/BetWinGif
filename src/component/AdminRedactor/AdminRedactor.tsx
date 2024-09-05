@@ -328,6 +328,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
   return (
     <div className={style.mainBox}>
+    <img className={style.redactorImg} src={demoPrev} alt="" />
       {images &&
         images.map((image, index) => (
           <div key={index} className={style.redactorBox}>
@@ -354,7 +355,6 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
                 src={image.url}
                 alt={`img-${index}`}
               />
-              <img src={demoPrev} alt="" />
             </div>
             <input
               className={style.redactorIn}
