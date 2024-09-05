@@ -62,6 +62,9 @@ export const TopbarStatic = () => {
           data.format,
           data.topic
         ),
+        onSuccess: (data) => {
+          dispatch(gifActions.gifAdd(data))
+        }
     },
     queryClient
   );

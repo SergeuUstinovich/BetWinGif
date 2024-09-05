@@ -40,6 +40,7 @@ interface TestProps {
 export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
   const { t } = useTranslation();
   const token = useSelector(getTokenUser);
+  const [demoPrev, setDemoPrev] = useState<string>();
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const [selectedCurrencies, setSelectedCurrencies] = useState<string[]>([]);
@@ -118,6 +119,9 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["img"] });
       },
+      onError: (err) => {
+        toast.error(err.message)
+      }
     },
     queryClient
   );
@@ -161,7 +165,11 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
     {
       mutationFn: (data: { token: string; full_picture_id: number }) =>
         staticGifDemo(data.token, data.full_picture_id),
+      onSuccess: (data) => {
+        setDemoPrev(data)
+      },
       onError: (err) => {
+        
         toast.error(err.message);
       },
     },
@@ -306,6 +314,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
   return (
     <div className={style.mainBox}>
+      <img src={demoPrev} alt="" />
       {images &&
         images.map((image, index) => (
           <div key={index} className={style.redactorBox}>
@@ -432,12 +441,12 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
             {image.full_picture_id && (
               <>
-                <Button onClick={() => handleGetPicture(image.full_picture_id)}>
+                <Button className={style.publish} onClick={() => handleGetPicture(image.full_picture_id)}>
                   Опубликовать
                 </Button>
-                {/* <Button onClick={() => handleDemo(image.full_picture_id)}>
+                <Button className={style.publish} onClick={() => handleDemo(image.full_picture_id)}>
                   Demo
-                </Button> */}
+                </Button>
               </>
             )}
           </div>

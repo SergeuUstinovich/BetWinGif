@@ -12,7 +12,7 @@ export const staticGif = (token: string, country?: string, language?:string, val
         topic,
     })
     .then(response => {
-        const data = response.data
+        const data = response.data.file_urls
         return data
     })
     .catch(error => {
@@ -21,10 +21,10 @@ export const staticGif = (token: string, country?: string, language?:string, val
     })
 }
 
-export const staticGifDemo = (token: string, full_picture_id?:number) => {
+export const staticGifDemo = (token: string, create_picture_id?:number) => {
     return axios.post(`${api_url}/api/create_statick_gif_test/`, {
         token,
-        full_picture_id,
+        create_picture_id,
     })
     .then(response => {
         const data = response.data
