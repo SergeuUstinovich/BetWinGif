@@ -31,6 +31,7 @@ interface Image {
   format: string;
   topic: string;
   value: string;
+  size: number;
 }
 
 interface TestProps {
@@ -65,7 +66,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         images.map((image) => ({ x: image.left || 0, y: image.top || 0 }))
       );
       setTexts(images.map((image) => image.name || "Your Text"));
-      setTextSizes(images.map(() => 30));
+      setTextSizes(images.map((image) => image.size || 30));
       setTextColors(images.map((image) => image.color_text || "#ffffff")); // Default text color
       setSelectedCountries(
         images.map((image) => image.country || t("Country"))
@@ -102,6 +103,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         right: string;
         top: string;
         bottom: string;
+        size: number
       }) =>
         unifiedPicture(
           data.picture_id,
@@ -114,7 +116,8 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           data.left,
           data.right,
           data.top,
-          data.bottom
+          data.bottom,
+          data.size
         ),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["img"] });
@@ -140,6 +143,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         right: string;
         top: string;
         bottom: string;
+        size: number
       }) =>
         allUnifiedPicture(
           data.full_picture_id,
@@ -152,7 +156,8 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           data.left,
           data.right,
           data.top,
-          data.bottom
+          data.bottom,
+          data.size
         ),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["img"] });
@@ -167,7 +172,6 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         staticGifDemo(data.token, data.full_picture_id),
       onSuccess: (data) => {
         setDemoPrev(data)
-        console.log(data)
       },
       onError: (err) => {
         
@@ -189,7 +193,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
       mutationFn: (data: { full_picture_id: number }) =>
         getPictureId(data.full_picture_id),
       onSuccess: (data) => {
-        // queryClient.invalidateQueries({ queryKey: ["img"] });
+        queryClient.invalidateQueries({ queryKey: ["img"] });
         toast.success(data.data);
       },
     },
@@ -260,6 +264,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           right: (x + textWidth).toString(),
           top: y.toString(),
           bottom: (y + textHeight).toString(),
+          size: textSizes[index]
         });
       }
     }
@@ -285,6 +290,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           right: (x + textWidth).toString(),
           top: y.toString(),
           bottom: (y + textHeight).toString(),
+          size: textSizes[index]
         });
       }
     }
