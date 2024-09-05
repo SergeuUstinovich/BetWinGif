@@ -1,6 +1,5 @@
 import style from './AdminPanel.module.scss'
 import LoadImgServ from "../../component/LoadImgServ/LoadImgServ";
-import MenegerAdmin from "../../component/MenegerAdmin/MenegerAdmin";
 import { useSelector } from 'react-redux';
 import { getUser } from '../../providers/StoreProvider/selectors/getUser';
 import { allPicture } from '../../api/adminImg';
@@ -31,9 +30,6 @@ function AdminPanel() {
       <div className={style.adminPanelBlock}>
         <LoadImgServ />
         <AdminRedactor images={arrImg} />
-        {/* <ImageEditor images={arrImg} /> */}
-        {/* <AdminRefactor  arr={arrImg} /> */}
-        {/* <MenegerAdmin arr={arrImg} /> */}
       </div>
     </>
   );

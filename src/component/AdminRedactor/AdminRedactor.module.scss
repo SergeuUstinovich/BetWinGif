@@ -27,7 +27,7 @@
 
 .topbar {
     padding: 10px 0 0;
-    margin-bottom: var(--offset-40);
+    margin-bottom: 20px;
     max-width: 1140px;
     display: flex;
     align-items: center;
@@ -48,6 +48,18 @@
   
   .lastDefaultSelect {
     margin-right: auto;
+  }
+
+  .adminRedactorButton {
+    margin-right: 10px;
+    padding: 6px 12px;
+    color: var(--white-text);
+    background-color: var(--lightmode-orange-orange);
+  }
+
+  .draggableImgBox {
+    position: relative;
+    width: max-content;
   }
   
   @media (max-width: 768px) {

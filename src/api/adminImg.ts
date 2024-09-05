@@ -19,9 +19,10 @@ export function allPicture() {
     })
 }
 
-export const unifiedPicture = (picture_id:number , country:string, language:string, value:string, format:string, topic:string, color:string, left:string, right:string, top:string, bottom:string) => {
+export const unifiedPicture = (picture_id:number,full_picture_id:number, country:string, language:string, value:string, format:string, topic:string, color:string, left:string, right:string, top:string, bottom:string) => {
     return axios.post(`${api_url}/api/createFullPicture/`, {
         picture_id,
+        full_picture_id,
         country,
         language,
         value,
@@ -60,6 +61,19 @@ export const allUnifiedPicture = (full_picture_id:number, country? :string, lang
     .then(response => {
         const data = response.data
         return data
+    })
+    .catch(error => {
+        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
+        throw new Error(errorMessages);
+    })
+}
+
+export const getPictureId = (full_picture_id: number) => {
+    return axios.post(`${api_url}/api/get_picture/`, {
+        full_picture_id
+    })
+    .then(response => {
+        const data = response.data
     })
     .catch(error => {
         const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
