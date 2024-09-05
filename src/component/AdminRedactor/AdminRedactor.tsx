@@ -5,28 +5,33 @@ import ListBox from "../../ui/ListBox/ListBox";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../api/queryClient";
-import { getPictureId, unifiedPicture } from "../../api/adminImg";
+import {
+  allUnifiedPicture,
+  getPictureId,
+  unifiedPicture,
+} from "../../api/adminImg";
 import { Button } from "../../ui/Button";
+import toast from "react-hot-toast";
 
 interface Image {
   picture_id?: number;
   full_picture_id?: number;
   url: string;
-  top: string;
+  top: number;
   bottom: number;
   left: number;
   right: number;
   language: string;
-  name?: string;
-  color_text?: string;
-  country?: string;
-  format?: string;
-  topic?: string;
-  value?: string;
+  name: string;
+  color_text: string;
+  country: string;
+  format: string;
+  topic: string;
+  value: string;
 }
 
 interface TestProps {
-  images: Image[];
+  images?: Image[];
 }
 
 export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
@@ -52,10 +57,10 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
   useEffect(() => {
     if (images) {
       setTextPositions(
-        images.map((image) => ({ x: image.left || 0, y: image.left || 0 }))
+        images.map((image) => ({ x: image.left || 0, y: image.top || 0 }))
       );
       setTexts(images.map((image) => image.name || "Your Text"));
-      setTextSizes(images.map(() => 30)); // Default text size
+      setTextSizes(images.map(() => 30));
       setTextColors(images.map((image) => image.color_text || "#ffffff")); // Default text color
       setSelectedCountries(
         images.map((image) => image.country || t("Country"))
@@ -81,8 +86,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
   const mutateCreateImg = useMutation(
     {
       mutationFn: (data: {
-        picture_id?: number;
-        full_picture_id?: number;
+        picture_id: number;
         country: string;
         language: string;
         value: string;
@@ -96,6 +100,40 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
       }) =>
         unifiedPicture(
           data.picture_id,
+          data.country,
+          data.language,
+          data.value,
+          data.format,
+          data.topic,
+          data.color,
+          data.left,
+          data.right,
+          data.top,
+          data.bottom
+        ),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["img"] });
+      },
+    },
+    queryClient
+  );
+
+  const mutateCreateUpdate = useMutation(
+    {
+      mutationFn: (data: {
+        full_picture_id: number;
+        country: string;
+        language: string;
+        value: string;
+        format: string;
+        topic: string;
+        color: string;
+        left: string;
+        right: string;
+        top: string;
+        bottom: string;
+      }) =>
+        allUnifiedPicture(
           data.full_picture_id,
           data.country,
           data.language,
@@ -117,16 +155,23 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
   const mutateGetPicture = useMutation(
     {
-      mutationFn: (data: { full_picture_id: number }) =>
-        getPictureId(data.full_picture_id),
+      mutationFn: (data: {
+        full_picture_id: number;
+      }) =>
+        getPictureId(
+          data.full_picture_id,
+        ),
+        onSuccess: (data) => {
+          toast.success(data.data)
+        }
     },
     queryClient
   );
 
-  const handleGetPicture = (id) => {
-    mutateGetPicture.mutate({
-      full_picture_id: id,
-    });
+  const handleGetPicture = (picture_id: number) => { 
+      mutateGetPicture.mutate({
+        full_picture_id: picture_id,
+      });
   };
 
   const handleDrag = (
@@ -137,7 +182,6 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
     const newTextPositions = [...textPositions];
     newTextPositions[index] = { x: data.x, y: data.y };
     setTextPositions(newTextPositions);
-    // console.log(`Text ${index} position:`, newTextPositions[index]);
   };
 
   const handleTextChange = (
@@ -167,27 +211,47 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
     setTextColors(newColors);
   };
 
-  const handleSubmit = (id: number) => {
-    const position = textPositions[id];
-     const image = images[id];
-  const pictureId = image.picture_id?.toString();
-  const fullPictureId = image.full_picture_id?.toString();
+  const handleSubmit = (picture_id: number, index: number) => {
+    const position = textPositions[index];
     if (position) {
       const { x, y } = position;
-      mutateCreateImg.mutate({
-        picture_id: id,
-        full_picture_id: id,
-        country: selectedCountries[id],
-        language: selectedLanguages[id],
-        value: selectedCurrencies[id],
-        format: selectedBannerFormats[id],
-        topic: selectedBannerThemes[id],
-        color: textColors[id],
-        left: x.toString(),
-        right: (x + 100).toString(),
-        top: y.toString(),
-        bottom: (y + 50).toString(),
-      });
+      if (picture_id) {
+        mutateCreateImg.mutate({
+          picture_id: picture_id,
+          country: selectedCountries[index],
+          language: selectedLanguages[index],
+          value: selectedCurrencies[index],
+          format: selectedBannerFormats[index],
+          topic: selectedBannerThemes[index],
+          color: textColors[index],
+          left: x.toString(),
+          right: (x + 10).toString(),
+          top: y.toString(),
+          bottom: (y + 5).toString(),
+        });
+      }
+    }
+  };
+
+  const handleSubmitTwo = (picture_id: number, index: number) => {
+    const position = textPositions[index];
+    if (position) {
+      const { x, y } = position;
+      if (picture_id) {
+        mutateCreateUpdate.mutate({
+          full_picture_id: picture_id,
+          country: selectedCountries[index],
+          language: selectedLanguages[index],
+          value: selectedCurrencies[index],
+          format: selectedBannerFormats[index],
+          topic: selectedBannerThemes[index],
+          color: textColors[index],
+          left: x.toString(),
+          right: (x + 10).toString(),
+          top: y.toString(),
+          bottom: (y + 5).toString(),
+        });
+      }
     }
   };
 
@@ -225,94 +289,58 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
     <div className={style.mainBox}>
       {images &&
         images.map((image, index) => (
-          <div
-            key={image.picture_id ? image.picture_id : image.full_picture_id}
-            className={style.redactorBox}
-          >
+          <div key={index} className={style.redactorBox}>
             <div className={style.draggableImgBox}>
               <Draggable
-                position={
-                  textPositions[image.picture_id ? image.picture_id : image.full_picture_id]
-                }
-                onDrag={(e, data) =>
-                  handleDrag(image.picture_id ? image.picture_id : image.full_picture_id, e, data)
-                }
+                position={textPositions[index]}
+                onDrag={(e, data) => handleDrag(index, e, data)}
                 bounds="parent"
                 //   nodeRef={draggableRefs.current[index].current}
               >
                 <div
-                  ref={
-                    draggableRefs.current[
-                      image.picture_id ? image.picture_id : image.full_picture_id
-                    ]
-                  }
+                  ref={draggableRefs.current[index]}
                   className={style.draggableBox}
                   style={{
-                    fontSize: `${
-                      textSizes[image.picture_id ? image.picture_id : image.full_picture_id]
-                    }px`,
-                    color:
-                      textColors[image.picture_id ? image.picture_id : image.full_picture_id],
+                    fontSize: `${textSizes[index]}px`,
+                    color: textColors[index],
                   }}
                 >
-                  {texts[image.picture_id ? image.picture_id : image.full_picture_id]}
+                  {texts[index]}
                 </div>
               </Draggable>
               <img
                 className={style.redactorImg}
                 src={image.url}
-                alt={`img-${image.picture_id ? image.picture_id : image.full_picture_id}`}
+                alt={`img-${index}`}
               />
             </div>
             <input
               className={style.redactorIn}
               type="text"
               placeholder="Label"
-              value={texts[image.picture_id ? image.picture_id : image.full_picture_id] || ""}
-              onChange={(event) =>
-                handleTextChange(
-                  image.picture_id ? image.picture_id : image.full_picture_id,
-                  event
-                )
-              }
+              value={texts[index] || ""}
+              onChange={(event) => handleTextChange(index, event)}
             />
             <input
               className={style.redactorIn}
               type="number"
-              value={textSizes[image.picture_id ? image.picture_id : image.full_picture_id]}
-              onChange={(event) =>
-                handleSizeChange(
-                  image.picture_id ? image.picture_id : image.full_picture_id,
-                  event
-                )
-              }
+              value={textSizes[index]}
+              onChange={(event) => handleSizeChange(index, event)}
               placeholder="Text Size"
             />
             <input
               className={style.redactorIn}
               type="color"
-              value={textColors[image.picture_id ? image.picture_id : image.full_picture_id]}
-              onChange={(event) =>
-                handleColorChange(
-                  image.picture_id ? image.picture_id : image.full_picture_id,
-                  event
-                )
-              }
+              value={textColors[index]}
+              onChange={(event) => handleColorChange(index, event)}
               placeholder="Text Color"
             />
             <ul className={`${style.topbar}`}>
               <li className={style.defaultSelect}>
                 <ListBox
                   defaultValue={t("Country")}
-                  onChange={(value) =>
-                    handleChangeCountry(
-                      image.picture_id ? image.picture_id : image.full_picture_id,
-                      value
-                    )
-                  }
-                  value={
-                    selectedCountries[image.picture_id ? image.picture_id : image.full_picture_id]
-                  }
+                  onChange={(value) => handleChangeCountry(index, value)}
+                  value={selectedCountries[index]}
                   items={[
                     { value: "en", content: "en", id: "1" },
                     { value: "ru", content: "ru", id: "2" },
@@ -324,15 +352,8 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
               <li className={style.defaultSelect}>
                 <ListBox
                   defaultValue={t("Language")}
-                  onChange={(value) =>
-                    handleChangeLanguage(
-                      image.picture_id ? image.picture_id : image.full_picture_id,
-                      value
-                    )
-                  }
-                  value={
-                    selectedLanguages[image.picture_id ? image.picture_id : image.full_picture_id]
-                  }
+                  onChange={(value) => handleChangeLanguage(index, value)}
+                  value={selectedLanguages[index]}
                   items={[
                     { value: "en", content: "English", id: "1" },
                     { value: "ru", content: "Русский", id: "2" },
@@ -344,17 +365,8 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
               <li className={style.defaultSelect}>
                 <ListBox
                   defaultValue={t("Currency")}
-                  value={
-                    selectedCurrencies[
-                      image.picture_id ? image.picture_id : image.full_picture_id
-                    ]
-                  }
-                  onChange={(value) =>
-                    handleChangeCurrency(
-                      image.picture_id ? image.picture_id : image.full_picture_id,
-                      value
-                    )
-                  }
+                  value={selectedCurrencies[index]}
+                  onChange={(value) => handleChangeCurrency(index, value)}
                   items={[{ value: "en", content: "English", id: "1" }]}
                 />
               </li>
@@ -362,17 +374,8 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
               <li className={style.defaultSelect}>
                 <ListBox
                   defaultValue={t("Banner format")}
-                  value={
-                    selectedBannerFormats[
-                      image.picture_id ? image.picture_id : image.full_picture_id
-                    ]
-                  }
-                  onChange={(value) =>
-                    handleChangeBannerFormat(
-                      image.picture_id ? image.picture_id : image.full_picture_id,
-                      value
-                    )
-                  }
+                  value={selectedBannerFormats[index]}
+                  onChange={(value) => handleChangeBannerFormat(index, value)}
                   items={[
                     { value: "300*300", content: "300*300", id: "1" },
                     { value: "600*600", content: "600*600", id: "2" },
@@ -386,31 +389,32 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
               >
                 <ListBox
                   defaultValue={t("Banner theme")}
-                  value={
-                    selectedBannerThemes[
-                      image.picture_id ? image.picture_id : image.full_picture_id
-                    ]
-                  }
-                  onChange={(value) =>
-                    handleChangeBannerTheme(
-                      image.picture_id ? image.picture_id : image.full_picture_id,
-                      value
-                    )
-                  }
+                  value={selectedBannerThemes[index]}
+                  onChange={(value) => handleChangeBannerTheme(index, value)}
                   items={[{ value: "footbal", content: "footbal", id: "1" }]}
                 />
               </li>
             </ul>
-            <Button
-              className={style.adminRedactorButton}
-              onClick={() =>
-                handleSubmit(image.picture_id ? image.picture_id : image.full_picture_id)
-              }
-            >
-              Отправить
-            </Button>
+            {image.picture_id ? (
+              <Button
+                className={style.adminRedactorButton}
+                onClick={() => handleSubmit(image.picture_id, index)}
+              >
+                Отправить
+              </Button>
+            ) : (
+              <Button
+                className={style.adminRedactorButton}
+                onClick={() => handleSubmitTwo(image.full_picture_id, index)}
+              >
+                Изменить
+              </Button>
+            )}
+
             {image.full_picture_id && (
-              <Button onClick={() => handleGetPicture(image.full_picture_id)}>
+              <Button
+                onClick={() => handleGetPicture(image.full_picture_id)}
+              >
                 Опубликовать
               </Button>
             )}
