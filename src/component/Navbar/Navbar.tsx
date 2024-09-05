@@ -66,7 +66,7 @@ export const Navbar = () => {
         >
           <Link className={`${style.pageLink} menu-link`} to="#">
             <span className="menu-icon">
-              <i className="ki-filled ki-note-2"></i>
+              <i className="ki-filled ki-calculatoror"></i>
             </span>
             <span className="menu-title">Football/Sport</span>
             <span className="menu-arrow">

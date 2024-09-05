@@ -1,12 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import { ReactNode, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { profileUser } from "../../api/authUser";
 import { queryClient } from "../../api/queryClient";
-import { allPicture } from "../../api/adminImg";
-import { getUser } from "../../providers/StoreProvider/selectors/getUser";
 import { userActions } from "../../providers/StoreProvider/slice/userSlice";
 
 interface AccountProps {
@@ -14,36 +11,24 @@ interface AccountProps {
 }
 
 function Account({ children }: AccountProps) {
-  const token = useSelector(getTokenUser)
-  const admin = useSelector(getUser)
-  const dispatch = useDispatch()
+  const token = useSelector(getTokenUser);
+  const dispatch = useDispatch();
 
-   const queryUser = useQuery({
-    queryKey: ['user'],
-    queryFn: () => profileUser(token),
-    enabled: !!token,
-    retry: 1,
-   }, queryClient)
+  const queryUser = useQuery(
+    {
+      queryKey: ["user"],
+      queryFn: () => profileUser(token),
+      enabled: !!token,
+      retry: 1,
+    },
+    queryClient
+  );
 
-   useEffect(() => {
-    if(queryUser.data) {
-      dispatch(userActions.userData(queryUser.data))
+  useEffect(() => {
+    if (queryUser.data) {
+      dispatch(userActions.userData(queryUser.data));
     }
-   }, [queryUser.data])
-
-   const queryImg = useQuery({
-    queryKey: ['img'],
-    queryFn: () => allPicture(),
-    enabled: !!admin?.is_admin,
-    retry: 1,
-   }, queryClient)
-
-   useEffect(() => {
-    if(queryImg.data) {
-      console.log(queryImg.data)
-    }
-   }, [queryImg.data])
-
+  }, [queryUser.data]);
 
   return <>{children}</>;
 }

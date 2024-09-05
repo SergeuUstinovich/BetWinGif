@@ -4,6 +4,7 @@ import { queryClient } from "../../api/queryClient";
 import { loadingImg } from "../../api/adminImg";
 import { v4 } from "uuid";
 import style from "./LoadImgServ.module.scss";
+import { Button } from "../../ui";
 
 function LoadImgServ() {
   const refInp = useRef(null);
@@ -59,33 +60,37 @@ function LoadImgServ() {
   };
 
   return (
-    <div>
-      <input
-        type="file"
-        multiple
-        onChange={handleFileChange}
-        className={style.hiddenInput}
-        ref={refInp}
-        accept="image/*,.png,.jpg,.gif,.web,.jpeg,.svg"
-      />
-      <button onClick={handlePick} className={style.customLabel}>
-        Выбрать файлы
-      </button>
+    <div className={style.fileBlock}>
+      <div className={style.inputBlock}>
+        <input
+          type="file"
+          multiple
+          onChange={handleFileChange}
+          className={style.hiddenInput}
+          ref={refInp}
+          accept="image/*,.png,.jpg,.gif,.web,.jpeg,.svg"
+        />
+        <button onClick={handlePick} className={style.customLabel}>
+          Выбрать файлы
+        </button>
+        <Button className={style.loadButton} onClick={handleUpload}>Загрузить</Button>
+      </div>
+      
       {lastUploadedFile && (
         <span className={style.fileName}>
           Последний загруженный файл: {lastUploadedFile}
         </span>
       )}
-
-      <ul>
+      
+      <ul className={style.selectedFilesList}>
         {selectedFiles.map(({ id, file }) => (
           <li key={id}>
-            {file.name}
-            <button onClick={() => handleRemoveFile(id)}>Удалить</button>
+            <p className={style.selectedFile}>Название файла: {file.name}</p>
+            <Button className={style.deleteButton} onClick={() => handleRemoveFile(id)}>Удалить</Button>
           </li>
         ))}
       </ul>
-      <button onClick={handleUpload}>Загрузить</button>
+      
     </div>
   );
 }

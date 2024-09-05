@@ -1,10 +1,11 @@
 import { AreaSelector, IArea } from "@bmunozg/react-image-area";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import img from "../../assets/img/png/image.png";
 import { v4 } from "uuid";
 import style from "./MenegerAdmin.module.scss";
 import ListBox from "../../ui/ListBox/ListBox";
 import { useTranslation } from "react-i18next";
+import MenegerArr from "../MenegerArr/MenegerArr";
 
 interface ITextArea extends IArea {
   id: string;
@@ -13,9 +14,9 @@ interface ITextArea extends IArea {
   color: string;
 }
 
-const MenegerAdmin = () => {
+const MenegerAdmin = ({ arr }) => {
   const [areas, setAreas] = useState<ITextArea[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const { t } = useTranslation();
   const [imageDimensions, setImageDimensions] = useState({
     width: 0,
@@ -73,10 +74,6 @@ const MenegerAdmin = () => {
     setAreas(newAreas);
   };
 
-  const toggleEditing = () => {
-    setIsEditing((prev) => !prev);
-  };
-
   const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
     const { naturalWidth, naturalHeight } = event.currentTarget;
     setImageDimensions({ width: naturalWidth, height: naturalHeight });
@@ -95,91 +92,73 @@ const MenegerAdmin = () => {
   };
 
   return (
-    <div
-      className={style.managerBox}
-      // style={{ width: `${imageDimensions.width}px` }}
-    >
-      <div>
-        <img style={{ display: "none" }} src={img} alt="" />
-        <button className={style.managerButton} onClick={toggleEditing}>
-          {isEditing ? "Завершить" : "Редактировать"}
-        </button>
-      </div>
-
-      {!isEditing ? (
-        <div
-          className={style.box}
-          style={{
-            width: `${imageDimensions.width}px`,
-            height: `${imageDimensions.height}px`,
-          }}
-        >
-          <img src={img} alt="my image" onLoad={handleImageLoad} />
-
-          {areas.map((area) => (
-            <div
-              key={area.id}
-              className={style.boxInfo}
-              style={{
-                position: "absolute",
-                left: area.x,
-                top: area.y,
-                width: area.width,
-                height: area.height,
-                fontSize: `${area.fontSize}px`,
-                color: area.color,
-              }}
-            >
-              {area.text}
+    <div className={style.admin}>
+      <div
+        className={style.managerBox}
+        // style={{ width: `${imageDimensions.width}px` }}
+      >
+        {arr &&
+          arr.map((item) => (
+            <div key={item.id} className={style.box}>
+              {editingId !== item.id ? (
+                <div
+                
+                >
+                  <img src={item.url} alt="my image"  />
+                  <MenegerArr
+                    x={""}
+                    y={""}
+                    width={""}
+                    height={""}
+                    fontSize={""}
+                    color={""}
+                    text={""}
+                  />
+                </div>
+              ) : (
+                <AreaSelector areas={arr} onChange={onChangeHandler}>
+                  <div>
+                    <img src={item.url} alt="my image" />
+                    <MenegerArr
+                      x={""}
+                      y={""}
+                      width={""}
+                      height={""}
+                      fontSize={""}
+                      color={""}
+                      text={""}
+                    />
+                  </div>
+                </AreaSelector>
+              )}
+              <button
+                className={style.managerButton}
+                onClick={() => setEditingId(editingId === item.id ? null : item.id)}
+              >
+                {editingId === item.id ? "Завершить" : "Редактировать"}
+              </button>
             </div>
           ))}
-        </div>
-      ) : (
-        <AreaSelector areas={areas} onChange={onChangeHandler}>
-          <div className={style.box}>
-            
-            <img src={img} alt="my image" />
-            {areas.map((area) => (
-              <div
-                className={style.boxInfo}
-                key={area.id}
-                style={{
-                  position: "absolute",
-                  left: area.x,
-                  top: area.y,
-                  width: area.width,
-                  height: area.height,
-                  fontSize: `${area.fontSize}px`,
-                  color: area.color,
-                }}
-              >
-                {area.text}
-              </div>
-            ))}
-          </div>
-        </AreaSelector>
-      )}
-
+      </div>
       <div>
         {areas.map((area, index) => (
-          
           <div key={area.id}>
             <input
-              disabled={!isEditing}
+              disabled={editingId === null}
               type="text"
               value={area.text}
               onChange={(event) => onTextChange(area.id, event)}
               placeholder="Введите текст"
             />
             <input
-              disabled={!isEditing}
+              disabled={editingId === null}
               type="text"
               value={area.fontSize}
               onChange={(event) => onFontSizeChange(area.id, event)}
               placeholder="Размер шрифта (например, 16px)"
             />
             <input
-              disabled={!isEditing}
+              disabled={editingId === null}
               type="color"
               value={area.color}
               onChange={(event) => onColorChange(area.id, event)}

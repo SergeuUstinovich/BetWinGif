@@ -1,13 +1,53 @@
+.fileBlock {
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBlock {
+  margin-bottom: var(--offset-40);
+  display: flex;
+  gap: 10px;
+}
+
 .hiddenInput {
     display: none;
   }
   
   .customLabel {
+    padding: 6px 20px;
     display: inline-block;
-    margin-left: 10px;
     cursor: pointer;
+    background-color: var(--lightmode-grey-grey-200);
+    border: 1px solid var(--lightmode-grey-grey-600);
+    transition: background-color .1s ease-in-out;
+
+    &:hover {
+      background-color: var(--lightmode-grey-grey-400);
+    }
   }
   
-  .fileName {
-    margin-left: 10px;
+
+  .loadButton {
+    padding: 6px 12px;
+    color: var(--white-text);
+    border-radius: 6px;
+    background-color: var(--bg-btn);
+  }
+
+  .deleteButton {
+    padding: 6px 20px;
+    color: var(--white-text);
+    background-color: var(--lightmode-danger-danger);
+  }
+
+  .selectedFile {
+    margin-bottom: 5px;  
+  }
+
+  .selectedFilesList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
