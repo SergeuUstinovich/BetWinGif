@@ -27,7 +27,7 @@ export const staticGifDemo = (token: string, create_picture_id?:number) => {
         create_picture_id,
     })
     .then(response => {
-        const data = response.data
+        const data = response.data.file_url
         return data
     })
     .catch(error => {

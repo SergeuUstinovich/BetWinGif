@@ -19,18 +19,13 @@ function StatickGif({ url }: gifType) {
     }
   };
 
-  useEffect(() => {
-    if(url){
-      console.log(url)
-    }
-  }, [url])
   return (
     <>
       {url ? (
         <div className={`${style.gifBlock} max-w-[1140px] m-auto`}>
-          {url && url.map((item) => 
+          {url && url.map((item, index) => 
             (
-              <div className={style.gifCard}>
+              <div key={index} className={style.gifCard}>
                 <img className={style.gifImg} src={item} alt="gif" />
                 <Button onClick={downloadGif} className={style.gifButton}>
                   <DownloadSvg />

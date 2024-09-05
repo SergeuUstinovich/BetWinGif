@@ -167,6 +167,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         staticGifDemo(data.token, data.full_picture_id),
       onSuccess: (data) => {
         setDemoPrev(data)
+        console.log(data)
       },
       onError: (err) => {
         
@@ -240,7 +241,11 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
   const handleSubmit = (picture_id: number, index: number) => {
     const position = textPositions[index];
-    if (position) {
+    const draggableRef = draggableRefs.current[index].current;
+    
+    if (position && draggableRef) {
+      const textWidth = draggableRef.offsetWidth;
+      const textHeight = draggableRef.offsetHeight;
       const { x, y } = position;
       if (picture_id) {
         mutateCreateImg.mutate({
@@ -252,9 +257,9 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           topic: selectedBannerThemes[index],
           color: textColors[index],
           left: x.toString(),
-          right: (x + 10).toString(),
+          right: (x + textWidth).toString(),
           top: y.toString(),
-          bottom: (y + 5).toString(),
+          bottom: (y + textHeight).toString(),
         });
       }
     }
@@ -262,8 +267,11 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
   const handleSubmitTwo = (picture_id: number, index: number) => {
     const position = textPositions[index];
-    if (position) {
+    const draggableRef = draggableRefs.current[index].current;
+    if (position && draggableRef) {
       const { x, y } = position;
+      const textWidth = draggableRef.offsetWidth;
+      const textHeight = draggableRef.offsetHeight;
       if (picture_id) {
         mutateCreateUpdate.mutate({
           full_picture_id: picture_id,
@@ -274,9 +282,9 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           topic: selectedBannerThemes[index],
           color: textColors[index],
           left: x.toString(),
-          right: (x + 10).toString(),
+          right: (x + textWidth).toString(),
           top: y.toString(),
-          bottom: (y + 5).toString(),
+          bottom: (y + textHeight).toString(),
         });
       }
     }
@@ -314,7 +322,6 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
   return (
     <div className={style.mainBox}>
-      <img src={demoPrev} alt="" />
       {images &&
         images.map((image, index) => (
           <div key={index} className={style.redactorBox}>
@@ -341,6 +348,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
                 src={image.url}
                 alt={`img-${index}`}
               />
+              <img src={demoPrev} alt="" />
             </div>
             <input
               className={style.redactorIn}
