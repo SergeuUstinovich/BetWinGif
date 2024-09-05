@@ -55,9 +55,9 @@ function App() {
             <Route
               path={'admin-meneger'}
               element={
-                // <AdminRoute>
+                <AdminRoute>
                   <AdminPanel />
-                // </AdminRoute>
+                </AdminRoute>
               }
             />
           </Route>

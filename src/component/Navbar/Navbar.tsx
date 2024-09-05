@@ -16,6 +16,8 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const admin = useSelector(getUser);
 
+  // console.log(admin.is_admin)
+
   const mutateLogout = useMutation(
     {
       mutationFn: (data: { token }) => logoutUser(data.token),
@@ -128,21 +130,19 @@ export const Navbar = () => {
             MISCELLANEOUS
           </span>
         </span>
-        {admin && (
-          <div className="menu-item">
-            {admin.is_admin && (
-              <Link
-                className={`${style.pageLink} menu-link`}
-                to={"admin-meneger"}
-              >
-                <span className="menu-icon">
-                  <i className="ki-filled ki-some-files"></i>
-                </span>
-                <span className="menu-title">{t("My manager")}</span>
-              </Link>
-            )}
-          </div>
-        )}
+        <div className="menu-item">
+          {admin?.is_admin && (
+            <Link
+              className={`${style.pageLink} menu-link`}
+              to={"admin-meneger"}
+            >
+              <span className="menu-icon">
+                <i className="ki-filled ki-some-files"></i>
+              </span>
+              <span className="menu-title">{t("My manager")}</span>
+            </Link>
+          )}
+        </div>
       </div>
       <button onClick={handleLogout} className={style.logout}>
         {t("Sing out")}

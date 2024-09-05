@@ -174,3 +174,38 @@ export function profileUser(token: string) {
       throw new Error(errorMessages)
     })
 }
+
+export function deleteProfileGoogle(token: string) {
+  return axios
+    .post(`${api_url}/api/delete_google_account/`, {
+      token,
+    })
+    .then((response) => {
+      const data = response.data
+      return data
+    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(', ')
+      throw new Error(errorMessages)
+    })
+}
+
+export function pathPromocode(token: string, promocode: string) {
+  return axios
+    .post(`${api_url}/api/change_promocode/`, {
+      token,
+      promocode,
+    })
+    .then((response) => {
+      const data = response.data
+      return data
+    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(', ')
+      throw new Error(errorMessages)
+    })
+}

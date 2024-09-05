@@ -7,5 +7,5 @@ export interface StateShema {
   auth: TokenScheme
   gif: gifType
   gifGen: gifGeneratedType
-  user: UserScheme
+  profile: UserScheme
 }
