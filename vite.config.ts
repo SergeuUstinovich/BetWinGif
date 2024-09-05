@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://188.68.221.182:8000",
+        target: "https://bwcreatorhub.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

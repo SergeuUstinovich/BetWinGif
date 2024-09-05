@@ -1,3 +1,3 @@
 export interface gifType {
-    gif: string | undefined
+    url: string[]
 }

@@ -53,7 +53,7 @@ export const Topbar = () => {
           hiddenArrow
           items={[
             { value: "en", content: "en", id: "1" },
-            { value: "ru", content: "ru", id: "2", disabled: true },
+            { value: "ru", content: "ru", id: "2" },
             { value: "fr", content: "fr", id: "3" },
           ]}
         />
@@ -65,7 +65,7 @@ export const Topbar = () => {
           onChange={toggle}
           items={[
             { value: "en", content: "English", id: "1" },
-            { value: "ru", content: "Русский", id: "2", disabled: true },
+            { value: "ru", content: "Русский", id: "2" },
             { value: "fr", content: "Française", id: "3" },
           ]}
         />

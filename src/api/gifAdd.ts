@@ -53,24 +53,3 @@ export function createPromorcode(token: string, promocode: string) {
       throw new Error(errorMessages)
     })
 }
-
-export function staticBanner(token: string) {
-  return axios
-    .post(
-      `${api_url}/api/create_statick_gif/`,
-      {
-        token,
-      },
-      { responseType: 'blob' }
-    )
-    .then((response) => {
-      const data = URL.createObjectURL(response.data)
-      return data
-    })
-    .catch((error) => {
-      const errorMessages = Object.keys(error.response.data)
-        .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
-}

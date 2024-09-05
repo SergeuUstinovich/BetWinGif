@@ -22,7 +22,7 @@ interface ListBoxProps {
   value?: string
   defaultValue?: string
   hiddenArrow?: boolean
-  onChange?: <T>(value: T) => void
+  onChange?: (value) => void
 }
 
 function ListBox(props: ListBoxProps) {

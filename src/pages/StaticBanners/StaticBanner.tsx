@@ -11,7 +11,7 @@ const StaticBanners = () => {
   return (
     <>
       <TopbarStatic />
-      <StatickGif gif={statick} />
+      <StatickGif url={statick} />
       <Accordion arrAccord={arrAccord} />
       <Cards />
     </>
