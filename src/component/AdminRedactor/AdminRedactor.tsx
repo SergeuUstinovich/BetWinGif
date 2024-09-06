@@ -15,6 +15,7 @@ import toast from 'react-hot-toast'
 import { staticGifDemo } from '../../api/staticGif'
 import { useSelector } from 'react-redux'
 import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUser'
+import { listBoxData } from './AdminListBox'
 
 interface Image {
   picture_id?: number
@@ -373,18 +374,20 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
               placeholder="Text Color"
             />
             <ul className={`${style.topbar}`}>
-              <li className={style.defaultSelect}>
-                <ListBox
-                  defaultValue={t('Country')}
-                  onChange={(value) => handleChangeCountry(index, value)}
-                  value={selectedCountries[index] || ''}
-                  items={[
-                    { value: 'en', content: 'en', id: '1' },
-                    { value: 'ru', content: 'ru', id: '2' },
-                    { value: 'fr', content: 'fr', id: '3' },
-                  ]}
-                />
-              </li>
+              {listBoxData.map((item) => (
+                <li key={item.defaultValue} className={style.defaultSelect}>
+                  <ListBox
+                    defaultValue={t('Country')}
+                    onChange={(value) => handleChangeCountry(index, value)}
+                    value={selectedCountries[index] || ''}
+                    items={[
+                      { value: 'en', content: 'en', id: '1' },
+                      { value: 'ru', content: 'ru', id: '2' },
+                      { value: 'fr', content: 'fr', id: '3' },
+                    ]}
+                  />
+                </li>
+              ))}
 
               <li className={style.defaultSelect}>
                 <ListBox
