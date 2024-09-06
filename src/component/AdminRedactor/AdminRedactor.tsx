@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import { staticGifDemo } from "../../api/staticGif";
 import { useSelector } from "react-redux";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
+import AdminListBox from "./AdminListBox";
 
 interface Image {
   picture_id?: number;
@@ -103,7 +104,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         right: string;
         top: string;
         bottom: string;
-        size: number
+        size: number;
       }) =>
         unifiedPicture(
           data.picture_id,
@@ -123,8 +124,8 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         queryClient.invalidateQueries({ queryKey: ["img"] });
       },
       onError: (err) => {
-        toast.error(err.message)
-      }
+        toast.error(err.message);
+      },
     },
     queryClient
   );
@@ -143,7 +144,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         right: string;
         top: string;
         bottom: string;
-        size: number
+        size: number;
       }) =>
         allUnifiedPicture(
           data.full_picture_id,
@@ -171,10 +172,9 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
       mutationFn: (data: { token: string; full_picture_id: number }) =>
         staticGifDemo(data.token, data.full_picture_id),
       onSuccess: (data) => {
-        setDemoPrev(data)
+        setDemoPrev(data);
       },
       onError: (err) => {
-        
         toast.error(err.message);
       },
     },
@@ -246,7 +246,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
   const handleSubmit = (picture_id: number, index: number) => {
     const position = textPositions[index];
     const draggableRef = draggableRefs.current[index].current;
-    
+
     if (position && draggableRef) {
       const textWidth = draggableRef.offsetWidth;
       const textHeight = draggableRef.offsetHeight;
@@ -264,7 +264,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           right: (x + textWidth).toString(),
           top: y.toString(),
           bottom: (y + textHeight).toString(),
-          size: textSizes[index]
+          size: textSizes[index],
         });
       }
     }
@@ -290,7 +290,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
           right: (x + textWidth).toString(),
           top: y.toString(),
           bottom: (y + textHeight).toString(),
-          size: textSizes[index]
+          size: textSizes[index],
         });
       }
     }
@@ -328,7 +328,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
   return (
     <div className={style.mainBox}>
-    <img className={style.redactorImg} src={demoPrev} alt="" />
+      <img className={style.redactorImg} src={demoPrev} alt="" />
       {images &&
         images.map((image, index) => (
           <div key={index} className={style.redactorBox}>
@@ -337,7 +337,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
                 position={textPositions[index]}
                 onDrag={(e, data) => handleDrag(index, e, data)}
                 bounds="parent"
-                //   nodeRef={draggableRefs.current[index].current}
+                nodeRef={draggableRefs.current[index]}
               >
                 <div
                   ref={draggableRefs.current[index]}
@@ -366,77 +366,31 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
             <input
               className={style.redactorIn}
               type="number"
-              value={textSizes[index]}
+              value={textSizes[index] || ""}
               onChange={(event) => handleSizeChange(index, event)}
               placeholder="Text Size"
             />
             <input
               className={style.redactorIn}
               type="color"
-              value={textColors[index]}
+              value={textColors[index] || ""}
               onChange={(event) => handleColorChange(index, event)}
               placeholder="Text Color"
             />
-            <ul className={`${style.topbar}`}>
-              <li className={style.defaultSelect}>
-                <ListBox
-                  defaultValue={t("Country")}
-                  onChange={(value) => handleChangeCountry(index, value)}
-                  value={selectedCountries[index]}
-                  items={[
-                    { value: "en", content: "en", id: "1" },
-                    { value: "ru", content: "ru", id: "2" },
-                    { value: "fr", content: "fr", id: "3" },
-                  ]}
-                />
-              </li>
-
-              <li className={style.defaultSelect}>
-                <ListBox
-                  defaultValue={t("Language")}
-                  onChange={(value) => handleChangeLanguage(index, value)}
-                  value={selectedLanguages[index]}
-                  items={[
-                    { value: "en", content: "English", id: "1" },
-                    { value: "ru", content: "Русский", id: "2" },
-                    { value: "fr", content: "Française", id: "3" },
-                  ]}
-                />
-              </li>
-
-              <li className={style.defaultSelect}>
-                <ListBox
-                  defaultValue={t("Currency")}
-                  value={selectedCurrencies[index]}
-                  onChange={(value) => handleChangeCurrency(index, value)}
-                  items={[{ value: "en", content: "English", id: "1" }]}
-                />
-              </li>
-
-              <li className={style.defaultSelect}>
-                <ListBox
-                  defaultValue={t("Banner format")}
-                  value={selectedBannerFormats[index]}
-                  onChange={(value) => handleChangeBannerFormat(index, value)}
-                  items={[
-                    { value: "300*300", content: "300*300", id: "1" },
-                    { value: "600*600", content: "600*600", id: "2" },
-                    { value: "900*900", content: "900*900", id: "3" },
-                  ]}
-                />
-              </li>
-
-              <li
-                className={`${style.defaultSelect} ${style.lastDefaultSelect}`}
-              >
-                <ListBox
-                  defaultValue={t("Banner theme")}
-                  value={selectedBannerThemes[index]}
-                  onChange={(value) => handleChangeBannerTheme(index, value)}
-                  items={[{ value: "footbal", content: "footbal", id: "1" }]}
-                />
-              </li>
-            </ul>
+            <AdminListBox
+              t={t}
+              index={index}
+              selectedCountries={selectedCountries}
+              selectedLanguages={selectedLanguages}
+              selectedCurrencies={selectedCurrencies}
+              selectedBannerFormats={selectedBannerFormats}
+              selectedBannerThemes={selectedBannerThemes}
+              handleChangeCountry={handleChangeCountry}
+              handleChangeLanguage={handleChangeLanguage}
+              handleChangeCurrency={handleChangeCurrency}
+              handleChangeBannerFormat={handleChangeBannerFormat}
+              handleChangeBannerTheme={handleChangeBannerTheme}
+            />
             {image.picture_id ? (
               <Button
                 className={style.adminRedactorButton}
@@ -455,10 +409,16 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
 
             {image.full_picture_id && (
               <>
-                <Button className={style.publish} onClick={() => handleGetPicture(image.full_picture_id)}>
+                <Button
+                  className={style.publish}
+                  onClick={() => handleGetPicture(image.full_picture_id)}
+                >
                   Опубликовать
                 </Button>
-                <Button className={style.publish} onClick={() => handleDemo(image.full_picture_id)}>
+                <Button
+                  className={style.publish}
+                  onClick={() => handleDemo(image.full_picture_id)}
+                >
                   Demo
                 </Button>
               </>
