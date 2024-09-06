@@ -5,10 +5,4 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
-  
-  &:disabled {
-    background-color: var(--light-grey);
-    opacity: 0.5;
-    border-color: var(--grey);
-  }
 }

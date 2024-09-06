@@ -14,24 +14,23 @@ export interface ListBoxData {
   items: ListBoxItem[]
 }
 
-export const listBoxData = (
+export const topbarListBoxData = (
   t: (key: string) => string,
-  index: number,
-  selectedCountries: string[],
-  selectedLanguages: string[],
-  selectedCurrencies: string[],
-  selectedBannerFormats: string[],
-  selectedBannerThemes: string[],
-  handleChangeCountry: (index: number, value: string) => void,
-  handleChangeLanguage: (index: number, value: string) => void,
-  handleChangeCurrency: (index: number, value: string) => void,
-  handleChangeBannerFormat: (index: number, value: string) => void,
-  handleChangeBannerTheme: (index: number, value: string) => void
+  selectedCountries: string,
+  selectedLanguages: string,
+  selectedCurrencies: string,
+  selectedBannerFormats: string,
+  selectedBannerThemes: string,
+  handleChangeCountry: (value: string) => void,
+  handleChangeLanguage: (value: string) => void,
+  handleChangeCurrency: (value: string) => void,
+  handleChangeBannerFormat: (value: string) => void,
+  handleChangeBannerTheme: (value: string) => void
 ): ListBoxData[] => [
   {
     defaultValue: t('Country'),
-    value: selectedCountries[index] || '',
-    onChange: (value) => handleChangeCountry(index, value),
+    value: selectedCountries || '',
+    onChange: (value) => handleChangeCountry(value),
     items: [
       { value: 'Kenya', content: 'Kenya', id: '1' },
       { value: 'Nigeria', content: 'Nigeria', id: '2' },
@@ -66,8 +65,8 @@ export const listBoxData = (
   },
   {
     defaultValue: t('Language'),
-    value: selectedLanguages[index] || '',
-    onChange: (value) => handleChangeLanguage(index, value),
+    value: selectedLanguages || '',
+    onChange: (value) => handleChangeLanguage(value),
     items: [
       { value: 'English', content: 'English', id: '1' },
       { value: 'Русский', content: 'Русский', id: '2' },
@@ -78,8 +77,8 @@ export const listBoxData = (
   },
   {
     defaultValue: t('Currency'),
-    value: selectedCurrencies[index] || '',
-    onChange: (value) => handleChangeCurrency(index, value),
+    value: selectedCurrencies || '',
+    onChange: (value) => handleChangeCurrency(value),
     items: [
       { value: 'KES', content: 'KES', id: '1' },
       { value: 'NGN', content: 'NGN', id: '2' },
@@ -110,8 +109,8 @@ export const listBoxData = (
   },
   {
     defaultValue: t('Banner format'),
-    value: selectedBannerFormats[index] || '',
-    onChange: (value) => handleChangeBannerFormat(index, value),
+    value: selectedBannerFormats || '',
+    onChange: (value) => handleChangeBannerFormat(value),
     items: [
       { value: '300x300', content: '300x300', id: '1' },
       { value: '600x600', content: '600x600', id: '2' },
@@ -120,8 +119,8 @@ export const listBoxData = (
   },
   {
     defaultValue: t('Banner theme'),
-    value: selectedBannerThemes[index] || '',
-    onChange: (value) => handleChangeBannerTheme(index, value),
+    value: selectedBannerThemes || '',
+    onChange: (value) => handleChangeBannerTheme(value),
     items: [{ value: 'footbal', content: 'footbal', id: '1' }],
   },
 ]

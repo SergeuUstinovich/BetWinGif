@@ -1,24 +1,69 @@
-import style from "./Topbar.module.scss";
-import { useTranslation } from "react-i18next";
-import { Button } from "../../ui/Button";
-import { useMutation } from "@tanstack/react-query";
-import { gifAdd } from "../../api/gifAdd";
-import { queryClient } from "../../api/queryClient";
-import { useDispatch, useSelector } from "react-redux";
-import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
-import { gifGenActions } from "../../providers/StoreProvider/slice/gifGenSlice";
-import ListBox from "../../ui/ListBox/ListBox";
-import { useState } from "react";
+import style from './Topbar.module.scss'
+import { useTranslation } from 'react-i18next'
+import { Button } from '../../ui/Button'
+import { useMutation } from '@tanstack/react-query'
+import { gifAdd } from '../../api/gifAdd'
+import { queryClient } from '../../api/queryClient'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUser'
+import { gifGenActions } from '../../providers/StoreProvider/slice/gifGenSlice'
+import { useEffect, useState } from 'react'
+import TopbarListBox from '../TopbarStatic/TopbarListBoxStatic'
 
 export const Topbar = () => {
-  const { t, i18n } = useTranslation(); // можно передать подгружаемый файл 'main.json'
-  const dispatch = useDispatch();
-  const token = useSelector(getTokenUser);
-  const [selectedCountry, setSelectedCountry] = useState();
+  const { t, i18n } = useTranslation() // можно передать подгружаемый файл 'main.json'
+  const dispatch = useDispatch()
+  const token = useSelector(getTokenUser)
+  const [selectedCountry, setSelectedCountry] = useState(t('Country'))
+  const [selectedLanguage, setSelectedLanguage] = useState(t('Language'))
+  const [selectedCurrency, setSelectedCurrency] = useState(t('Currency'))
+  const [selectedBannerFormat, setSelectedBannerFormat] = useState(
+    t('Banner format')
+  )
+  const [selectedBannerTheme, setSelectedBannerTheme] = useState(
+    t('Banner theme')
+  )
+  const [isDisabledBtn, setIsDisabledBtn] = useState(true)
 
-  const toggle = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+  const handleChangeCountry = (value) => {
+    setSelectedCountry(value)
+  }
+
+  const handleChangeLanguage = (value) => {
+    setSelectedLanguage(value)
+  }
+
+  const handleChangeCurrency = (value) => {
+    setSelectedCurrency(value)
+  }
+
+  const handleChangeBannerFormat = (value) => {
+    setSelectedBannerFormat(value)
+  }
+
+  const handleChangeBannerTheme = (value) => {
+    setSelectedBannerTheme(value)
+  }
+
+  useEffect(() => {
+    if (
+      selectedCountry === t('Country') ||
+      selectedLanguage === t('Language') ||
+      selectedCurrency === t('Currency') ||
+      selectedBannerFormat === t('Banner format') ||
+      selectedBannerTheme === t('Banner theme')
+    ) {
+      setIsDisabledBtn(true)
+    } else {
+      setIsDisabledBtn(false)
+    }
+  }, [
+    selectedCountry,
+    selectedLanguage,
+    selectedCurrency,
+    selectedBannerFormat,
+    selectedBannerTheme,
+  ])
 
   const mutateGifAdd = useMutation(
     {
@@ -29,78 +74,39 @@ export const Topbar = () => {
             svgContent: data.svg,
             text: data.promokode,
           })
-        );
+        )
       },
     },
     queryClient
-  );
+  )
 
   const handleGifAdd = () => {
-    mutateGifAdd.mutate({ token });
-  };
-
-  const handleChangeCountry = (value) => {
-    setSelectedCountry(value);
-  };
+    mutateGifAdd.mutate({ token })
+  }
 
   return (
-    <ul className={`${style.topbar}`}>
-      <li className={style.defaultSelect}>
-        <ListBox
-          defaultValue={t("Country")}
-          onChange={handleChangeCountry}
-          value={selectedCountry}
-          hiddenArrow
-          items={[
-            { value: "en", content: "en", id: "1" },
-            { value: "ru", content: "ru", id: "2" },
-            { value: "fr", content: "fr", id: "3" },
-          ]}
-        />
-      </li>
-
-      <li className={style.defaultSelect}>
-        <ListBox
-          defaultValue={t("Language")}
-          onChange={toggle}
-          items={[
-            { value: "en", content: "English", id: "1" },
-            { value: "ru", content: "Русский", id: "2" },
-            { value: "fr", content: "Française", id: "3" },
-          ]}
-        />
-      </li>
-
-      <li className={style.defaultSelect}>
-        <ListBox
-          defaultValue={t("Currency")}
-          items={[{ value: "en", content: "English", id: "1" }]}
-        />
-      </li>
-
-      <li className={style.defaultSelect}>
-        <ListBox
-          defaultValue={t("Banner format")}
-          items={[{ value: "en", content: "English", id: "1" }]}
-        />
-      </li>
-
-      <li className={`${style.defaultSelect} ${style.lastDefaultSelect}`}>
-        <ListBox
-          defaultValue={t("Banner theme")}
-          items={[{ value: "en", content: "English", id: "1" }]}
-        />
-      </li>
-
-      <li className="generateButton">
-        <Button
-          isLoading={mutateGifAdd.isPending}
-          onClick={handleGifAdd}
-          className={style.topBtn}
-        >
-          {t("Generare Now")}
-        </Button>
-      </li>
-    </ul>
-  );
-};
+    <div className={`${style.topbarStatic}`}>
+      <TopbarListBox
+        t={t}
+        selectedCountries={selectedCountry}
+        selectedLanguages={selectedLanguage}
+        selectedCurrencies={selectedCurrency}
+        selectedBannerFormats={selectedBannerFormat}
+        selectedBannerThemes={selectedBannerTheme}
+        handleChangeCountry={handleChangeCountry}
+        handleChangeLanguage={handleChangeLanguage}
+        handleChangeCurrency={handleChangeCurrency}
+        handleChangeBannerFormat={handleChangeBannerFormat}
+        handleChangeBannerTheme={handleChangeBannerTheme}
+      />
+      <Button
+        isLoading={mutateGifAdd.isPending}
+        onClick={handleGifAdd}
+        className={style.topBtn}
+        isDisabled={isDisabledBtn}
+      >
+        {t('Generare Now')}
+      </Button>
+    </div>
+  )
+}
