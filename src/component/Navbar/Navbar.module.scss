@@ -1,24 +1,28 @@
 .pageLink {
-    margin: 0 !important;
-    padding: 12px 0 !important;
+  margin: 0 !important;
+  padding: 12px 0 !important;
+}
+
+.active {
+  color: var(--bg-btn) !important;
 }
 
 .menuHead {
-    margin: 0 !important;
-    padding: 12px 0 !important;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 22px;
-    text-transform: uppercase;
+  margin: 0 !important;
+  padding: 12px 0 !important;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 22px;
+  text-transform: uppercase;
 }
 
 .menuHeadTitle {
-    color: var(--lightmode-grey-grey-500) !important;
+  color: var(--lightmode-grey-grey-500) !important;
 }
 
 .logout {
-    padding: 1px 10px;
-    background-color: red;
-    color: white;
-    border-radius: 8px;
+  padding: 1px 10px;
+  background-color: red;
+  color: white;
+  border-radius: 8px;
 }
