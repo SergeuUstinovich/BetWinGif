@@ -7,7 +7,7 @@
   cursor: pointer;
   
   &:disabled {
-    background-color: var(--light-grey);
+    background-color: var(--lightmode-warning-warning);
     opacity: 0.5;
     border-color: var(--grey);
   }
