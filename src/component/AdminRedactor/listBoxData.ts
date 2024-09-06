@@ -43,9 +43,11 @@ export const listBoxData = (
       value: selectedLanguages[index] || "",
       onChange: (value) => handleChangeLanguage(index, value),
       items: [
-        { value: "en", content: "English", id: "1" },
-        { value: "ru", content: "Русский", id: "2" },
-        { value: "fr", content: "Française", id: "3" },
+        { value: "English", content: "English", id: "1" },
+        { value: "Русский", content: "Русский", id: "2" },
+        { value: "Française", content: "Française", id: "3" },
+        { value: "Español", content: "Español", id: "4" },
+        { value: "Português", content: "Português", id: "5" },
       ],
     },
     {
