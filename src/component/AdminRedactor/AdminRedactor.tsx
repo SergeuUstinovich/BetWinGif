@@ -16,6 +16,7 @@ import { staticGifDemo } from '../../api/staticGif'
 import { useSelector } from 'react-redux'
 import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUser'
 import AdminListBox from './AdminListBox'
+import AdminInput from './AdminInput'
 
 interface Image {
   picture_id?: number
@@ -32,7 +33,7 @@ interface Image {
   format: string
   topic: string
   value: string
-  size: number
+  size: string
 }
 
 interface TestProps {
@@ -43,21 +44,20 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
   const { t } = useTranslation()
   const token = useSelector(getTokenUser)
   const [demoPrev, setDemoPrev] = useState<string>()
+  const [btnDisable, setBtnDisable] = useState(false)
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([])
   const [selectedCurrencies, setSelectedCurrencies] = useState<string[]>([])
-  const [selectedBannerFormats, setSelectedBannerFormats] = useState<string[]>([
-    ,
-  ])
-  const [selectedBannerThemes, setSelectedBannerThemes] = useState<string[]>([
-    ,
-  ])
+  const [selectedBannerFormats, setSelectedBannerFormats] = useState<string[]>(
+    []
+  )
+  const [selectedBannerThemes, setSelectedBannerThemes] = useState<string[]>([])
 
   const [textPositions, setTextPositions] = useState<
     { x: number; y: number }[]
   >([])
   const [texts, setTexts] = useState<string[]>([])
-  const [textSizes, setTextSizes] = useState<number[]>([])
+  const [textSizes, setTextSizes] = useState<string[]>([])
   const [textColors, setTextColors] = useState<string[]>([])
   const draggableRefs = useRef<React.RefObject<HTMLDivElement>[]>([])
 
@@ -67,8 +67,8 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         images.map((image) => ({ x: image.left || 0, y: image.top || 0 }))
       )
       setTexts(images.map((image) => image.name || 'Your Text'))
-      setTextSizes(images.map((image) => image.size || 30))
-      setTextColors(images.map((image) => image.color_text || '#ffffff')) // Default text color
+      setTextSizes(images.map((image) => image.size || '30'))
+      setTextColors(images.map((image) => image.color_text || '#ffffff'))
       setSelectedCountries(images.map((image) => image.country || t('Country')))
       setSelectedLanguages(
         images.map((image) => image.language || t('Language'))
@@ -100,7 +100,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         right: string
         top: string
         bottom: string
-        size: number
+        size: string
       }) =>
         unifiedPicture(
           data.picture_id,
@@ -140,7 +140,7 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
         right: string
         top: string
         bottom: string
-        size: number
+        size: string
       }) =>
         allUnifiedPicture(
           data.full_picture_id,
@@ -212,33 +212,6 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
     setTextPositions(newTextPositions)
   }
 
-  const handleTextChange = (
-    index: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newTexts = [...texts]
-    newTexts[index] = event.target.value
-    setTexts(newTexts)
-  }
-
-  const handleSizeChange = (
-    index: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newSizes = [...textSizes]
-    newSizes[index] = parseInt(event.target.value, 10)
-    setTextSizes(newSizes)
-  }
-
-  const handleColorChange = (
-    index: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newColors = [...textColors]
-    newColors[index] = event.target.value
-    setTextColors(newColors)
-  }
-
   const handleSubmit = (picture_id: number, index: number) => {
     const position = textPositions[index]
     const draggableRef = draggableRefs.current[index].current
@@ -292,34 +265,67 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
     }
   }
 
+  const handleChange = (
+    index: number,
+    value: string,
+    setter: React.Dispatch<React.SetStateAction<string[]>>,
+    state: string[]
+  ) => {
+    const newState = [...state]
+    newState[index] = value
+    setter(newState)
+  }
+
+  const handleInputChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>,
+    setter: React.Dispatch<React.SetStateAction<string[]>>,
+    state: string[]
+  ) => {
+    const newState = [...state]
+    newState[index] = event.target.value
+    setter(newState)
+  }
+
+  const handleTextChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    handleInputChange(index, event, setTexts, texts)
+  }
+
+  const handleSizeChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    handleInputChange(index, event, setTextSizes, textSizes)
+  }
+
+  const handleColorChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    handleInputChange(index, event, setTextColors, textColors)
+  }
+
   const handleChangeCountry = (index: number, value: string) => {
-    const newCountries = [...selectedCountries]
-    newCountries[index] = value
-    setSelectedCountries(newCountries)
+    handleChange(index, value, setSelectedCountries, selectedCountries)
   }
 
   const handleChangeLanguage = (index: number, value: string) => {
-    const newLanguages = [...selectedLanguages]
-    newLanguages[index] = value
-    setSelectedLanguages(newLanguages)
+    handleChange(index, value, setSelectedLanguages, selectedLanguages)
   }
 
   const handleChangeCurrency = (index: number, value: string) => {
-    const newCurrencies = [...selectedCurrencies]
-    newCurrencies[index] = value
-    setSelectedCurrencies(newCurrencies)
+    handleChange(index, value, setSelectedCurrencies, selectedCurrencies)
   }
 
   const handleChangeBannerFormat = (index: number, value: string) => {
-    const newBannerFormats = [...selectedBannerFormats]
-    newBannerFormats[index] = value
-    setSelectedBannerFormats(newBannerFormats)
+    handleChange(index, value, setSelectedBannerFormats, selectedBannerFormats)
   }
 
   const handleChangeBannerTheme = (index: number, value: string) => {
-    const newBannerThemes = [...selectedBannerThemes]
-    newBannerThemes[index] = value
-    setSelectedBannerThemes(newBannerThemes)
+    handleChange(index, value, setSelectedBannerThemes, selectedBannerThemes)
   }
 
   return (
@@ -352,26 +358,14 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
                 alt={`img-${index}`}
               />
             </div>
-            <input
-              className={style.redactorIn}
-              type="text"
-              placeholder="Label"
-              value={texts[index] || ''}
-              onChange={(event) => handleTextChange(index, event)}
-            />
-            <input
-              className={style.redactorIn}
-              type="number"
-              value={textSizes[index] || ''}
-              onChange={(event) => handleSizeChange(index, event)}
-              placeholder="Text Size"
-            />
-            <input
-              className={style.redactorIn}
-              type="color"
-              value={textColors[index] || ''}
-              onChange={(event) => handleColorChange(index, event)}
-              placeholder="Text Color"
+            <AdminInput
+              index={index}
+              texts={texts}
+              textSizes={textSizes}
+              textColors={textColors}
+              handleTextChange={handleTextChange}
+              handleSizeChange={handleSizeChange}
+              handleColorChange={handleColorChange}
             />
             <AdminListBox
               t={t}
@@ -389,29 +383,32 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
             />
             {image.picture_id ? (
               <Button
+                isLoading={mutateCreateImg.isPending}
+                isDisabled={btnDisable}
                 className={style.adminRedactorButton}
                 onClick={() => handleSubmit(image.picture_id, index)}
               >
                 Отправить
               </Button>
             ) : (
-              <Button
-                className={style.adminRedactorButton}
-                onClick={() => handleSubmitTwo(image.full_picture_id, index)}
-              >
-                Изменить
-              </Button>
-            )}
-
-            {image.full_picture_id && (
               <>
                 <Button
+                  isLoading={mutateCreateUpdate.isPending}
+                  isDisabled={btnDisable}
+                  className={style.adminRedactorButton}
+                  onClick={() => handleSubmitTwo(image.full_picture_id, index)}
+                >
+                  Изменить
+                </Button>
+                <Button
+                  isLoading={mutateGetPicture.isPending}
                   className={style.publish}
                   onClick={() => handleGetPicture(image.full_picture_id)}
                 >
                   Опубликовать
                 </Button>
                 <Button
+                  isLoading={mutatePreve.isPending}
                   className={style.publish}
                   onClick={() => handleDemo(image.full_picture_id)}
                 >

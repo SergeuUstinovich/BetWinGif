@@ -38,7 +38,7 @@ export const unifiedPicture = (
   right: string,
   top: string,
   bottom: string,
-  size?: number
+  size?: string
 ) => {
   return axios
     .post(`${api_url}/api/createFullPicture/`, {
@@ -79,7 +79,7 @@ export const allUnifiedPicture = (
   right?: string,
   top?: string,
   bottom?: string,
-  size?: number
+  size?: string
 ) => {
   return axios
     .post(`${api_url}/api/createFullPicture/`, {
