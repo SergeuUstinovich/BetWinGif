@@ -9,6 +9,7 @@ import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUs
 import { useEffect, useState } from 'react'
 import { staticGif } from '../../api/staticGif'
 import TopbarListBox from './TopbarListBoxStatic'
+import toast from 'react-hot-toast'
 
 export const TopbarStatic = () => {
   const { t } = useTranslation()
@@ -66,6 +67,9 @@ export const TopbarStatic = () => {
       onSuccess: (data) => {
         dispatch(gifActions.gifAdd(data))
       },
+      onError: () => {
+        toast.error('По текущим фильтрам изображений нет')
+      }
     },
     queryClient
   )

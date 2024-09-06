@@ -56,7 +56,7 @@ export const PromocodeModal = ({ isPromoCheck }: PromocodeModalProps) => {
             className={style.modalLink}
             href="https://betwinneraffiliates.com"
           >
-            BetWinner Affiliates platform
+            {t("Platform")}
           </a>
           {t("Step_TextTwo")}
           <a
@@ -64,7 +64,7 @@ export const PromocodeModal = ({ isPromoCheck }: PromocodeModalProps) => {
             className={style.modalLink}
             href="https://panel.betwinneraffiliates.com/#/dashboard/promo-codes"
           >
-            'Promo code' section
+            {t("Promo")}
           </a>
           {t("Step_TextThree")}
         </p>
