@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
-import style from "./Auth.module.scss";
-import imgAuth from "../../assets/img/jpg/authBg.jpg";
+import { Outlet } from 'react-router-dom'
+import style from './Auth.module.scss'
+import imgAuth from '../../assets/img/jpg/authBg.jpg'
 
 function Auth() {
   return (
@@ -11,12 +11,12 @@ function Auth() {
             <Outlet />
           </div>
         </div>
-        <div>
-          <img className={style.img} src={imgAuth} alt="" />
-        </div>
+        <>
+          <img className={style.imgAuth} src={imgAuth} alt="" />
+        </>
       </div>
     </div>
-  );
+  )
 }
 
-export default Auth;
+export default Auth

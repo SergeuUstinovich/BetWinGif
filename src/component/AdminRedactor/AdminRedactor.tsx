@@ -1,7 +1,6 @@
 import style from './AdminRedactor.module.scss'
 import React, { useEffect, useState, useRef } from 'react'
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable'
-import ListBox from '../../ui/ListBox/ListBox'
 import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '../../api/queryClient'
@@ -85,6 +84,26 @@ export const AdminRedactor: React.FC<TestProps> = ({ images }) => {
       )
     }
   }, [images])
+
+  useEffect(() => {
+    if (
+      setSelectedCountries ||
+      setSelectedLanguages ||
+      setSelectedCurrencies ||
+      setSelectedBannerFormats ||
+      setSelectedBannerThemes
+    ) {
+      setBtnDisable(false)
+    } else {
+      setBtnDisable(true)
+    }
+  }, [
+    setSelectedCountries,
+    setSelectedLanguages,
+    setSelectedCurrencies,
+    setSelectedBannerFormats,
+    setSelectedBannerThemes,
+  ])
 
   const mutateCreateImg = useMutation(
     {
