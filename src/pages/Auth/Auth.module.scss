@@ -4,10 +4,14 @@
   justify-content: space-between;
   align-items: center;
 
-  .img {
+  .imgAuth {
     max-width: 750px;
     width: 100%;
   }
+}
+
+.logo {
+  margin-bottom: 40px;
 }
 
 .boxLeft {
@@ -15,7 +19,21 @@
 }
 .authForm {
   padding: 40px;
-  min-width: 370px;
+  min-width: 342px;
   border: 1px solid #f1f1f4;
   border-radius: 12px;
+}
+
+@media (max-width: 1200px) {
+  .boxAuth {
+    justify-content: center;
+  }
+
+  .boxLeft {
+    margin: 0;
+  }
+
+  .imgAuth {
+    display: none;
+  }
 }

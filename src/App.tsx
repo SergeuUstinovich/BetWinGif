@@ -7,15 +7,14 @@ import PrivateRoute from './utils/PrivateRoute.tsx'
 import Auth from './pages/Auth/Auth.tsx'
 import ProtectedRoute from './utils/ProtectedAuth.tsx'
 import AdminRoute from './utils/AdminRoute.tsx'
+import { Football } from './pages/Football/Football.tsx'
 
 const Layout = lazy(() => import('./pages/Layout/Layout.tsx'))
 const StaticBanners = lazy(
   () => import('./pages/StaticBanners/StaticBanner.tsx')
 )
 const GifBanners = lazy(() => import('./pages/GifBanners/GifBanners.tsx'))
-const AdminPanel = lazy(
-  () => import('./pages/AdminPanel/AdminPanel.tsx')
-)
+const AdminPanel = lazy(() => import('./pages/AdminPanel/AdminPanel.tsx'))
 const AccoutSetting = lazy(
   () => import('./pages/AccoutSetting/AccoutSetting.tsx')
 )
@@ -52,6 +51,7 @@ function App() {
             <Route index element={<StaticBanners />} />
             <Route path={'gif-banners'} element={<GifBanners />} />
             <Route path={'account-setting'} element={<AccoutSetting />} />
+            <Route path={'football-sport'} element={<Football />} />
             <Route
               path={'admin-meneger'}
               element={
