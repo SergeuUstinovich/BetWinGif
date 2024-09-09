@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAdminImg } from "../../providers/StoreProvider/selectors/getAdminImg";
 import { useRef, useState } from "react";
-
 import style from "./NewImageAdmin.module.scss";
 import Draggable from "react-draggable";
 import { Button } from "../../ui/Button";
-import ListBox from "../../ui/ListBox/ListBox";
 import { useTranslation } from "react-i18next";
 import { listBoxItems } from "./dataImg";
+import ListFilter from "./ListFilter";
 
 const NewImageAdmin = () => {
   const arrImg = useSelector(getAdminImg);
@@ -90,9 +89,8 @@ const NewImageAdmin = () => {
     }
   };
 
-  const removeBlock = (blockId) => {
+  const removeBlock = (blockId) =>
     setBlocks(blocks.filter((block) => block.id !== blockId));
-  };
 
   return (
     <div className={style.redactorBox}>
@@ -139,22 +137,14 @@ const NewImageAdmin = () => {
         />
       </div>
       {blocks.map((block) => (
-        <div className={style.listBoxFilter} key={block.id}>
-          {Object.keys(listBoxItems).map((listBoxId) => (
-            <ListBox
-              key={listBoxId}
-              defaultValue={t(
-                listBoxId.charAt(0).toUpperCase() + listBoxId.slice(1)
-              )}
-              value={block.selectedValues[listBoxId] || null}
-              onChange={(value) =>
-                handleListBoxChange(block.id, listBoxId, value)
-              }
-              items={listBoxItems[listBoxId]}
-            />
-          ))}
-          <Button onClick={() => removeBlock(block.id)}>Удалить</Button>
-        </div>
+        <ListFilter
+          key={block.id}
+          block={block}
+          listBoxItems={listBoxItems}
+          handleListBoxChange={handleListBoxChange}
+          removeBlock={removeBlock}
+          t={t}
+        />
       ))}
       <Button onClick={addBlock}>Добавить блок</Button>
       <div className={style.btnBox}>
