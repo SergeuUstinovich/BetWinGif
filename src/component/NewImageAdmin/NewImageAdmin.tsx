@@ -136,8 +136,9 @@ const NewImageAdmin = () => {
           onChange={(e) => setColor(e.target.value)}
         />
       </div>
-      {blocks.map((block) => (
+      {blocks.map((block, index) => (
         <ListFilter
+          index={index}
           key={block.id}
           block={block}
           listBoxItems={listBoxItems}

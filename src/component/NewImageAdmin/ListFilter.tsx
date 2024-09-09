@@ -8,6 +8,7 @@ const ListFilter = ({
   handleListBoxChange,
   removeBlock,
   t,
+  index
 }) => (
   <div className={style.listBoxFilter}>
     {Object.keys(listBoxItems).map((listBoxId) => (
@@ -19,7 +20,7 @@ const ListFilter = ({
         items={listBoxItems[listBoxId]}
       />
     ))}
-    <Button onClick={() => removeBlock(block.id)}>Удалить</Button>
+    {index !== 0 && <Button onClick={() => removeBlock(block.id)}>Удалить</Button>}
   </div>
 );
 
