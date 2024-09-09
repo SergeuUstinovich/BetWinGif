@@ -1,3 +1,4 @@
-export interface gifType {
+export interface adminImg {
     url: string[]
 }
+

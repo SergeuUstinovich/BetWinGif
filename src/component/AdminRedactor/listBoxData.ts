@@ -1,18 +1,4 @@
-import { ReactNode } from 'react'
-
-export interface ListBoxItem {
-  id: string
-  value: string
-  content: ReactNode
-  disabled?: boolean
-}
-
-export interface ListBoxData {
-  defaultValue: string
-  value: string
-  onChange: (value: string) => void
-  items: ListBoxItem[]
-}
+import { ListBoxData } from "../TopbarStatic/topbarListBoxDataStitc";
 
 export const listBoxData = (
   t: (key: string) => string,
@@ -109,7 +95,7 @@ export const listBoxData = (
     ],
   },
   {
-    defaultValue: t('Banner format'),
+    defaultValue: t('Banner_format'),
     value: selectedBannerFormats[index] || '',
     onChange: (value) => handleChangeBannerFormat(index, value),
     items: [
@@ -119,9 +105,9 @@ export const listBoxData = (
     ],
   },
   {
-    defaultValue: t('Banner theme'),
+    defaultValue: t('Banner_theme'),
     value: selectedBannerThemes[index] || '',
     onChange: (value) => handleChangeBannerTheme(index, value),
     items: [{ value: 'footbal', content: 'footbal', id: '1' }],
   },
-]
+];

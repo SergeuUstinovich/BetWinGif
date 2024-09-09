@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { gifType } from "../../../types/gifType";
+import { adminImg } from "../../../types/gifType";
 
-const initialState: gifType = {
-    url: undefined
+const initialState: adminImg = {
+  url: undefined
 }
 
 export const gifSlice = createSlice({
-  name: "gif",
+  name: "imgAdmin",
   initialState,
   reducers: {
     gifAdd: (state, action: PayloadAction<string[]>) => {

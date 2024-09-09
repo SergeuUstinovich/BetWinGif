@@ -8,6 +8,8 @@ import Auth from './pages/Auth/Auth.tsx'
 import ProtectedRoute from './utils/ProtectedAuth.tsx'
 import AdminRoute from './utils/AdminRoute.tsx'
 import { Football } from './pages/Football/Football.tsx'
+import NewImageAdmin from './component/NewImageAdmin/NewImageAdmin.tsx'
+import OldImageAdmin from './component/OldImageAdmin/OldImageAdmin.tsx'
 
 const Layout = lazy(() => import('./pages/Layout/Layout.tsx'))
 const StaticBanners = lazy(
@@ -53,13 +55,16 @@ function App() {
             <Route path={'account-setting'} element={<AccoutSetting />} />
             <Route path={'football-sport'} element={<Football />} />
             <Route
-              path={'admin-meneger'}
+              path={'/admin-meneger'}
               element={
                 <AdminRoute>
                   <AdminPanel />
                 </AdminRoute>
               }
-            />
+            >
+              <Route path={'new/:picture_id'} element={<NewImageAdmin />} />
+              <Route path={'old/:full_picture_id'} element={<OldImageAdmin />} />
+            </Route>
           </Route>
           <Route path={'/auths'} element={<Auth />}>
             <Route index element={<AuthForm />} />

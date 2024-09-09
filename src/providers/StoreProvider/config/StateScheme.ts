@@ -1,11 +1,13 @@
+import { adminImgs } from '../../../types/adminImgType'
 import { TokenScheme } from '../../../types/AuthToken'
 import { gifGeneratedType } from '../../../types/gifGeneratedType'
-import { gifType } from '../../../types/gifType'
-import { UserScheme } from '../../../types/UserType'
+import { adminImg } from '../../../types/gifType'
+import { UserScheme } from '../../../types/userType'
 
 export interface StateShema {
   auth: TokenScheme
-  gif: gifType
+  clientImg: adminImg
   gifGen: gifGeneratedType
   profile: UserScheme
+  adminImg: adminImgs
 }

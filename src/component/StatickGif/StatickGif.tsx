@@ -1,11 +1,10 @@
-import { useEffect } from "react";
 import { DownloadSvg } from "../../assets/svg/DownloadSvg";
-import { gifType } from "../../types/gifType";
+import { adminImg } from "../../types/gifType";
 import { Button } from "../../ui/Button";
 import { AddIntegrations } from "../AddIntegration";
 import style from "./StatickGif.module.scss";
 
-function StatickGif({ url }: gifType) {
+function StatickGif({ url }: adminImg) {
   const downloadGif = () => {
     if (url) {
       url.map((item, index) => {
@@ -27,8 +26,8 @@ function StatickGif({ url }: gifType) {
             (
               <div key={index} className={style.gifCard}>
                 <img className={style.gifImg} src={item} alt="gif" />
-                <Button onClick={downloadGif} className={style.gifButton}>
-                  <DownloadSvg />
+                <Button onClick={downloadGif} className={`${style.gifButton} btn`}>
+                  <DownloadSvg className={style.svgImg} />
                   Download
                 </Button>
               </div>

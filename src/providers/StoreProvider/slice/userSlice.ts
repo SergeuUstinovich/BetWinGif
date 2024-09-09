@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { UserScheme, UserType } from '../../../types/UserType'
+import { UserScheme, UserType } from '../../../types/userType'
 
 const initialState: UserScheme = {}
 

@@ -120,10 +120,12 @@ export const GifCards = ({ svgContent, text }: ImageToGifProps) => {
         {gifUrl ? (
           <div className={style.gifCard}>
             <img className={style.gifImg} src={gifUrl} alt="gif" />
-            <Button onClick={downloadGif} className={style.gifButton}>
-              <DownloadSvg />
-              Download
-            </Button>
+            <button onClick={downloadGif} className={`${style.gifButton} btn`}>
+              <DownloadSvg className={style.svgImg} />
+              <span className={style.descrSpan}>
+                Download
+              </span>
+            </button>
           </div>
         ) : (
           <div>Loading...</div>

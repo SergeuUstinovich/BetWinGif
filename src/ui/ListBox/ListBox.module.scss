@@ -65,6 +65,7 @@
 
 @media (max-width: 768px) {
   .trigger {
+    max-width: 100%;
     justify-content: space-between;
     color: var(--lightmode-grey-grey-500);
     font-size: 13px;

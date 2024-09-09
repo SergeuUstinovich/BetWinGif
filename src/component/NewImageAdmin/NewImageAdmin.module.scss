@@ -1,0 +1,46 @@
+.redactorBox {
+    position: relative;
+    display: inline-block;
+    margin: 10px
+ }
+
+ .draggableImgBox {
+    position: relative;
+    width: max-content;
+  }
+ 
+ .draggableBox {
+     position: absolute; 
+     cursor: move;  
+     padding: 5px;
+     font-weight: 500;
+ }
+
+ .size {
+    max-width: 60px;
+ }
+
+ .inputAdmin {
+    outline: 1px solid black;
+    margin-right: 5px;
+ }
+
+ .controls {
+    margin-bottom: 5px;
+ }
+
+ .btnBox {
+    .adminRedactorButton {
+        padding: 6px 12px;
+        color: var(--white-text);
+        background-color: var(--lightmode-orange-orange);
+      }
+ }
+
+ .listBoxFilter {
+    display: flex;
+ }
+
+
+
+ 

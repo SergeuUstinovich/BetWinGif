@@ -18,10 +18,10 @@ export const Topbar = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(t('Language'))
   const [selectedCurrency, setSelectedCurrency] = useState(t('Currency'))
   const [selectedBannerFormat, setSelectedBannerFormat] = useState(
-    t('Banner format')
+    t('Banner_format')
   )
   const [selectedBannerTheme, setSelectedBannerTheme] = useState(
-    t('Banner theme')
+    t('Banner_theme')
   )
   const [isDisabledBtn, setIsDisabledBtn] = useState(true)
 
@@ -50,8 +50,8 @@ export const Topbar = () => {
       selectedCountry === t('Country') ||
       selectedLanguage === t('Language') ||
       selectedCurrency === t('Currency') ||
-      selectedBannerFormat === t('Banner format') ||
-      selectedBannerTheme === t('Banner theme')
+      selectedBannerFormat === t('Banner_format') ||
+      selectedBannerTheme === t('Banner_theme')
     ) {
       setIsDisabledBtn(true)
     } else {

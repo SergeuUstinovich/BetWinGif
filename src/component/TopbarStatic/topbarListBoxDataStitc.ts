@@ -108,7 +108,7 @@ export const topbarListBoxData = (
     ],
   },
   {
-    defaultValue: t('Banner format'),
+    defaultValue: t('Banner_format'),
     value: selectedBannerFormats || '',
     onChange: (value) => handleChangeBannerFormat(value),
     items: [
@@ -118,9 +118,9 @@ export const topbarListBoxData = (
     ],
   },
   {
-    defaultValue: t('Banner theme'),
+    defaultValue: t('Banner_theme'),
     value: selectedBannerThemes || '',
     onChange: (value) => handleChangeBannerTheme(value),
-    items: [{ value: 'footbal', content: 'footbal', id: '1' }],
+    items: [{ value: 'Footbal', content: 'Footbal', id: '1' }],
   },
 ]
