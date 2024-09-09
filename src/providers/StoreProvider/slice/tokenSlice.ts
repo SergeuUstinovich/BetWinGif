@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { TokenScheme } from "../../../types/AuthToken";
 
 const initialState: TokenScheme = {
-    token: undefined,
+    token: localStorage.getItem('userToken') ?? undefined,
 }
 // localStorage.getItem('userToken') ?? undefined
 export const tokenSlice = createSlice({
@@ -10,7 +10,7 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     initAuthData: (state, action: PayloadAction<string>) => {
-      // localStorage.setItem('userToken', action.payload)
+      localStorage.setItem('userToken', action.payload)
       state.token = action.payload;
     },
     logout: (state) => {

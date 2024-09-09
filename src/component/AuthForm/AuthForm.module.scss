@@ -34,14 +34,16 @@
     max-height: 32px;
     border: 1px solid #dbdfe9;
     border-radius: 6px;
-    padding: 0px 27px;
+    padding: 10px 27px;
     margin-bottom: 20px;
+    display: flex;
 
     .authDescr {
       font-weight: 500;
       font-size: 12px;
       line-height: 100%;
       color: var(--lightmode-grey-grey-700);
+      margin-left: 5px;
     }
   }
 }

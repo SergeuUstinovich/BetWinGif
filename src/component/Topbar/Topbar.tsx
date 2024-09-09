@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import TopbarListBox from '../TopbarStatic/TopbarListBoxStatic'
 
 export const Topbar = () => {
-  const { t, i18n } = useTranslation() // можно передать подгружаемый файл 'main.json'
+  const { t } = useTranslation() // можно передать подгружаемый файл 'main.json'
   const dispatch = useDispatch()
   const token = useSelector(getTokenUser)
   const [selectedCountry, setSelectedCountry] = useState(t('Country'))
@@ -99,14 +99,20 @@ export const Topbar = () => {
         handleChangeBannerFormat={handleChangeBannerFormat}
         handleChangeBannerTheme={handleChangeBannerTheme}
       />
-      <Button
-        isLoading={mutateGifAdd.isPending}
-        onClick={handleGifAdd}
-        className={style.topBtn}
-        isDisabled={isDisabledBtn}
-      >
-        {t('Generare Now')}
-      </Button>
+      {mutateGifAdd.isPending ? (
+        <Button
+          isLoading={mutateGifAdd.isPending}
+          className={style.topBtns}
+        />
+      ) : (
+        <Button
+          isDisabled={isDisabledBtn}
+          onClick={handleGifAdd}
+          className={style.topBtn}
+        >
+          {t("Generare Now")}
+        </Button>
+      )}
     </div>
   )
 }

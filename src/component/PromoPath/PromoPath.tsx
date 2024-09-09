@@ -26,6 +26,9 @@ function PromoPath() {
     onSuccess: (data) => {
         toast.success(data.Success)
         queryClient.invalidateQueries({queryKey: ['user']})
+    },
+    onError: (err) => {
+      toast.error(err.message)
     }
   }, queryClient);
 

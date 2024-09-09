@@ -26,3 +26,13 @@
   color: white;
   border-radius: 8px;
 }
+
+.menuAccordion {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease-out;
+}
+
+.menuAccordion.open {
+  max-height: 500px;
+}

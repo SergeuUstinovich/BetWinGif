@@ -24,10 +24,11 @@ export const Button: FC<IButtonProps> = ({
     <button
       disabled={isDisabled}
       type={type}
-      className={classNames('btn', {}, [className])}
+      className={classNames('btns', {}, [className])}
       data-kind={kind}
       {...props}
     >
+      {/* <LoaderButton /> */}
     {isLoading ? <LoaderButton /> : children}
     </button>
   );
