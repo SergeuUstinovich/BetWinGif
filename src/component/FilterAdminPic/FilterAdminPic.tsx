@@ -1,29 +1,30 @@
-import { useState } from "react";
-import ListFilter from "../../utils/ListFilter";
-import { listBoxItems } from "../NewImageAdmin/dataImg";
-import { useTranslation } from "react-i18next";
-import { useMutation } from "@tanstack/react-query";
-import { filterPicture } from "../../api/adminImg";
-import { queryClient } from "../../api/queryClient";
-import { useDispatch, useSelector } from "react-redux";
-import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
-import { Button } from "../../ui/Button";
-import { adminImgActions } from "../../providers/StoreProvider/slice/adminImgSlice";
+import style from './FilterAdminPic.module.scss'
+import { useState } from 'react'
+import ListFilter from '../../utils/ListFilter'
+import { listBoxItems } from '../NewImageAdmin/dataImg'
+import { useTranslation } from 'react-i18next'
+import { useMutation } from '@tanstack/react-query'
+import { filterPicture } from '../../api/adminImg'
+import { queryClient } from '../../api/queryClient'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUser'
+import { Button } from '../../ui/Button'
+import { adminImgActions } from '../../providers/StoreProvider/slice/adminImgSlice'
 
 function FilterAdminPic() {
   const initialSelectedValues = {
-    country: "",
-    language: "",
-    currency: "",
-    banner_format: "",
-    banner_theme: "",
-  };
+    country: '',
+    language: '',
+    currency: '',
+    banner_format: '',
+    banner_theme: '',
+  }
   const dispatch = useDispatch()
-  const token = useSelector(getTokenUser);
-  const { t } = useTranslation();
+  const token = useSelector(getTokenUser)
+  const { t } = useTranslation()
   const [blocks, setBlocks] = useState([
     { id: 1, selectedValues: initialSelectedValues },
-  ]);
+  ])
   const handleListChange = (blockId, listBoxId, value) => {
     setBlocks(
       blocks.map((block) =>
@@ -34,57 +35,75 @@ function FilterAdminPic() {
             }
           : block
       )
-    );
-  };
+    )
+  }
 
-  const mutateFilter = useMutation({
-    mutationFn: (data: {
-      token: string;
-      country: string;
-      language: string;
-      value: string;
-      format: string;
-      topic: string;
-    }) =>
-      filterPicture(
-        data.token,
-        data.country,
-        data.language,
-        data.value,
-        data.format,
-        data.topic
-      ),
+  const mutateFilter = useMutation(
+    {
+      mutationFn: (data: {
+        token: string
+        country: string
+        language: string
+        value: string
+        format: string
+        topic: string
+      }) =>
+        filterPicture(
+          data.token,
+          data.country,
+          data.language,
+          data.value,
+          data.format,
+          data.topic
+        ),
       onSuccess: (data) => {
         dispatch(adminImgActions.adminImgAdd(data))
-      }
-  }, queryClient);
+      },
+    },
+    queryClient
+  )
 
   const handleSubmit = () => {
     blocks.forEach((block) => {
       mutateFilter.mutate({
         token,
-        country: block.selectedValues.country === t("Country") ? '' : block.selectedValues.country,
-        language: block.selectedValues.language === t("Language") ? '' : block.selectedValues.language,
-        value: block.selectedValues.currency === t("Currency") ? '' : block.selectedValues.currency,
-        format: block.selectedValues.banner_format === t("Banner_format") ? '' : block.selectedValues.banner_format,
-        topic: block.selectedValues.banner_theme === t("Banner_theme") ? '' : block.selectedValues.banner_theme,
-      });
-    });
-  };
+        country:
+          block.selectedValues.country === t('Country')
+            ? ''
+            : block.selectedValues.country,
+        language:
+          block.selectedValues.language === t('Language')
+            ? ''
+            : block.selectedValues.language,
+        value:
+          block.selectedValues.currency === t('Currency')
+            ? ''
+            : block.selectedValues.currency,
+        format:
+          block.selectedValues.banner_format === t('Banner_format')
+            ? ''
+            : block.selectedValues.banner_format,
+        topic:
+          block.selectedValues.banner_theme === t('Banner_theme')
+            ? ''
+            : block.selectedValues.banner_theme,
+      })
+    })
+  }
 
   const handleReset = () => {
     mutateFilter.mutate({
-        token,
-        country: '',
-        language: '',
-        value: '',
-        format: '',
-        topic: ''
-      });
+      token,
+      country: '',
+      language: '',
+      value: '',
+      format: '',
+      topic: '',
+    })
   }
 
   const removeBlock = (blockId) =>
-    setBlocks(blocks.filter((block) => block.id !== blockId));
+    setBlocks(blocks.filter((block) => block.id !== blockId))
   return (
     <div>
       {blocks.map((block, index) => (
@@ -98,10 +117,14 @@ function FilterAdminPic() {
           t={t}
         />
       ))}
-      <Button onClick={handleSubmit}>Фильтровать</Button>
-      <Button onClick={handleReset}>Очистить фильтр</Button>
+      <Button className={style.filterBtns} onClick={handleSubmit}>
+        Фильтровать
+      </Button>
+      <Button className={style.filterBtns} onClick={handleReset}>
+        Очистить фильтр
+      </Button>
     </div>
-  );
+  )
 }
 
-export default FilterAdminPic;
+export default FilterAdminPic

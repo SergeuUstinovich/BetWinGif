@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
-import style from "./Navbar.module.scss";
+import { useTranslation } from 'react-i18next'
+import { Link, useLocation } from 'react-router-dom'
+import style from './Navbar.module.scss'
 
 function NavbarItem({ item, isOpen, toggleOpen }) {
-  const { t } = useTranslation();
-  const location = useLocation();
+  const { t } = useTranslation()
+  const location = useLocation()
 
   const handleToggle = () => {
-    toggleOpen(item.id);
-  };
+    toggleOpen(item.id)
+  }
 
   return (
     <div
@@ -17,7 +17,7 @@ function NavbarItem({ item, isOpen, toggleOpen }) {
       data-menu-item-trigger="click"
     >
       <Link
-        className={`${style.pageLink} menu-link`}
+        className={`${style.pageLink} ${style.scrollSpyElement} menu-link`}
         to={item.path}
         onClick={item.children ? handleToggle : null}
       >
@@ -28,7 +28,7 @@ function NavbarItem({ item, isOpen, toggleOpen }) {
           className={
             location.pathname === item.path
               ? `${style.active} menu-title`
-              : "menu-title"
+              : 'menu-title'
           }
         >
           {t(item.label)}
@@ -37,7 +37,7 @@ function NavbarItem({ item, isOpen, toggleOpen }) {
           <span className="menu-arrow">
             <i
               className={`ki-outline ${
-                isOpen[item.id] ? "ki-minus" : "ki-plus"
+                isOpen[item.id] ? 'ki-minus' : 'ki-plus'
               } `}
             ></i>
           </span>
@@ -45,7 +45,7 @@ function NavbarItem({ item, isOpen, toggleOpen }) {
       </Link>
       <div
         className={`${style.menuAccordion} ${
-          isOpen[item.id] ? style.open : ""
+          isOpen[item.id] ? style.open : ''
         }`}
       >
         {item.children && isOpen[item.id] && (
@@ -63,7 +63,7 @@ function NavbarItem({ item, isOpen, toggleOpen }) {
       </div>
       {item.component && <item.component />}
     </div>
-  );
+  )
 }
 
-export default NavbarItem;
+export default NavbarItem
