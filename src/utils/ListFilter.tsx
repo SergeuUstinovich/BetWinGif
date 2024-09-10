@@ -1,6 +1,7 @@
-import { Button } from "../../ui/Button";
-import ListBox from "../../ui/ListBox/ListBox";
-import style from "./NewImageAdmin.module.scss";
+
+import { Button } from "../ui/Button";
+import ListBox from "../ui/ListBox/ListBox";
+import style from "../component/NewImageAdmin/NewImageAdmin.module.scss";
 
 const ListFilter = ({
   block,

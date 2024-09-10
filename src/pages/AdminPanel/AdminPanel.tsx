@@ -11,6 +11,7 @@ import { getAdminImg } from '../../providers/StoreProvider/selectors/getAdminImg
 import { adImage } from '../../types/adminImgType';
 import StatickImgAdmin from '../../component/StatickImgAdmin/StatickImgAdmin';
 import { Outlet } from 'react-router-dom';
+import FilterAdminPic from '../../component/FilterAdminPic/FilterAdminPic';
 
 function AdminPanel() {
   const admin = useSelector(getUser)
@@ -43,6 +44,7 @@ function AdminPanel() {
     <>
       <div className={style.adminPanelBlock}>
         <LoadImgServ />
+        <FilterAdminPic />
         <StatickImgAdmin images={arrImg} />
         <Outlet/>
         {/* <AdminRedactor images={arrImg} /> */}

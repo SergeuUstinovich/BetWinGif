@@ -1,24 +1,53 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getAdminImg } from "../../providers/StoreProvider/selectors/getAdminImg";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import style from "./NewImageAdmin.module.scss";
 import Draggable from "react-draggable";
 import { Button } from "../../ui/Button";
 import { useTranslation } from "react-i18next";
 import { listBoxItems } from "./dataImg";
-import ListFilter from "./ListFilter";
+import { queryClient } from "../../api/queryClient";
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { unifiedPicture } from "../../api/adminImg";
+import ListFilter from "../../utils/ListFilter";
+import { adImage } from "../../types/adminImgType";
 
 const NewImageAdmin = () => {
   const arrImg = useSelector(getAdminImg);
   const { t } = useTranslation();
   const { picture_id } = useParams();
+  const navigate = useNavigate();
   const draggableRefs = useRef<HTMLDivElement>(null);
-  const card = arrImg.find((item) => item.picture_id === Number(picture_id));
+  // const [card, setCard] = useState<adImage>();
+  const card = arrImg.find((item) => item.picture_id === Number(picture_id))
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [text, setText] = useState("Мой текст");
   const [fontSize, setFontSize] = useState(16);
   const [color, setColor] = useState("#000000");
+
+  // useEffect(() => {
+  //   if (arrImg) {
+  //     setCard();
+  //   } else {
+  //     navigate("/admin-meneger");
+  //   }
+  // }, [arrImg]);
+
+  const mutateCreateImg = useMutation(
+    {
+      mutationFn: (data: { pictures }) => unifiedPicture(data.pictures),
+      onSuccess: () => {
+        navigate("/admin-meneger")
+        queryClient.invalidateQueries({ queryKey: ["img"] });
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
+    },
+    queryClient
+  );
 
   const initialSelectedValues = {
     country: "",
@@ -85,7 +114,7 @@ const NewImageAdmin = () => {
         bottom: (position.y + textHeight).toString(),
         size: fontSize,
       }));
-      console.log({ pictures: data });
+      mutateCreateImg.mutate({ pictures: data });
     }
   };
 
@@ -112,7 +141,7 @@ const NewImageAdmin = () => {
             {text}
           </div>
         </Draggable>
-        <img className={style.redactorImg} src={card.url} alt={`img`} />
+        {card.url && <img className={style.redactorImg} src={card.url} alt={`img`} />}
       </div>
       <div className={style.controls}>
         <input
@@ -150,7 +179,7 @@ const NewImageAdmin = () => {
       <Button onClick={addBlock}>Добавить блок</Button>
       <div className={style.btnBox}>
         <Button
-          // isLoading={mutateCreateImg.isPending}
+          isLoading={mutateCreateImg.isPending}
           // isDisabled={btnDisable}
           className={style.adminRedactorButton}
           onClick={saveData}

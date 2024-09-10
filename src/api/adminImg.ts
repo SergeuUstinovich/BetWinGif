@@ -1,4 +1,5 @@
 import axios from "axios";
+import { adImage } from "../types/adminImgType";
 
 const api_url =
   import.meta.env.MODE === "development"
@@ -26,75 +27,10 @@ export function allPicture() {
     });
 }
 
-export const unifiedPicture = (
-  picture_id: number,
-  country: string,
-  language: string,
-  value: string,
-  format: string,
-  topic: string,
-  color: string,
-  left: string,
-  right: string,
-  top: string,
-  bottom: string,
-  size?: string
-) => {
+export const unifiedPicture = (pictures: adImage[]) => {
   return axios
     .post(`${api_url}/api/createFullPicture/`, {
-      picture_id,
-      country,
-      language,
-      value,
-      format,
-      topic,
-      color,
-      left,
-      right,
-      top,
-      bottom,
-      size
-    })
-    .then((response) => {
-      const data = response.data;
-      return data;
-    })
-    .catch((error) => {
-      const errorMessages = Object.keys(error.response.data)
-        .map((key) => `${error.response.data[key]}`)
-        .join(", ");
-      throw new Error(errorMessages);
-    });
-};
-
-export const allUnifiedPicture = (
-  full_picture_id: number,
-  country?: string,
-  language?: string,
-  value?: string,
-  format?: string,
-  topic?: string,
-  color?: string,
-  left?: string,
-  right?: string,
-  top?: string,
-  bottom?: string,
-  size?: string
-) => {
-  return axios
-    .post(`${api_url}/api/createFullPicture/`, {
-      full_picture_id,
-      country,
-      language,
-      value,
-      format,
-      topic,
-      color,
-      left,
-      right,
-      top,
-      bottom,
-      size
+      pictures,
     })
     .then((response) => {
       const data = response.data;
@@ -112,6 +48,53 @@ export const getPictureId = (full_picture_id: number) => {
   return axios
     .post(`${api_url}/api/get_is_publish/`, {
       full_picture_id,
+    })
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(", ");
+      throw new Error(errorMessages);
+    });
+};
+
+export const deletePicture = (token: string, full_picture_id: number) => {
+  return axios
+    .post(`${api_url}/api/delete_fullpicture/`, {
+      token,
+      full_picture_id,
+    })
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(", ");
+      throw new Error(errorMessages);
+    });
+};
+
+export const filterPicture = (
+  token: string,
+  country: string,
+  language: string,
+  value: string,
+  format: string,
+  topic: string
+) => {
+  return axios
+    .post(`${api_url}/api/filter_admin_picture/`, {
+      token,
+      country,
+      language,
+      value,
+      format,
+      topic
     })
     .then((response) => {
       const data = response.data;
