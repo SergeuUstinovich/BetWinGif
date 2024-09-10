@@ -1,17 +1,17 @@
 import style from './AdminPanel.module.scss'
-import LoadImgServ from "../../component/LoadImgServ/LoadImgServ";
-import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../providers/StoreProvider/selectors/getUser';
-import { allPicture } from '../../api/adminImg';
-import { useQuery } from '@tanstack/react-query';
-import { queryClient } from '../../api/queryClient';
-import { useEffect, useState } from 'react';
-import { adminImgActions } from '../../providers/StoreProvider/slice/adminImgSlice';
-import { getAdminImg } from '../../providers/StoreProvider/selectors/getAdminImg';
-import { adImage } from '../../types/adminImgType';
-import StatickImgAdmin from '../../component/StatickImgAdmin/StatickImgAdmin';
-import { Outlet } from 'react-router-dom';
-import FilterAdminPic from '../../component/FilterAdminPic/FilterAdminPic';
+import LoadImgServ from '../../component/LoadImgServ/LoadImgServ'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from '../../providers/StoreProvider/selectors/getUser'
+import { allPicture } from '../../api/adminImg'
+import { useQuery } from '@tanstack/react-query'
+import { queryClient } from '../../api/queryClient'
+import { useEffect, useState } from 'react'
+import { adminImgActions } from '../../providers/StoreProvider/slice/adminImgSlice'
+import { getAdminImg } from '../../providers/StoreProvider/selectors/getAdminImg'
+import { adImage } from '../../types/adminImgType'
+import StatickImgAdmin from '../../component/StatickImgAdmin/StatickImgAdmin'
+import { Outlet } from 'react-router-dom'
+import FilterAdminPic from '../../component/FilterAdminPic/FilterAdminPic'
 
 function AdminPanel() {
   const admin = useSelector(getUser)
@@ -20,35 +20,44 @@ function AdminPanel() {
   const [arrImg, setArrImg] = useState<adImage[]>()
 
   useEffect(() => {
-    if(Array.isArray(imgAdmin)) {
-        if(imgAdmin) {
-          setArrImg(imgAdmin)
-        }
+    if (Array.isArray(imgAdmin)) {
+      if (imgAdmin) {
+        setArrImg(imgAdmin)
+      }
     }
   }, [imgAdmin])
 
-  const queryImg = useQuery({
-    queryKey: ['img'],
-    queryFn: () => allPicture(),
-    enabled: !!admin?.is_admin,
-    retry: 1,
-   }, queryClient)
+  const queryImg = useQuery(
+    {
+      queryKey: ['img'],
+      queryFn: () => allPicture(),
+      enabled: !!admin?.is_admin,
+      retry: 1,
+    },
+    queryClient
+  )
 
-   useEffect(() => {
-    if(queryImg.data) {
+  useEffect(() => {
+    if (queryImg.data) {
       dispatch(adminImgActions.adminImgAdd(queryImg.data))
     }
-   }, [queryImg.data])
+  }, [queryImg.data])
 
   return (
     <>
       <div className={style.adminPanelBlock}>
         <LoadImgServ />
-        <FilterAdminPic />
-        <StatickImgAdmin images={arrImg} />
-        <Outlet/>
+        <div className={style.adminPanelBlockRight}>
+          <div className={style.adminPanelBlockUpper}>
+            <FilterAdminPic />
+            <StatickImgAdmin images={arrImg} />
+          </div>
+
+          <Outlet />
+        </div>
+        {/* <AdminRedactor images={arrImg} /> */}
       </div>
     </>
-  );
+  )
 }
-export default AdminPanel;
+export default AdminPanel

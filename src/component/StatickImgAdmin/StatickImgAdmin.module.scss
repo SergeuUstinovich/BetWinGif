@@ -1,0 +1,9 @@
+.staticImgBlock {
+  display: flex;
+  gap: var(--offset-30);
+}
+
+.pictureIdList {
+  height: 100px;
+  overflow: auto;
+}

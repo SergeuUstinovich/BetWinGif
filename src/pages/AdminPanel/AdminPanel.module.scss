@@ -1,6 +1,17 @@
 .adminPanelBlock {
-    margin: 0 15px;
-    padding: 25px 0 0;
-    display: flex;
-    gap: var(--offset-30)
+  margin: 0 15px;
+  padding: 25px 0 0;
+  display: flex;
+  gap: var(--offset-30);
+}
+
+.adminPanelBlockRight {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.adminPanelBlockUpper {
+  display: flex;
+  justify-content: space-between;
 }
