@@ -47,7 +47,6 @@ function AdminPanel() {
         <FilterAdminPic />
         <StatickImgAdmin images={arrImg} />
         <Outlet/>
-        {/* <AdminRedactor images={arrImg} /> */}
       </div>
     </>
   );
