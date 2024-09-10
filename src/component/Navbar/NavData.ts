@@ -40,7 +40,6 @@ export const navItems = [
         children: [
           {
             id: 7,
-            path: '#',
             component: ScrollSpy,
           },
         ],

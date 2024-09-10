@@ -19,7 +19,6 @@ import {
 import { staticGifDemo } from "../../api/staticGif";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import ListFilter from "../../utils/ListFilter";
-import { adImage } from "../../types/adminImgType";
 
 const OldImageAdmin = () => {
   const initialSelectedValues = {
@@ -132,13 +131,6 @@ const OldImageAdmin = () => {
     setPosition({ x: data.x, y: data.y });
   };
 
-  const addBlock = () => {
-    setBlocks([
-      ...blocks,
-      { id: blocks.length + 1, selectedValues: initialSelectedValues },
-    ]);
-  };
-
   const handleListChange = (blockId, listBoxId, value) => {
     setBlocks(
       blocks.map((block) =>
@@ -237,7 +229,6 @@ const OldImageAdmin = () => {
           t={t}
         />
       ))}
-      {/* <Button onClick={addBlock}>Добавить блок</Button> */}
       <div className={style.btnBox}>
         <Button
           isLoading={mutateCreateImg.isPending}
