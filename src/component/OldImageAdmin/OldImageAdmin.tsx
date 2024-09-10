@@ -118,7 +118,7 @@ const OldImageAdmin = () => {
       onSuccess: (data) => {
         navigate("/admin-meneger");
         queryClient.invalidateQueries({ queryKey: ["img"] });
-        toast.success(data.data);
+        toast.success(data.Success);
       },
     },
     queryClient
@@ -176,6 +176,7 @@ const OldImageAdmin = () => {
   };
 
   const handleDemo = (full_picture_id) => {
+    setDemoPrev(null);
     mutatePreve.mutate({ token, full_picture_id });
   };
 

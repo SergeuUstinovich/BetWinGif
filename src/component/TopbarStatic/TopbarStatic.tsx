@@ -24,7 +24,7 @@ export const TopbarStatic = () => {
   const [selectedBannerTheme, setSelectedBannerTheme] = useState(
     t("Banner_theme")
   );
-  const [isDisabledBtn, setIsDisabledBtn] = useState(true);
+  const [isDisabledBtn, setIsDisabledBtn] = useState(false);
 
   const handleChangeCountry = (value) => {
     setSelectedCountry(value);
@@ -74,34 +74,14 @@ export const TopbarStatic = () => {
     queryClient
   );
 
-  useEffect(() => {
-    if (
-      selectedCountry === t("Country") ||
-      selectedLanguage === t("Language") ||
-      selectedCurrency === t("Currency") ||
-      selectedBannerFormat === t("Banner_format") ||
-      selectedBannerTheme === t("Banner_theme")
-    ) {
-      setIsDisabledBtn(true);
-    } else {
-      setIsDisabledBtn(false);
-    }
-  }, [
-    selectedCountry,
-    selectedLanguage,
-    selectedCurrency,
-    selectedBannerFormat,
-    selectedBannerTheme,
-  ]);
-
   const handleMutateStaticGif = () => {
     mutateStaticGif.mutate({
       token,
-      country: selectedCountry,
-      language: selectedLanguage,
-      value: selectedCurrency,
-      format: selectedBannerFormat,
-      topic: selectedBannerTheme,
+      country: selectedCountry === t("Country") ? null : selectedCountry,
+      language: selectedLanguage === t("Language") ? null : selectedLanguage,
+      value: selectedCurrency === t("Currency") ? null : selectedCurrency,
+      format: selectedBannerFormat === t("Banner_format") ? null : selectedBannerFormat,
+      topic: selectedBannerTheme === t("Banner_theme") ? null : selectedBannerTheme,
     });
   };
 
