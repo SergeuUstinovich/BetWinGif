@@ -14,9 +14,10 @@ import toast from "react-hot-toast";
 import {
   deletePicture,
   getPictureId,
+  staticGifDemo,
   unifiedPicture,
 } from "../../api/adminImg";
-import { staticGifDemo } from "../../api/staticGif";
+
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import ListFilter from "../../utils/ListFilter";
 

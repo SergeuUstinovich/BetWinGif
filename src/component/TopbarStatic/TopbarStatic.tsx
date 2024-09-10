@@ -6,8 +6,8 @@ import { queryClient } from "../../api/queryClient";
 import { useDispatch, useSelector } from "react-redux";
 import { gifActions } from "../../providers/StoreProvider";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
-import { useEffect, useState } from "react";
-import { staticGif } from "../../api/staticGif";
+import { useState } from "react";
+import { staticGif } from "../../api/clientGif";
 import TopbarListBox from "./TopbarListBoxStatic";
 import toast from "react-hot-toast";
 
@@ -24,7 +24,6 @@ export const TopbarStatic = () => {
   const [selectedBannerTheme, setSelectedBannerTheme] = useState(
     t("Banner_theme")
   );
-  const [isDisabledBtn, setIsDisabledBtn] = useState(false);
 
   const handleChangeCountry = (value) => {
     setSelectedCountry(value);
@@ -80,8 +79,12 @@ export const TopbarStatic = () => {
       country: selectedCountry === t("Country") ? null : selectedCountry,
       language: selectedLanguage === t("Language") ? null : selectedLanguage,
       value: selectedCurrency === t("Currency") ? null : selectedCurrency,
-      format: selectedBannerFormat === t("Banner_format") ? null : selectedBannerFormat,
-      topic: selectedBannerTheme === t("Banner_theme") ? null : selectedBannerTheme,
+      format:
+        selectedBannerFormat === t("Banner_format")
+          ? null
+          : selectedBannerFormat,
+      topic:
+        selectedBannerTheme === t("Banner_theme") ? null : selectedBannerTheme,
     });
   };
 
@@ -100,20 +103,14 @@ export const TopbarStatic = () => {
         handleChangeBannerFormat={handleChangeBannerFormat}
         handleChangeBannerTheme={handleChangeBannerTheme}
       />
-      {mutateStaticGif.isPending ? (
-        <Button
-          isLoading={mutateStaticGif.isPending}
-          className={style.topBtns}
-        />
-      ) : (
-        <Button
-          isDisabled={isDisabledBtn}
-          onClick={handleMutateStaticGif}
-          className={style.topBtn}
-        >
-          {t("Generare Now")}
-        </Button>
-      )}
+
+      <Button
+        isLoading={mutateStaticGif.isPending}
+        onClick={handleMutateStaticGif}
+        className={style.topBtn}
+      >
+        {t("Generare Now")}
+      </Button>
     </div>
   );
 };

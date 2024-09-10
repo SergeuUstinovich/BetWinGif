@@ -21,17 +21,3 @@ export const staticGif = (token: string, country?: string, language?:string, val
     })
 }
 
-export const staticGifDemo = (token: string, create_picture_id?:number) => {
-    return axios.post(`${api_url}/api/create_statick_gif_test/`, {
-        token,
-        create_picture_id,
-    })
-    .then(response => {
-        const data = response.data.file_url
-        return data
-    })
-    .catch(error => {
-        const errorMessages = Object.keys(error.response.data).map(key => `${error.response.data[key]}`).join(', ');
-        throw new Error(errorMessages);
-    })
-}
