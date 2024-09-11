@@ -5,6 +5,7 @@ import { gifReducer } from '../slice/gifSlice'
 import { gifGenReducer } from '../slice/gifGenSlice'
 import { userReducer } from '../slice/userSlice'
 import { adminImgReducer } from '../slice/adminImgSlice'
+import { adminGifReducer } from '../slice/adminGifSlice'
 
 export function createReduxStore(initialState?: StateShema) {
   const rootReducer: ReducersMapObject<StateShema> = {
@@ -13,6 +14,7 @@ export function createReduxStore(initialState?: StateShema) {
     gifGen: gifGenReducer,
     profile: userReducer,
     adminImg: adminImgReducer,
+    adminGif: adminGifReducer,
   }
 
   return configureStore({

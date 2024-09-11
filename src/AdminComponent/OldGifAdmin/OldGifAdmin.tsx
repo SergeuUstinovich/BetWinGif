@@ -1,11 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { getAdminImg } from "../../providers/StoreProvider/selectors/getAdminImg";
 import { useSelector } from "react-redux";
 import { Button } from "../../ui/Button";
-import style from "./OldImageAdmin.module.scss";
+import style from "../OldImageAdmin/OldImageAdmin.module.scss";
 import Draggable from "react-draggable";
 import { useEffect, useRef, useState } from "react";
-
 import { listBoxItems } from "../NewImageAdmin/dataImg";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
@@ -15,14 +13,13 @@ import {
   deletePicture,
   getPictureId,
   GifDemo,
-  staticGifDemo,
   unifiedPicture,
 } from "../../api/adminImg";
-
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import ListFilter from "../../utils/ListFilter";
+import { getAdminGif } from "../../providers/StoreProvider/selectors/getAdminGif";
 
-const OldImageAdmin = () => {
+const OldGifAdmin = () => {
   const initialSelectedValues = {
     country: "",
     language: "",
@@ -30,11 +27,13 @@ const OldImageAdmin = () => {
     banner_format: "",
     banner_theme: "",
   };
-  const arrImg = useSelector(getAdminImg);
+  const arrImg = useSelector(getAdminGif);
   const navigate = useNavigate();
   const { full_picture_id } = useParams();
   const { t } = useTranslation();
-  const card = arrImg.find((item) => item.full_picture_id === Number(full_picture_id))
+  const card = arrImg.find(
+    (item) => item.full_picture_id === Number(full_picture_id)
+  );
   const token = useSelector(getTokenUser);
   const [demoPrev, setDemoPrev] = useState<string>();
   const draggableRefs = useRef<HTMLDivElement>(null);
@@ -42,6 +41,8 @@ const OldImageAdmin = () => {
   const [text, setText] = useState("Тест текст");
   const [fontSize, setFontSize] = useState("30");
   const [color, setColor] = useState("#000000");
+  const [startFrame, setStartFrame] = useState<number>(1);
+  const [endFrame, setEndFrame] = useState<number>(1000);
   const [blocks, setBlocks] = useState([
     { id: 1, selectedValues: initialSelectedValues },
   ]);
@@ -51,6 +52,8 @@ const OldImageAdmin = () => {
       setFontSize(card.size);
       setColor(card.color_text);
       setPosition({ x: card.left, y: card.top });
+      setStartFrame(card.start_frame);
+      setEndFrame(card.end_frame);
       setBlocks([
         {
           id: 1,
@@ -70,7 +73,7 @@ const OldImageAdmin = () => {
     {
       mutationFn: (data: { pictures }) => unifiedPicture(data.pictures),
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["img"] });
+        queryClient.invalidateQueries({ queryKey: ["adminGif"] });
       },
       onError: (err) => {
         toast.error(err.message);
@@ -82,7 +85,7 @@ const OldImageAdmin = () => {
   const mutatePreve = useMutation(
     {
       mutationFn: (data: { token: string; full_picture_id: number }) =>
-        staticGifDemo(data.token, data.full_picture_id),
+        GifDemo(data.token, data.full_picture_id),
       onSuccess: (data) => {
         setDemoPrev(data);
       },
@@ -98,7 +101,7 @@ const OldImageAdmin = () => {
       mutationFn: (data: { full_picture_id: number }) =>
         getPictureId(data.full_picture_id),
       onSuccess: (data) => {
-        queryClient.invalidateQueries({ queryKey: ["img"] });
+        queryClient.invalidateQueries({ queryKey: ["adminGif"] });
         toast.success(data.data);
       },
     },
@@ -117,7 +120,7 @@ const OldImageAdmin = () => {
         deletePicture(data.token, data.full_picture_id),
       onSuccess: (data) => {
         navigate(-1);
-        queryClient.invalidateQueries({ queryKey: ["img"] });
+        queryClient.invalidateQueries({ queryKey: ["adminGif"] });
         toast.success(data.Success);
       },
     },
@@ -163,8 +166,8 @@ const OldImageAdmin = () => {
         top: position.y.toString(),
         bottom: (position.y + textHeight).toString(),
         size: fontSize,
-        start_frame: 0,
-        end_frame: 0,
+        start_frame: startFrame,
+        end_frame: endFrame,
       }));
       mutateCreateImg.mutate({ pictures: data });
     }
@@ -197,7 +200,9 @@ const OldImageAdmin = () => {
             {text}
           </div>
         </Draggable>
-        {card.url && <img className={style.redactorImg} src={card.url} alt={`img`} />}
+        {card.url && (
+          <img className={style.redactorImg} src={card.url} alt={`img`} />
+        )}
       </div>
       <div className={style.controls}>
         <input
@@ -220,6 +225,26 @@ const OldImageAdmin = () => {
           value={color}
           onChange={(e) => setColor(e.target.value)}
         />
+        <div>
+          <input
+            className={`${style.text} ${style.inputAdmin}`}
+            type="text"
+            value={startFrame}
+            onChange={(e) => {
+              setStartFrame(Number(e.target.value));
+            }}
+            placeholder="Начало анимации"
+          />
+          <input
+            className={`${style.text} ${style.inputAdmin}`}
+            type="text"
+            value={endFrame}
+            onChange={(e) => {
+              setEndFrame(Number(e.target.value));
+            }}
+            placeholder="Конец анимации"
+          />
+        </div>
       </div>
       {blocks.map((block, index) => (
         <ListFilter
@@ -268,4 +293,4 @@ const OldImageAdmin = () => {
   );
 };
 
-export default OldImageAdmin;
+export default OldGifAdmin;

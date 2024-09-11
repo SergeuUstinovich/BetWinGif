@@ -1,0 +1,11 @@
+.filterBtns {
+    margin-right: 10px;
+    padding: 6px 12px;
+    color: var(--white-text);
+    background-color: var(--lightmode-orange-orange);
+  
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  

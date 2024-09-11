@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Topbar, Accordion, Cards } from "../../component";
 import arrAccord from './AccordDataGif'
 import { getGifGen } from "../../providers/StoreProvider/selectors/getGifGen";
-import GifRequest from "../../component/GifRequest/GifRequest";
+import StatickGif from "../../component/StatickGif/StatickGif";
 
 const GifBanners = () => {
 
@@ -11,7 +11,7 @@ const GifBanners = () => {
   return (
     <>
       <Topbar />
-      <GifRequest svgContent={gifGen.svgContent} text={gifGen.text} />
+      <StatickGif url={gifGen} />
       <Accordion arrAccord={arrAccord} />
       <Cards />
     </>

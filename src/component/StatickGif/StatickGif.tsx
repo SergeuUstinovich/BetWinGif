@@ -4,7 +4,7 @@ import { Button } from "../../ui/Button";
 import { AddIntegrations } from "../AddIntegration";
 import style from "./StatickGif.module.scss";
 
-function StatickGif({ url }: adminImg) {
+function StatickGif({ url }) {
   const downloadGif = () => {
     if (url) {
       url.map((item, index) => {

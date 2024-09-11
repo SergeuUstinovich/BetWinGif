@@ -2,13 +2,27 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import style from "./Navbar.module.scss";
 
-function NavbarItem({ item, isOpen, toggleOpen }) {
+function NavbarItem({ item, isOpen, toggleOpen, isAdmin }) {
   const { t } = useTranslation();
   const location = useLocation();
 
   const handleToggle = () => {
     toggleOpen(item.id);
   };
+
+  if (item.adminOnly && !isAdmin) {
+    return null;
+  }
+
+  if (item.type === 'section') {
+    return (
+      <span className={`${style.menuHead}`}>
+        <span className={`${style.menuHeadTitle} menu-title`}>
+          {t(item.label)}
+        </span>
+      </span>
+    );
+  }
 
   return (
     <div
@@ -59,6 +73,7 @@ function NavbarItem({ item, isOpen, toggleOpen }) {
                 item={child}
                 isOpen={isOpen}
                 toggleOpen={toggleOpen}
+                isAdmin={isAdmin}
               />
             ))}
           </>

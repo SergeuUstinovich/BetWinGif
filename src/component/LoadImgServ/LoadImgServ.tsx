@@ -26,6 +26,7 @@ function LoadImgServ() {
         setLastUploadedFile(null)
         setSelectedFiles([])
         queryClient.invalidateQueries({queryKey: ['img']})
+        queryClient.invalidateQueries({queryKey: ['adminGif']})
       }
     },
     queryClient

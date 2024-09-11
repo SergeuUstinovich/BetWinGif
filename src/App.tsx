@@ -15,14 +15,21 @@ const StaticBanners = lazy(
 );
 const GifBanners = lazy(() => import("./pages/GifBanners/GifBanners.tsx"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel/AdminPanel.tsx"));
+const AdminGifPanel = lazy(() => import("./pages/AdminGifPanel/AdminGifPanel.tsx"));
 const AccoutSetting = lazy(
   () => import("./pages/AccoutSetting/AccoutSetting.tsx")
 );
 const NewImageAdmin = lazy(
   () => import("./AdminComponent/NewImageAdmin/NewImageAdmin.tsx")
 );
+const NewGifAdmin = lazy(
+  () => import("./AdminComponent/NewGifAdmin/NewGifAdmin.tsx")
+);
 const OldImageAdmin = lazy(
   () => import("./AdminComponent/OldImageAdmin/OldImageAdmin.tsx")
+);
+const OldGifAdmin = lazy(
+  () => import("./AdminComponent/OldGifAdmin/OldGifAdmin.tsx")
 );
 
 
@@ -71,6 +78,20 @@ function App() {
               <Route
                 path={"old/:full_picture_id"}
                 element={<OldImageAdmin />}
+              />
+            </Route>
+            <Route
+              path={"/admin-meneger-gif"}
+              element={
+                <AdminRoute>
+                  <AdminGifPanel />
+                </AdminRoute>
+              }
+            >
+              <Route path={"new/:picture_id"} element={<NewGifAdmin />} />
+              <Route
+                path={"old/:full_picture_id"}
+                element={<OldGifAdmin />}
               />
             </Route>
           </Route>

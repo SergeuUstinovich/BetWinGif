@@ -2,12 +2,12 @@ import style from "./PromocodeModal.module.scss";
 import { useEffect, useState } from "react";
 import { Modal } from "../../ui";
 import { useMutation } from "@tanstack/react-query";
-import { createPromorcode } from "../../api/gifAdd";
 import { queryClient } from "../../api/queryClient";
 import { useSelector } from "react-redux";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import { PasswordModal } from "../PasswordModal";
 import { useTranslation } from "react-i18next";
+import { createPromorcode } from "../../api/clientGif";
 
 interface PromocodeModalProps {
   isPromoCheck?: string;

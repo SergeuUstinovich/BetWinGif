@@ -8,41 +8,36 @@ import { gifActions } from "../../providers/StoreProvider";
 import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
 import { useState } from "react";
 import { staticGif } from "../../api/clientGif";
-import TopbarListBox from "./TopbarListBoxStatic";
 import toast from "react-hot-toast";
+import ListFilter from "../../utils/ListFilter";
+import { listBoxFil } from "../Topbar/dataFilter";
 
 export const TopbarStatic = () => {
+  const initialSelectedValues = {
+    country: "",
+    language: "",
+    currency: "",
+    banner_format: "",
+    banner_theme: "",
+  };
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const token = useSelector(getTokenUser);
-  const [selectedCountry, setSelectedCountry] = useState(t("Country"));
-  const [selectedLanguage, setSelectedLanguage] = useState(t("Language"));
-  const [selectedCurrency, setSelectedCurrency] = useState(t("Currency"));
-  const [selectedBannerFormat, setSelectedBannerFormat] = useState(
-    t("Banner_format")
-  );
-  const [selectedBannerTheme, setSelectedBannerTheme] = useState(
-    t("Banner_theme")
-  );
 
-  const handleChangeCountry = (value) => {
-    setSelectedCountry(value);
-  };
-
-  const handleChangeLanguage = (value) => {
-    setSelectedLanguage(value);
-  };
-
-  const handleChangeCurrency = (value) => {
-    setSelectedCurrency(value);
-  };
-
-  const handleChangeBannerFormat = (value) => {
-    setSelectedBannerFormat(value);
-  };
-
-  const handleChangeBannerTheme = (value) => {
-    setSelectedBannerTheme(value);
+  const [blocks, setBlocks] = useState([
+    { id: 1, selectedValues: initialSelectedValues },
+  ]);
+  const handleListChange = (blockId, listBoxId, value) => {
+    setBlocks(
+      blocks.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              selectedValues: { ...block.selectedValues, [listBoxId]: value },
+            }
+          : block
+      )
+    );
   };
 
   const mutateStaticGif = useMutation(
@@ -73,44 +68,58 @@ export const TopbarStatic = () => {
     queryClient
   );
 
-  const handleMutateStaticGif = () => {
-    mutateStaticGif.mutate({
-      token,
-      country: selectedCountry === t("Country") ? null : selectedCountry,
-      language: selectedLanguage === t("Language") ? null : selectedLanguage,
-      value: selectedCurrency === t("Currency") ? null : selectedCurrency,
-      format:
-        selectedBannerFormat === t("Banner_format")
-          ? null
-          : selectedBannerFormat,
-      topic:
-        selectedBannerTheme === t("Banner_theme") ? null : selectedBannerTheme,
+  const handleSubmit = () => {
+    blocks.forEach((block) => {
+      mutateStaticGif.mutate({
+        token,
+        country:
+          block.selectedValues.country === t("Country")
+            ? ""
+            : block.selectedValues.country,
+        language:
+          block.selectedValues.language === t("Language")
+            ? ""
+            : block.selectedValues.language,
+        value:
+          block.selectedValues.currency === t("Currency")
+            ? ""
+            : block.selectedValues.currency,
+        format:
+          block.selectedValues.banner_format === t("Banner_format")
+            ? ""
+            : block.selectedValues.banner_format,
+        topic:
+          block.selectedValues.banner_theme === t("Banner_theme")
+            ? ""
+            : block.selectedValues.banner_theme,
+      });
     });
   };
 
   return (
     <div className={`${style.topbarStatic}`}>
-      <TopbarListBox
-        t={t}
-        selectedCountries={selectedCountry}
-        selectedLanguages={selectedLanguage}
-        selectedCurrencies={selectedCurrency}
-        selectedBannerFormats={selectedBannerFormat}
-        selectedBannerThemes={selectedBannerTheme}
-        handleChangeCountry={handleChangeCountry}
-        handleChangeLanguage={handleChangeLanguage}
-        handleChangeCurrency={handleChangeCurrency}
-        handleChangeBannerFormat={handleChangeBannerFormat}
-        handleChangeBannerTheme={handleChangeBannerTheme}
-      />
-
-      <Button
-        isLoading={mutateStaticGif.isPending}
-        onClick={handleMutateStaticGif}
-        className={style.topBtn}
-      >
-        {t("Generare Now")}
-      </Button>
+      <div>
+        {blocks.map((block, index) => (
+          <ListFilter
+            index={index}
+            key={block.id}
+            block={block}
+            listBoxItems={listBoxFil}
+            handleListBoxChange={handleListChange}
+            removeBlock={() => {}}
+            t={t}
+          />
+        ))}
+      </div>
+      <div>
+        <Button
+          isLoading={mutateStaticGif.isPending}
+          onClick={handleSubmit}
+          className={style.topBtn}
+        >
+          {t("Generare Now")}
+        </Button>
+      </div>
     </div>
   );
 };

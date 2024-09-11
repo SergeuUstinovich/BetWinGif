@@ -1,20 +1,20 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAdminImg } from "../../providers/StoreProvider/selectors/getAdminImg";
 import { useRef, useState } from "react";
-import style from "./NewImageAdmin.module.scss";
+import style from "../NewImageAdmin/NewImageAdmin.module.scss";
 import Draggable from "react-draggable";
 import { Button } from "../../ui/Button";
 import { useTranslation } from "react-i18next";
-import { listBoxItems } from "./dataImg";
 import { queryClient } from "../../api/queryClient";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { unifiedPicture } from "../../api/adminImg";
 import ListFilter from "../../utils/ListFilter";
+import { listBoxItems } from "../NewImageAdmin/dataImg";
+import { getAdminGif } from "../../providers/StoreProvider/selectors/getAdminGif";
 
-const NewImageAdmin = () => {
-  const arrImg = useSelector(getAdminImg);
+const NewGifAdmin = () => {
+  const arrImg = useSelector(getAdminGif);
   const { t } = useTranslation();
   const { picture_id } = useParams();
   const navigate = useNavigate();
@@ -24,13 +24,14 @@ const NewImageAdmin = () => {
   const [text, setText] = useState("Тест текст");
   const [fontSize, setFontSize] = useState(30);
   const [color, setColor] = useState("#000000");
+  const [startFrame, setStartFrame] = useState<number>(1);
+  const [endFrame, setEndFrame] = useState<number>(1000);
 
   const mutateCreateImg = useMutation(
     {
       mutationFn: (data: { pictures }) => unifiedPicture(data.pictures),
       onSuccess: () => {
         navigate(-1);
-        queryClient.invalidateQueries({ queryKey: ["img"] });
         queryClient.invalidateQueries({queryKey: ['adminGif']})
       },
       onError: (err) => {
@@ -104,7 +105,8 @@ const NewImageAdmin = () => {
         top: position.y.toString(),
         bottom: (position.y + textHeight).toString(),
         size: fontSize,
-        
+        start_frame: startFrame,
+        end_frame: endFrame,
       }));
       mutateCreateImg.mutate({ pictures: data });
     }
@@ -158,6 +160,26 @@ const NewImageAdmin = () => {
           value={color}
           onChange={(e) => setColor(e.target.value)}
         />
+        <div>
+          <input
+            className={`${style.text} ${style.inputAdmin}`}
+            type="text"
+            value={startFrame}
+            onChange={(e) => {
+              setStartFrame(Number(e.target.value));
+            }}
+            placeholder="Начало анимации"
+          />
+          <input
+            className={`${style.text} ${style.inputAdmin}`}
+            type="text"
+            value={endFrame}
+            onChange={(e) => {
+              setEndFrame(Number(e.target.value));
+            }}
+            placeholder="Конец анимации"
+          />
+        </div>
       </div>
       {blocks.map((block, index) => (
         <ListFilter
@@ -187,4 +209,4 @@ const NewImageAdmin = () => {
   );
 };
 
-export default NewImageAdmin;
+export default NewGifAdmin;

@@ -1,9 +1,9 @@
-import style from './StatickImgAdmin.module.scss'
+import style from './DynamicGifAdmin.module.scss'
 import { useEffect, useState } from 'react'
-import { adminImgs } from '../../types/adminImgType'
 import { Link } from 'react-router-dom'
+import { adminGifScheme } from '../../types/adminGifType'
 
-function StatickImgAdmin({ images }: adminImgs) {
+function DynamicGifAdmin({ images }: adminGifScheme) {
   const [newImages, setNewImages] = useState([])
   const [oldImages, setOldImages] = useState([])
 
@@ -40,4 +40,4 @@ function StatickImgAdmin({ images }: adminImgs) {
   )
 }
 
-export default StatickImgAdmin
+export default DynamicGifAdmin

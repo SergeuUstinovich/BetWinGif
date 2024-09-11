@@ -29,7 +29,8 @@ export const navItems = [
   },
   {
     id: 5,
-    label: 'User',
+    label: 'USER',
+    icon: 'ki-user',
     path: '#',
     children: [
       {
@@ -43,6 +44,30 @@ export const navItems = [
             component: ScrollSpy,
           },
         ],
+      },
+    ],
+  },
+  {
+    id: 8,
+    type: 'section',
+    label: 'MISCELLANEOUS',
+  },
+  {
+    id: 9,
+    label: 'My manager',
+    path: '#',
+    icon: 'ki-some-files',
+    adminOnly: true,
+    children: [
+      {
+        id: 10,
+        label: 'StatickImg',
+        path: '/admin-meneger',
+      },
+      {
+        id: 11,
+        label: 'DynamicGif',
+        path: '/admin-meneger-gif',
       },
     ],
   },

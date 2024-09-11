@@ -1,118 +1,127 @@
-import style from './Topbar.module.scss'
-import { useTranslation } from 'react-i18next'
-import { Button } from '../../ui/Button'
-import { useMutation } from '@tanstack/react-query'
-import { gifAdd } from '../../api/gifAdd'
-import { queryClient } from '../../api/queryClient'
-import { useDispatch, useSelector } from 'react-redux'
-import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUser'
-import { gifGenActions } from '../../providers/StoreProvider/slice/gifGenSlice'
-import { useEffect, useState } from 'react'
-import TopbarListBox from '../TopbarStatic/TopbarListBoxStatic'
+import style from "./Topbar.module.scss";
+import { useTranslation } from "react-i18next";
+import { Button } from "../../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../api/queryClient";
+import { useDispatch, useSelector } from "react-redux";
+import { getTokenUser } from "../../providers/StoreProvider/selectors/getTokenUser";
+import { gifGenActions } from "../../providers/StoreProvider/slice/gifGenSlice";
+import { useState } from "react";
+import { gifAdd } from "../../api/clientGif";
+import toast from "react-hot-toast";
+import ListFilter from "../../utils/ListFilter";
+import { listBoxFil } from "./dataFilter";
 
 export const Topbar = () => {
-  const { t } = useTranslation() // можно передать подгружаемый файл 'main.json'
-  const dispatch = useDispatch()
-  const token = useSelector(getTokenUser)
-  const [selectedCountry, setSelectedCountry] = useState(t('Country'))
-  const [selectedLanguage, setSelectedLanguage] = useState(t('Language'))
-  const [selectedCurrency, setSelectedCurrency] = useState(t('Currency'))
-  const [selectedBannerFormat, setSelectedBannerFormat] = useState(
-    t('Banner_format')
-  )
-  const [selectedBannerTheme, setSelectedBannerTheme] = useState(
-    t('Banner_theme')
-  )
-  const [isDisabledBtn, setIsDisabledBtn] = useState(true)
+  const initialSelectedValues = {
+    country: "",
+    language: "",
+    currency: "",
+    banner_format: "",
+    banner_theme: "",
+  };
+  const { t } = useTranslation(); // можно передать подгружаемый файл 'main.json'
+  const dispatch = useDispatch();
+  const token = useSelector(getTokenUser);
 
-  const handleChangeCountry = (value) => {
-    setSelectedCountry(value)
-  }
-
-  const handleChangeLanguage = (value) => {
-    setSelectedLanguage(value)
-  }
-
-  const handleChangeCurrency = (value) => {
-    setSelectedCurrency(value)
-  }
-
-  const handleChangeBannerFormat = (value) => {
-    setSelectedBannerFormat(value)
-  }
-
-  const handleChangeBannerTheme = (value) => {
-    setSelectedBannerTheme(value)
-  }
-
-  useEffect(() => {
-    if (
-      selectedCountry === t('Country') ||
-      selectedLanguage === t('Language') ||
-      selectedCurrency === t('Currency') ||
-      selectedBannerFormat === t('Banner_format') ||
-      selectedBannerTheme === t('Banner_theme')
-    ) {
-      setIsDisabledBtn(true)
-    } else {
-      setIsDisabledBtn(false)
-    }
-  }, [
-    selectedCountry,
-    selectedLanguage,
-    selectedCurrency,
-    selectedBannerFormat,
-    selectedBannerTheme,
-  ])
+  const [blocks, setBlocks] = useState([
+    { id: 1, selectedValues: initialSelectedValues },
+  ]);
+  const handleListChange = (blockId, listBoxId, value) => {
+    setBlocks(
+      blocks.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              selectedValues: { ...block.selectedValues, [listBoxId]: value },
+            }
+          : block
+      )
+    );
+  };
 
   const mutateGifAdd = useMutation(
     {
-      mutationFn: (data: { token: string }) => gifAdd(data.token),
+      mutationFn: (data: {
+        token: string;
+        country: string;
+        language: string;
+        value: string;
+        format: string;
+        topic: string;
+      }) =>
+        gifAdd(
+          data.token,
+          data.country,
+          data.language,
+          data.value,
+          data.format,
+          data.topic
+        ),
       onSuccess: (data) => {
         dispatch(
-          gifGenActions.gifGenAdd({
-            svgContent: data.svg,
-            text: data.promokode,
-          })
-        )
+          gifGenActions.gifGenAdd(data)
+        );
+      },
+      onError: () => {
+        toast.error("По текущим фильтрам изображений нет");
       },
     },
     queryClient
-  )
+  );
 
-  const handleGifAdd = () => {
-    mutateGifAdd.mutate({ token })
-  }
+  const handleSubmit = () => {
+    blocks.forEach((block) => {
+      mutateGifAdd.mutate({
+        token,
+        country:
+          block.selectedValues.country === t("Country")
+            ? ""
+            : block.selectedValues.country,
+        language:
+          block.selectedValues.language === t("Language")
+            ? ""
+            : block.selectedValues.language,
+        value:
+          block.selectedValues.currency === t("Currency")
+            ? ""
+            : block.selectedValues.currency,
+        format:
+          block.selectedValues.banner_format === t("Banner_format")
+            ? ""
+            : block.selectedValues.banner_format,
+        topic:
+          block.selectedValues.banner_theme === t("Banner_theme")
+            ? ""
+            : block.selectedValues.banner_theme,
+      });
+    });
+  };
 
   return (
     <div className={`${style.topbarStatic}`}>
-      <TopbarListBox
-        t={t}
-        selectedCountries={selectedCountry}
-        selectedLanguages={selectedLanguage}
-        selectedCurrencies={selectedCurrency}
-        selectedBannerFormats={selectedBannerFormat}
-        selectedBannerThemes={selectedBannerTheme}
-        handleChangeCountry={handleChangeCountry}
-        handleChangeLanguage={handleChangeLanguage}
-        handleChangeCurrency={handleChangeCurrency}
-        handleChangeBannerFormat={handleChangeBannerFormat}
-        handleChangeBannerTheme={handleChangeBannerTheme}
-      />
-      {mutateGifAdd.isPending ? (
+      <div>
+        {blocks.map((block, index) => (
+          <ListFilter
+            index={index}
+            key={block.id}
+            block={block}
+            listBoxItems={listBoxFil}
+            handleListBoxChange={handleListChange}
+            removeBlock={() => {}}
+            t={t}
+          />
+        ))}
+      </div>
+      <div>
         <Button
           isLoading={mutateGifAdd.isPending}
-          className={style.topBtns}
-        />
-      ) : (
-        <Button
-          isDisabled={isDisabledBtn}
-          onClick={handleGifAdd}
+          onClick={handleSubmit}
           className={style.topBtn}
         >
           {t("Generare Now")}
         </Button>
-      )}
+      </div>
     </div>
-  )
-}
+  );
+};
