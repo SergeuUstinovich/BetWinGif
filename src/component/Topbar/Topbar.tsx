@@ -63,8 +63,8 @@ export const Topbar = () => {
           gifGenActions.gifGenAdd(data)
         );
       },
-      onError: () => {
-        toast.error("По текущим фильтрам изображений нет");
+      onError: (err) => {
+        toast.error(err.message);
       },
     },
     queryClient

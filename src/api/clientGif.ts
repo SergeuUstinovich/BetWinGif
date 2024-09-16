@@ -35,12 +35,13 @@ export const staticGif = (
 };
 
 export function gifAdd(
-    token: string,
-    country?: string,
-    language?: string,
-    value?: string,
-    format?: string,
-    topic?: string) {
+  token: string,
+  country?: string,
+  language?: string,
+  value?: string,
+  format?: string,
+  topic?: string
+) {
   return axios
     .post(`${api_url}/api/create_gif/`, {
       token,
@@ -52,7 +53,7 @@ export function gifAdd(
     })
     .then((response) => {
       const data = response.data.file_urls;
-      return data;
+      return data
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
@@ -71,6 +72,25 @@ export function createPromorcode(token: string, promocode: string) {
     .then((response) => {
       const data = response.data;
       return data;
+    })
+    .catch((error) => {
+      const errorMessages = Object.keys(error.response.data)
+        .map((key) => `${error.response.data[key]}`)
+        .join(", ");
+      throw new Error(errorMessages);
+    });
+}
+
+export function downloadImg(
+  file_name: string
+) {
+  return axios
+    .post(`${api_url}/api/download_image/`, {
+      file_name,
+    }, { responseType: 'blob' })
+    .then((response) => {
+      const data = URL.createObjectURL(response.data);
+      return data
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)

@@ -61,8 +61,8 @@ export const TopbarStatic = () => {
       onSuccess: (data) => {
         dispatch(gifActions.gifAdd(data));
       },
-      onError: () => {
-        toast.error("По текущим фильтрам изображений нет");
+      onError: (err) => {
+        toast.error(err.message);
       },
     },
     queryClient

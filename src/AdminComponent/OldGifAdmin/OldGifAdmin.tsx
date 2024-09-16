@@ -226,6 +226,7 @@ const OldGifAdmin = () => {
           onChange={(e) => setColor(e.target.value)}
         />
         <div>
+        <p>Начало анимации*кадры*</p>
           <input
             className={`${style.text} ${style.inputAdmin}`}
             type="text"
@@ -235,6 +236,7 @@ const OldGifAdmin = () => {
             }}
             placeholder="Начало анимации"
           />
+          <p>Конец анимации*кадры*</p>
           <input
             className={`${style.text} ${style.inputAdmin}`}
             type="text"

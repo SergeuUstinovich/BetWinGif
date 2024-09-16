@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getTokenUser } from '../../providers/StoreProvider/selectors/getTokenUser'
 import { Button } from '../../ui/Button'
 import { adminGifActions } from '../../providers/StoreProvider/slice/adminGifSlice'
+import { useNavigate } from 'react-router-dom'
 
 function FilterAdminGif() {
   const initialSelectedValues = {
@@ -22,6 +23,7 @@ function FilterAdminGif() {
   const dispatch = useDispatch()
   const token = useSelector(getTokenUser)
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [blocks, setBlocks] = useState([
     { id: 1, selectedValues: initialSelectedValues },
   ])
@@ -64,6 +66,7 @@ function FilterAdminGif() {
   )
 
   const handleSubmit = () => {
+    navigate('/admin-meneger-gif')
     blocks.forEach((block) => {
       mutateFilter.mutate({
         token,
@@ -92,6 +95,7 @@ function FilterAdminGif() {
   }
 
   const handleReset = () => {
+    navigate('/admin-meneger-gif')
     mutateFilter.mutate({
       token,
       country: '',
