@@ -259,6 +259,7 @@ const OldGifAdmin = () => {
           t={t}
         />
       ))}
+      {card.is_publish ? (<div>Опубликовано</div>): (<div>Не опубликовано</div>)}
       <div className={style.btnBox}>
         <Button
           isLoading={mutateCreateImg.isPending}

@@ -14,6 +14,7 @@ export interface adImage {
     topic?: string;
     value?: string;
     size?: string;
+    is_publish?: boolean
   }
   
   export interface adminImgs {

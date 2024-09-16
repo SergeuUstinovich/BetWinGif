@@ -16,6 +16,7 @@ export interface adminGifType {
     size?: string;
     start_frame?: number,
     end_frame?: number,
+    is_publish?: boolean
   }
   
   export interface adminGifScheme {
