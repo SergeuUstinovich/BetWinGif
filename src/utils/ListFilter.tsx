@@ -9,8 +9,10 @@ const ListFilter = ({
   removeBlock,
   t,
   index,
+  className,
+  classNameBox,
 }) => (
-  <div className={style.listBoxFilter}>
+  <div className={`${style.listBoxFilter} ${className}`}>
     {Object.keys(listBoxItems).map((listBoxId) => (
       <ListBox
         key={listBoxId}
@@ -18,6 +20,7 @@ const ListFilter = ({
         value={block.selectedValues[listBoxId] || null}
         onChange={(value) => handleListBoxChange(block.id, listBoxId, value)}
         items={listBoxItems[listBoxId]}
+        className={classNameBox}
       />
     ))}
     {index !== 0 && (

@@ -52,19 +52,16 @@
       flex-direction: column;
       gap: 4px;
     }
-
-    li {
-      width: 100%;
-    }
   }
   .defaultSelect {
     margin-right: 0;
     padding: 13px 16px;
     border: 1px solid var(--lightmode-grey-grey-300);
     border-radius: 6px;
-  }
-  .lastDefaultSelect {
-    margin-bottom: 40px;
+
+    &:last-child {
+      margin-bottom: 40px;
+    }
   }
   .topBtn {
     width: 100%;
