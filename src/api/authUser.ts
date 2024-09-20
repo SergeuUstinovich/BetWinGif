@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios from "axios";
 
 const api_url =
-  import.meta.env.MODE === 'development'
-    ? '/api'
-    : import.meta.env.VITE_API_BASE_URL
+  import.meta.env.MODE === "development"
+    ? "/api"
+    : import.meta.env.VITE_API_BASE_URL;
 export function registerUser(
   username: string,
   password: string,
@@ -18,15 +18,15 @@ export function registerUser(
       username,
     })
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function loginUser(username: string, password: string) {
@@ -36,15 +36,15 @@ export function loginUser(username: string, password: string) {
       username,
     })
     .then((response) => {
-      const data = response.data.auth_token
-      return data
+      const data = response.data.auth_token;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function resetUser(email: string) {
@@ -53,15 +53,15 @@ export function resetUser(email: string) {
       email,
     })
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function resetPasswordUser(
@@ -78,15 +78,15 @@ export function resetPasswordUser(
       token,
     })
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function logoutUser(token: string) {
@@ -96,12 +96,12 @@ export function logoutUser(token: string) {
       {},
       {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Token ${token}`,
         },
       }
     )
-    .then(() => undefined)
+    .then(() => undefined);
 }
 
 export function setPasswordUser(
@@ -120,28 +120,28 @@ export function setPasswordUser(
       },
       {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Token ${token}`,
         },
       }
     )
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function deleteUser(current_password: string, token: string) {
   return axios
     .delete(`${api_url}/auth/users/me/`, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
       data: {
@@ -149,30 +149,39 @@ export function deleteUser(current_password: string, token: string) {
       },
     })
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function profileUser(token: string) {
   return axios
     .get(`${api_url}/api/get_profile/${token}/`)
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
-      const errorMessages = Object.keys(error.response.data)
-        .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+      if (
+        error.response &&
+        error.response.status === 400 &&
+        error.response.data.error === "Неправильный токен"
+      ) {
+        localStorage.removeItem("userToken");
+        // window.location.reload();
+      } else {
+        const errorMessages = Object.keys(error.response.data)
+          .map((key) => `${error.response.data[key]}`)
+          .join(", ");
+        throw new Error(errorMessages);
+      }
+    });
 }
 
 export function deleteProfileGoogle(token: string) {
@@ -181,15 +190,15 @@ export function deleteProfileGoogle(token: string) {
       token,
     })
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }
 
 export function pathPromocode(token: string, promocode: string) {
@@ -199,13 +208,13 @@ export function pathPromocode(token: string, promocode: string) {
       promocode,
     })
     .then((response) => {
-      const data = response.data
-      return data
+      const data = response.data;
+      return data;
     })
     .catch((error) => {
       const errorMessages = Object.keys(error.response.data)
         .map((key) => `${error.response.data[key]}`)
-        .join(', ')
-      throw new Error(errorMessages)
-    })
+        .join(", ");
+      throw new Error(errorMessages);
+    });
 }

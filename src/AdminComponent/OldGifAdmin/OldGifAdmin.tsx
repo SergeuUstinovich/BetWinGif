@@ -270,18 +270,18 @@ const OldGifAdmin = () => {
           Изменить
         </Button>
         <Button
-          isLoading={mutateGetPicture.isPending}
-          className={style.adminRedactorButton}
-          onClick={() => handleGetPicture(card.full_picture_id)}
-        >
-          Опубликовать
-        </Button>
-        <Button
           isLoading={mutatePreve.isPending}
           className={style.adminRedactorButton}
           onClick={() => handleDemo(card.full_picture_id)}
         >
           Demo
+        </Button>
+        <Button
+          isLoading={mutateGetPicture.isPending}
+          className={style.adminRedactorButton}
+          onClick={() => handleGetPicture(card.full_picture_id)}
+        >
+          Опубликовать
         </Button>
         <Button
           isLoading={mutateDeletePicture.isPending}
@@ -291,7 +291,9 @@ const OldGifAdmin = () => {
           Удалить
         </Button>
       </div>
-      <img src={demoPrev} alt="" />
+      {demoPrev && (
+        <img src={demoPrev} alt="" />
+      )}
     </div>
   );
 };
